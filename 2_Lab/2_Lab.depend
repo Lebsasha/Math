@@ -1,0 +1,132 @@
+# depslib dependency file v1.0
+1569247474 source:/media/alex/loadtool/Num_Methods/2_Lab/main.cpp
+	<iostream>
+	"/media/alex/loadtool/Num_Methods/Lib/Matrix.h"
+
+1569247474 ex/loadtool/Num_Methods/Lib/Matrix.h"
+
+1569248244 /media/alex/loadtool/Num_Methods/Lib/Matrix.h
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	</usr/include/c++/6/math.h>
+
+1569248244 ude/c++/6/math.h>
+
+1568316503 source:/home/alexander/Documents/Num_Methods/Lib/Different.cpp
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<vector>
+	<iterator>
+
+1569589786 
+
+1569501862 source:/home/alexander/Documents/Num_Methods/Lib/Math.cpp
+
+1568148038 source:/home/alexander/Documents/Num_Methods/Lib/Matrix.cpp
+
+1569574502 source:/home/alexander/Documents/Num_Methods/2_Lab/main.cpp
+	<iostream>
+	"../Lib/Math.h"
+
+1569589496 th.h"
+
+1569583772 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
+
+1569585060 /home/alexander/Documents/Num_Methods/Lib/Math.h
+	"../Lib/Matrix.h"
+
+1569590480 trix.h"
+
+1568316503 source:d:\num_methods\backup\lib\different.cpp
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<vector>
+	<iterator>
+
+1569501862 source:d:\num_methods\backup\lib\math.cpp
+
+1568148038 source:d:\num_methods\backup\lib\matrix.cpp
+
+1569589496 source:d:\num_methods\backup\2_lab\main.cpp
+	<iostream>
+	"../Lib/Math.h"
+
+1569590480 d:\num_methods\backup\lib\math.h
+	"../Lib/Matrix.h"
+
+1569589786 d:\num_methods\backup\lib\matrix.h
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
+
+1570140400 source:/home/alexander/Documents/Num_Methods/Lib/Different.cpp
+	<ctime>
+	<istream>
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<vector>
+	<iterator>
+
+1569501862 source:/home/alexander/Documents/Num_Methods/Lib/Math.cpp
+
+1568148038 source:/home/alexander/Documents/Num_Methods/Lib/Matrix.cpp
+
+1570141548 source:/home/alexander/Documents/Num_Methods/2_Lab/main.cpp
+	<istream>
+	<iostream>
+	"../Lib/Different.h"
+	"../Lib/Math.h"
+
+1570568066 /home/alexander/Documents/Num_Methods/Lib/Math.h
+	"../Lib/Matrix.h"
+
+1570405239 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+	<istream>
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
+
+1570140300 /home/alexander/Documents/Num_Methods/Lib/Different.h
+	<vector>
+
