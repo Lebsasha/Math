@@ -15,6 +15,8 @@ struct Student
 	int Male;
 	int Kurs;
 	int Marks;
+	Student (void): Name(), Surname(), SecName(), Ages(0), Male(0), Kurs(0), Marks(0)
+	{}
 	void View (void)
 	{
 		cout<<this->Surname;
@@ -39,7 +41,7 @@ struct Node
 	Student Pal;
 	Node (const Student& Temp): pNext(NULL), Pal (Temp)
 	{}
-	Node (): pNext(NULL)
+	Node (): pNext(NULL), Pal()
 	{}
 };
 bool Read_from_t_file_list_st (ifstream& iFile, Node*& Head);
@@ -56,9 +58,9 @@ struct Node1
 	Node1* pNext;
 	Node1* pPrev;
 	double Pal;
-	Node1 (): Pal(0), pNext(NULL), pPrev(NULL)
+	Node1 (): pNext(NULL), pPrev(NULL), Pal(0)
 	{}
-	Node1 (double x): Pal(x), pNext(NULL), pPrev (NULL)
+	Node1 (double x): pNext(NULL), pPrev (NULL), Pal(x)
 	{}
 };
 void Add (Node1* Place, Node1* Some);

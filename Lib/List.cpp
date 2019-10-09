@@ -55,7 +55,7 @@ bool Read_from_t_file_list_st (ifstream& iFile, Node*& Head)
 Node* One = new Node;
 Read_from_f_txt(iFile, &One->Pal);
 Head->pNext = One;
-Node* Prev = Head;
+//Node* Prev = Head; // Unused
 while (!iFile.fail())
 {
 One = new Node;

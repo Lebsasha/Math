@@ -110,10 +110,10 @@
 	"../Lib/Different.h"
 	"../Lib/Math.h"
 
-1570568066 /home/alexander/Documents/Num_Methods/Lib/Math.h
+1570625113 /home/alexander/Documents/Num_Methods/Lib/Math.h
 	"../Lib/Matrix.h"
 
-1570405239 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+1570624774 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
 	<istream>
 	<iostream>
 	<fstream>
