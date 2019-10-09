@@ -109,65 +109,43 @@ public:
     virtual bool Read_from_file (string& sa)
     {
         ifstream ifsa (sa.c_str(), ios::binary);
-        return Read_from_file(ifsa);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
     }
     virtual bool Read_from_file (const char* A)
     {
         ifstream ifsa (A, ios::binary);
-        return Read_from_file(ifsa);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
     }
     virtual bool Read_from_file (ifstream& sa)
     {
+        delete pa;
         if (sa.eof())
             return 0;
         sa.read(&Type, sizeof(char));
-        if (sa.eof())
-            return 0;
-        sa.read(reinterpret_cast<char*>(&N), sizeof(int));
-        if (sa.eof())
-            return 0;
-        sa.read(reinterpret_cast<char*>(&M), sizeof(int));
-        delete pa;
-        pa = new double [N*M];
-        if (!pa)
-            return 0;
-        const double* pEnd = pa + N*M;
-        const int Size = sizeof(double);
-        for (double* pb = pa; pb < pEnd; ++pb)
-        {
-            if (sa.eof())
-                return 0;
-            sa.read(reinterpret_cast<char*>(pb), Size);
-        }
-        sa.close();
-        return 1;
+        return Matrix::Read_from_file(sa);
     }
     virtual void Write_to_file (string& a) const
     {
         ofstream ofsa (a.c_str(), ios::binary);
-        return Write_to_file (ofsa);
+         Write_to_file (ofsa);
+        ofsa.close();
+        return;
     }
     virtual void Write_to_file (const char* A) const
     {
         ofstream ofsa (A, ios::binary);
-        return Write_to_file (ofsa);
+        Write_to_file (ofsa);
+        ofsa.close();
+        return;
     }
     virtual void Write_to_file (ofstream& sa) const
     {
-        const double* pEnd = pa + N*M;
-        //string a = Name;
-        //a.erase(0, 7);
-        //int Num = a;
-        //sa.write(reinterpret_cast<char*>(), sizeof(int));
         sa.write (&Type, sizeof(char));
-        sa.write(reinterpret_cast<const char*>(&N), sizeof(int));
-        sa.write(reinterpret_cast<const char*>(&M), sizeof(int));
-        const int Size = sizeof(double);
-        for (double* a = pa; a < pEnd; ++a)
-        {
-            sa.write(reinterpret_cast<char*>(a), Size);
-        }
-        sa.close();
+        return Matrix::Write_to_file(sa);;
     }
     virtual ~Matrix_SE (void)
     {}
@@ -208,10 +186,15 @@ public:
     {
         Type = 'L';
     }
+    bool If_Symmetric (void) const
+    {
+        bool a = 1;
+        return !a;
+    }
     Matrix_SLE T (void) const
     {
-        Matrix_SLE B (N, M);
-        if (true) //B.Edit_row(N) && B.Edit_col(M)
+        Matrix_SLE B;
+        if (B.Edit_row(N) && B.Edit_col(M))
         {
             double* pb = B.pa;
             double* pbEnd = pb + N*M;
@@ -228,19 +211,7 @@ public:
     }
     Matrix<double> Solve (const Matrix<double>& b) const
     {
-        try
-        {
-            return (If_Symmetric()) ? LDLT(b) : Solve_by_Gauss_Method(b);
-        }
-        catch (int i)
-        {
-            if (i == 1)
-            {
-                cout<<"Ne sovmestnaya systema"<<endl;
-                return Matrix<double>(1, 1);
-            }
-            return Matrix<double>();
-        }
+        return (If_Symmetric()) ? LDLT(b) : Solve_by_Gauss_Method(b);
     }
     Matrix<double> Solve_by_Gauss_Method (Matrix_SE C) const
     {
@@ -253,7 +224,7 @@ public:
             if (fabs(S.Get_El(k*M+k)) < 10*DBL_EPSILON)
             {
                 Matrix<double> A;
-                throw 1;
+                return Matrix<double> ();
             }
             if (i != k)
             {
@@ -291,41 +262,6 @@ public:
     }
     Matrix<double> LDLT (Matrix<double> b) const
     {
-        Matrix_SLE L (N, M);
-        Matrix_SLE D (N, M);
-        Matrix_SLE LT (N, M);
-        double* pdEnd = D.Get_pa() + N*M;
-        double* plEnd = L.Get_pa() + N*M;
-        double* paEnd = Get_pa() + N*M;
-        double* pl = L.Get_pa();
-        double* pd = D.Get_pa();
-        double* plt = LT.Get_pa();
-        int i1 = 0;
-//        for (int j = 0; j < N//* pd = D.Get_pa(); pd < pdEnd; pd += D.M + 1)
-        for (int i = 0; i < N; )
-        {
-            pd[i*M + i] = pa[i*M+i];
-            for (int k1 = 0; k1 < i; ++k1)
-                pd[i*M + i] -= pl[i*M + k1]*pl[i*M + k1]*pd[k1*M+k1];
-                ++i;
-            for (int k = 0; k < i; ++k)
-            {
-                pl[i*M+k] = pa[i*M+k];
-                for (int t = 0; t < k; ++t)
-                    pl[i*M+k] -= pl[i*M+t]*pl[k*M+t]*pd[t*M+t];
-                pl[i*M+k] /= pd[k*M+k];
-            }
-        }
-        for (; pl < plEnd; pl+=M+1, plt+=M+1)
-        {
-            *pl = 1;
-            *plt = 1;
-        }
-        LT = L.T();
-        L.View();
-        D.View();
-        LT.View();
-        for (;;)
         return Matrix<double> ();
     }
     vector<double> Solve_by_Gauss_Method_v (vector<double>& C)
@@ -505,7 +441,7 @@ public:
         int Num_of_variables = X.Get_Size();
         Matrix<double> A (Num_of_variables, 1);
         double* pa = A.Get_pa();
-        const double M = 0.01; //0.05   0.1////////////////////////////////////////////////////////////////////////
+        const double M = 0.01; //0.05   0.1/////////////////////////////////////////////////////////////////////////////
         double F = Fn(X);
         Matrix<double> DX(X);
         double* pEnd = DX.Get_pa() + DX.Get_Size();
@@ -653,9 +589,22 @@ public:
     }
 };
 
-double fDelta2 (const Matrix<double>& A, const Matrix<double>& B)
+double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
 {
-    return 1000;
+    double Delta2 = 0;
+    double Temp = 0;
+    for (double* x = X_i.Get_pa() + X_i.Get_Size() - 1, *dx = Delta.Get_pa() + Delta.Get_Size() - 1; x >= X_i.Get_pa(); --x, --dx)
+    {
+        if (*x + *dx < 1 && *dx > Delta2)
+        {
+            Delta2 = *dx;
+        }
+        else if ((Temp = *dx/(*x+*dx)) > Delta2)
+        {
+            Delta2 = Temp;
+        }
+    }
+    return Delta2;
 }
 Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functions2& Der_of_Arr, const Matrix<double>& xy, const double Eps1, const double Eps2)
 {
@@ -670,9 +619,9 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
     Matrix<double> Sol;
     double Delta1 = 0;
     double Delta2 = 0;
-    while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i++ <= Num_it)
+    do
     {
-        cout<<setw(10)<<Delta1<<setw(10)<<Delta2<<setw(6)<<i<<endl;
+        cout<<setw(10)<<Delta1<<setw(10)<<Delta2<<setw(6)<<++i<<endl;
 //        cout<<"ixy"<<endl;
 //        ixy.View();
 //        cout<<"Delta"<<endl;
@@ -694,7 +643,7 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
         {
             *pD = -pF->f(High_Precision_ixy);// Minus against write Sol = Func.f(High_Precision_ixy)
         }                         //.Multiple_Matrix_by_Number(-1).View();
-        cout<<"User defined F."<<endl;
+        cout<<"With user defined derivative F."<<endl;
         Sol = Func.f(High_Precision_ixy).View();
 //        cout<<"HP_Derivative"<<endl;
         High_Precision_Delta = High_Precision_Derivative.Solve(Sol);
@@ -704,5 +653,6 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
         }
         cout<<endl;
     }
+    while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i <= Num_it);
     return ixy;
 }

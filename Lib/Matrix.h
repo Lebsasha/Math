@@ -144,7 +144,7 @@ public:
         Null();
         Name += ++Count + 48;
     }
-    Matrix (T* pA, const int a, const int b): Name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), pa(new T [N*M])
+    Matrix (T* pA, const int a, const int b): Name("Matrix "), N(a), M(b), pa(new T [N*M])
     {
         if (pA)
         {
@@ -156,7 +156,7 @@ public:
         }
         Name += ++Count + 48;
     }
-    Matrix (const int a, const int b): Name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), pa(new T [N*M])
+    Matrix (const int a, const int b): Name("Matrix "), N(a), M(b), pa(new T [N*M])
     {
         Null();
         Name += ++Count + 48;
@@ -203,24 +203,6 @@ public:
         M = b;
         delete[] pa;
         pa = pT;
-        return 1;
-    }
-    bool If_Symmetric (void) const
-    {
-        if (N != M)
-            return 0;
-        int i = 0;
-        double* pcEnd = pa + M - 1;
-        // If T == double, x==y-> x - y <= DBL_EPS;
-        for (double* pb = pa + N*M - 1, *pc = pb; pb >= pa; pb -= i + 1, pc += M*(i-1) - 1 - 1)
-            for (; pc >= pcEnd; --pb, pc -= M)
-        {
-            if (*pb != *pc)
-            {
-                return 0;
-            }
-            ++i;
-        }
         return 1;
     }
     bool Edit_row (const int a)
@@ -299,7 +281,7 @@ public:
             *pt = *(--pT);
         return *this;
     }
-    Matrix Multi (Matrix& B)
+    Matrix& Multi (Matrix& B)
     {
         try
         {
@@ -318,9 +300,10 @@ public:
                 for (T* pB = B.pa; pB < B.pa + B.M; ++pB, ++pC)
                     for (T* pA1 = pA, *pB1 = pB; pA1 < pA + M; pB1 += B.M, ++pA1)
                         *pC += *pA1**pB1;
-            Matrix<T> A (pc, N, B.M);
-            delete[] pc;
-            return A;
+            delete[] pa;
+            pa = pc;
+            M = B.M;
+            return *this;
         }
         catch (int i)
         {
@@ -331,7 +314,7 @@ public:
             return *this;
         }
     }
-    Matrix Multi (const vector<T>& B)
+    Matrix& Multi (const vector<T>& B)
     {
         Matrix<T> a(B);
         return Multi (a);
@@ -431,6 +414,71 @@ public:
             cout<<endl;
         }
         return *this;
+    }
+    virtual bool Read_from_file (string& sa)
+    {
+        ifstream ifsa (sa.c_str(), ios::binary);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
+    }
+    virtual bool Read_from_file (const char* A)
+    {
+        ifstream ifsa (A, ios::binary);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
+    }
+    virtual bool Read_from_file (ifstream& sa)
+    {
+        if (sa.eof())
+            return 0;
+        sa.read(reinterpret_cast<char*>(&N), sizeof(int));
+        if (sa.eof())
+            return 0;
+        sa.read(reinterpret_cast<char*>(&M), sizeof(int));
+        pa = new T [N*M];
+        if (!pa)
+            return 0;
+        const T* pEnd = pa + N*M;
+        const int Size = sizeof(T);
+        for (T* pb = pa; pb < pEnd; ++pb)
+        {
+            if (sa.eof())
+                return 0;
+            sa.read(reinterpret_cast<char*>(pb), Size);
+        }
+        return 1;
+    }
+    virtual void Write_to_file (string& a) const
+    {
+        ofstream ofsa (a.c_str(), ios::binary);
+         Write_to_file (ofsa);
+        ofsa.close();
+        return;
+    }
+    virtual void Write_to_file (const char* A) const
+    {
+        ofstream ofsa (A, ios::binary);
+        Write_to_file (ofsa);
+        ofsa.close();
+        return;
+    }
+    virtual void Write_to_file (ofstream& sa) const
+    {
+        //string a = Name;
+        //a.erase(0, 7);
+        //int Num = a;
+        //sa.write(reinterpret_cast<char*>(), sizeof(int));
+        sa.write(reinterpret_cast<const char*>(&N), sizeof(int));
+        sa.write(reinterpret_cast<const char*>(&M), sizeof(int));
+        const int Size = sizeof(T);
+        const T* pEnd = pa + N*M;
+        for (T* a = pa; a < pEnd; ++a)
+        {
+            sa.write(reinterpret_cast<char*>(a), Size);
+        }
+        return;
     }
     void Null (void)
     {

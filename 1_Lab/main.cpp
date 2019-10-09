@@ -9,7 +9,7 @@
 #include <fstream>
 #include <limits>
 #include <iterator>
-#include "../Lib/Math.h"
+#include "../Lib/Matrix.h"
 #define nullptr NULL
 #define endl "\n"
 #include <locale.h>
@@ -58,11 +58,6 @@ int main ()
     View (Solution2);
     double delta = Norm (Minus(Solution2, Solucion1))/Norm(Solucion1);
     cout<<"δ delta = "<<delta;
-
-
-    A.Read_from_file("A.matr_l");//B.matr_l
-    Matrix<double> b (vb);
-    B = A.Solve(b);
     return 0;
 }
 void View (const vector<double>& El1)
@@ -96,3 +91,13 @@ time(&i1);
     //system ("read Dummy");
     return 0;
 }*/
+void randoe (int* pArray, const int Nstr, const int Nstb, int biggest_1) /*randoe (&A[0][0], n, n, 50);*/
+{
+    int i = 0;
+    srand(static_cast<int>(time(NULL)));
+    while (i++ < Nstb*Nstr)
+    {
+        *(pArray++) = rand()%biggest_1;//+rand()%100/100.0;
+    }
+    return;
+}

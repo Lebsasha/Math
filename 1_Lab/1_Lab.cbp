@@ -32,12 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../Lib/Different.cpp" />
-		<Unit filename="../Lib/Different.h" />
-		<Unit filename="../Lib/Math.cpp" />
-		<Unit filename="../Lib/Math.h" />
-		<Unit filename="../Lib/Matrix.cpp" />
-		<Unit filename="../Lib/Matrix.h" />
+		<Unit filename="Lib/Matrix.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

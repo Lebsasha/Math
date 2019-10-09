@@ -183,8 +183,7 @@ void Get_Pause(void)
 {
 #ifdef linux
     system ("read dummy");
-#endif // linux
-#ifdef windows
+#else
     system("pause");
 #endif // windows
     return;
