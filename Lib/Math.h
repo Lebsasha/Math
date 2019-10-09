@@ -595,11 +595,11 @@ double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
     double Temp = 0;
     for (double* x = X_i.Get_pa() + X_i.Get_Size() - 1, *dx = Delta.Get_pa() + Delta.Get_Size() - 1; x >= X_i.Get_pa(); --x, --dx)
     {
-        if (*x + *dx < 1 && *dx > Delta2)
+        if (fabs(*x + *dx) < 1 && fabs(*dx) > Delta2)
         {
             Delta2 = *dx;
         }
-        else if ((Temp = *dx/(*x+*dx)) > Delta2)
+        else if ((Temp = fabs(*dx/(*x+*dx))) > Delta2)
         {
             Delta2 = Temp;
         }
@@ -621,7 +621,7 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
     double Delta2 = 0;
     do
     {
-        cout<<setw(10)<<Delta1<<setw(10)<<Delta2<<setw(6)<<++i<<endl;
+        cout<<setw(11)<<Delta1<<setw(11)<<Delta2<<setw(6)<<++i<<endl;
 //        cout<<"ixy"<<endl;
 //        ixy.View();
 //        cout<<"Delta"<<endl;
