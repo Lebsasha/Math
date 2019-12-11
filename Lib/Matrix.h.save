@@ -116,8 +116,8 @@ class Matrix
                 {
                     *(++pC) = *(++pA) - *(++pB);
                 }
-            Matrix A (pc, N, M);
-            delete[] pc;
+                Matrix A (pc, N, M);
+                
             return A;
     }
     void Increase_Name_Count (void)

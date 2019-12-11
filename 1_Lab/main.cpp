@@ -60,9 +60,13 @@ int main ()
     cout<<"δ delta = "<<delta;
 
 
-    A.Read_from_file("A.matr_l");//B.matr_l
-    Matrix<double> b (vb);
-    B = A.Solve(b);
+    //A.Read_from_file("A.matr_l");//B.matr_l
+    double p[] = {1, 2, 2, 1};
+    Matrix_SLE C (p, 2, 2);
+    p[0] = 1;
+    p[1] = 2;
+    Matrix<double> c (p, 2, 1);
+    B = C.Solve(c);
     return 0;
 }
 void View (const vector<double>& El1)

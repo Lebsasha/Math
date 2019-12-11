@@ -28,14 +28,15 @@
 	"stdafx.h"
 	<iostream>
 
-1570572348 source:/home/alexander/Documents/Num_Methods/Temp_Pr/main.cpp
+1570740247 source:/home/alexander/Documents/Num_Methods/Temp_Pr/main.cpp
 	<iostream>
 	"../Lib/Math.h"
+	<cassert>
 
-1570625113 /home/alexander/Documents/Num_Methods/Lib/Math.h
+1570739919 /home/alexander/Documents/Num_Methods/Lib/Math.h
 	"../Lib/Matrix.h"
 
-1570624774 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+1570651772 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
 	<istream>
 	<iostream>
 	<fstream>
@@ -48,4 +49,5 @@
 	<vector>
 	<iterator>
 	<math.h>
+	<assert.h>
 

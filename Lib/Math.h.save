@@ -996,7 +996,7 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     for (auto ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie)
         assert (*ie > 0);
     const int N = F.Get_N();
-    int Itrtns = 200;
+    int Itrtns = 5000;
     int Itrtns_curr = 0;
     double tk = t_min; //
     double tk_prv = t_min; //
@@ -1019,7 +1019,7 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     }
     tk_mtrx.Unsafe_index(0) = x_From;
     auto itk_mtrx = tk_mtrx.First_i()+1;
-    const int Num_it = 100;
+    const int Num_it = 10000;
     int i = 0;
     const double Eps1 = 1e-4;
     const double Eps2 = 1e-4;

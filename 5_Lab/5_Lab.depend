@@ -1,0 +1,123 @@
+# depslib dependency file v1.0
+1573045545 source:/home/alexander/Documents/Num_Methods/Lib/Different.cpp
+	<ctime>
+	<istream>
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<assert.h>
+	<vector>
+	<iterator>
+
+1571947133 source:/home/alexander/Documents/Num_Methods/Lib/List.cpp
+	"List.h"
+	<iostream>
+	<fstream>
+
+1573048320 /home/alexander/Documents/Num_Methods/Lib/List.h
+	"stdafx.h"
+	<iostream>
+	<string>
+
+1572551115 source:/home/alexander/Documents/Num_Methods/Lib/Math.cpp
+
+1571953489 source:/home/alexander/Documents/Num_Methods/Lib/Matrix.cpp
+
+1571953489 source:/home/alexander/Documents/Num_Methods/Lib/Vector.cpp
+	"stdafx.h"
+	<iostream>
+
+1573310135 source:/home/alexander/Documents/Num_Methods/5_Lab/main.cpp
+	<iostream>
+	<math.h>
+	"../Lib/Math.h"
+
+1573310620 /home/alexander/Documents/Num_Methods/Lib/Math.h
+	"../Lib/Matrix.h"
+	"limits.h"
+	"math.h"
+	"Different.h"
+
+1573308600 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+	<istream>
+	"stdafx.h"
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
+	<assert.h>
+	<algorithm>
+
+1573045556 /home/alexander/Documents/Num_Methods/Lib/Different.h
+	"stdafx.h"
+	<vector>
+
+1573045545 source:d:\1\num_methods_true\lib\different.cpp
+	<ctime>
+	<istream>
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<assert.h>
+	<vector>
+	<iterator>
+
+1571947133 source:d:\1\num_methods_true\lib\list.cpp
+	"List.h"
+	<iostream>
+	<fstream>
+
+1573048320 d:\1\num_methods_true\lib\list.h
+	"stdafx.h"
+	<iostream>
+	<string>
+
+1572551115 source:d:\1\num_methods_true\lib\math.cpp
+
+1571953489 source:d:\1\num_methods_true\lib\matrix.cpp
+
+1571953489 source:d:\1\num_methods_true\lib\vector.cpp
+	"stdafx.h"
+	<iostream>
+
+1574422834 source:d:\1\num_methods_true\5_lab\main.cpp
+	<iostream>
+	<math.h>
+	"../Lib/Math.h"
+
+1574422369 d:\1\num_methods_true\lib\math.h
+	"../Lib/Matrix.h"
+	"limits.h"
+	"math.h"
+	"Different.h"
+
+1574420500 d:\1\num_methods_true\lib\matrix.h
+	<istream>
+	"stdafx.h"
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
+	<assert.h>
+	<algorithm>
+
+1573045556 d:\1\num_methods_true\lib\different.h
+	"stdafx.h"
+	<vector>
+

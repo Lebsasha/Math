@@ -20,8 +20,10 @@ struct Nt
     Nt (T a): Pal(a), pLeft(NULL), pRight(NULL)
     {}
     ~Nt (void)
-    {Pal = 0;}
-        //delete Pal;
+    {
+        Pal = 0;
+    }
+    //delete Pal;
 };
 template<class T>
 class Binary_tree
@@ -43,7 +45,8 @@ class Binary_tree
     {
         if (!t)
         {
-            t = new Nt<T>(a); ++i;
+            t = new Nt<T>(a);
+            ++i;
             if (t)
                 return;
             return;
@@ -73,7 +76,8 @@ class Binary_tree
         {
             return;
         }
-        pTree = new Nt<T> (pBTree->Pal); ++i;
+        pTree = new Nt<T> (pBTree->Pal);
+        ++i;
         if (pTree)
         {
             Copy (pTree->pLeft, pBTree->pLeft);
@@ -82,9 +86,13 @@ class Binary_tree
     }
 public:
     Binary_tree (T& a): Root (new Nt<T> (a)), Temp (Root)
-    {++i;}
+    {
+        ++i;
+    }
     Binary_tree (void): Root(new Nt<T>(0)), Temp(Root)
-    {++i;}
+    {
+        ++i;
+    }
     Binary_tree (Binary_tree& Tr): Root (NULL), Temp(Root)
     {
         //Nt<T>* pA = Tr.Root;
@@ -110,7 +118,8 @@ public:
                 Temp1 = Temp->pRight;
                 Temp->pRight = 0;
             }
-            delete Temp1; --i;
+            delete Temp1;
+            --i;
         }
         return;
     }
@@ -143,7 +152,8 @@ public:
         Del_all_aft(Tem->pRight);
         if (Tem->pLeft == NULL && Tem->pRight == NULL)
         {
-            delete Tem; --i;
+            delete Tem;
+            --i;
             Tem = NULL;
             return;
         }

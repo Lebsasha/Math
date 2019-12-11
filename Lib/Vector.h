@@ -131,28 +131,24 @@ public:
         for (T* pA = a; pA < pEnd; ++pA)
         {
             if (isa.eof())
-            return 0;
+                return 0;
             isa.read(C, 4);
             string S(C);
             if (S == "Gra")
                 *pA = new Gravity;
-                else
-            if (S == "EMI")
+            else if (S == "EMI")
                 *pA = new EMI;
-                else
-            if (S == "Mat")
+            else if (S == "Mat")
                 *pA = new Matter;
-                else
-            if (S == "Str")
+            else if (S == "Str")
                 *pA = new Strong;
-                else
-            if (S == "Wea")
+            else if (S == "Wea")
                 *pA = new Weak;
-                else
-                {
+            else
+            {
                 cout<<"Wrong F.bin file"<<endl;
                 return 0;
-                }
+            }
             if (!(*pA)->Import(isa))
                 return 0;
         }
