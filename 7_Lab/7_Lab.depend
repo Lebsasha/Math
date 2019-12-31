@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1577445452 source:e:\1\num_methods_true\7_lab\main.cpp
+	<stdlib.h>
+	<string.h>
+	<string>
+	<math.h>
+	<fstream>
+	<iostream>
+

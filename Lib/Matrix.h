@@ -605,12 +605,11 @@ AfterNullR:
             assert(i < N*M && i >= 0);
             return *(pa+i);
     }
-    Matrix& Rand(int Max_value = 9)
+    void Rand(void)
     {
-        ++Max_value;
         for (T* pt = pa + N*M -1; pt >= pa; --pt)
-            *pt = rand()%Max_value;
-        return *this;
+            *pt = rand()%10;
+        return;
     }
     virtual const Matrix<T>& View (const int bytes_per_element = 8, const bool Show_Name = 0) const
     {

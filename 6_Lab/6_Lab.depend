@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1576087319 source:e:\1\num_methods_true\lib\different.cpp
+	<ctime>
+	<istream>
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<assert.h>
+	<vector>
+	<iterator>
+
+1571947133 source:e:\1\num_methods_true\lib\list.cpp
+	"List.h"
+	<iostream>
+	<fstream>
+
+1575586827 e:\1\num_methods_true\lib\list.h
+	"stdafx.h"
+	<iostream>
+	<string>
+
+1572551115 source:e:\1\num_methods_true\lib\math.cpp
+
+1571953489 source:e:\1\num_methods_true\lib\matrix.cpp
+
+1571953489 source:e:\1\num_methods_true\lib\vector.cpp
+	"stdafx.h"
+	<iostream>
+
+1577441124 source:e:\1\num_methods_true\6_lab\main.cpp
+	<stdlib.h>
+	<math.h>
+	<fstream>
+

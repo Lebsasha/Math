@@ -1,20 +1,19 @@
 #include <stdlib.h>
 #include <math.h>
 #include <fstream>
+#define  PRES   double
 #define  NXB     15
 #define  NX        NXB*3+1
 #define  NYB     12
 #define  NY        NYB*3+1
 #define  REP     3000
 #define  EPSL   1.e-5
-#define  LL        1.7f
+#define  LL        1.7
 #define  TEM1   5.0f
 #define  TEM2  15.0f
 #define  HX    0.2f
 #define  HY    0.3f
-
 using namespace std;
-
 void maxpvr(double *t1, double *del, double *maxdel)
 {
     double d = fabs(*del)/fabs(*t1);
@@ -24,7 +23,7 @@ void maxpvr(double *t1, double *del, double *maxdel)
 int main(int argc, char **argv)
 {
     ofstream foutT("dT.dat",ios_base::out | ios_base::trunc | ios_base::binary);
-    int    i1, i2, j1, j2, rp, i, j, k=0;
+    int    i1, i2, i3, j1, j2, j3, rp, i, j, k=0;
     double  T1=TEM1,  T2=TEM2, h=HX, r=HY, tx, t0, t1, del, maxdel=0.0f;
     double  T[NY][NX];
     double  lam = LL;
@@ -39,77 +38,111 @@ int main(int argc, char **argv)
     double  gam_2 = - 1.5f * (alf_1 + alf_2);
     double  gam_3 = - (alf_1 + alf_2);
     double  gam_4 = - (alf_3 + alf_4);
-    i1 = NXB + NXB;
+    i1 = NXB;
     i2 = i1 + NXB;
+    i3 = NXB*3;
     j1 = NYB;
-    j2 = NYB * 3;
+    j2 = NYB*2;
+    j3 = NYB*3;
     rp = REP;
-    for (j=0; j<=j2; j++)
+    for (j=0; j<=j3; j++)
     {
-        for (i=0; i<=i2; i++)
+        for (i=0; i<=i3; i++)
         {
             T[j][i] = 0.0f;
         }
     }
-    for (j=0;  j<=j1; j++) T[j][0]  = T1;
-    for (i=i1; i<=i2; i++) T[j2][i] = T2;
-    while ( k<rp && prz==1)
+    for (j=0;  j<=j3; ++j)
+        T[j][0] = T1;
+    for (i = 0; i <= i1; ++i)
+    {
+        T[0][i] = T1;
+        T[j3][i] = T1;
+    }
+//    for (i=i2; i<=i3; ++i)
+//        T[j2][i] = T2;
+    for (j = 0; j <= j3; ++j)
+    {
+        T[j][i3] = T2;
+    }
+    for (i = i2; i <= i3; ++i)
+    {
+        T[0][i] = T2;
+        T[j3][i] = T2;
+    }
+    while (k<rp && prz==1)
     {
         k++;
-        for (j=0; j<j2; j++)
+        for (j=0; j<j3; j++)//???<
         {
-            for (i=1; i<=i2; i++)
+            for (i=1; i<=i3; i++)
             {
                 t0 = T[j][i];
-                if (i>=0 && i<i2 && j==0)
+                if (i == i1 && ((j > 0 && j < j1) || (j > j2 && j < j3)))
                 {
-                    tx = - (alf_3*(T[j][i-1]+T[j][i+1]) + alf_1*T[j+1][i])/gam_3;
+                    tx = -(alf_4*(T[j-1][i] + T[j+1][i]) + alf_2*T[j][i-1])/gam_3;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                else if (i==i2 && j==0)
+                if (i == i2 && ((j > 0 && j < j1) || (j > j2 && j < j3)))
                 {
-                    tx = - (alf_3*T[j][i-1] + alf_4*T[j+1][i])/gam_4;
+                    tx = -(alf_4*(T[j-1][i] + T[j+1][i]) + alf_2*T[j][i+1])/gam_3;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                else if (i==i2 && j>0 && j<j2)
+                if (i > i1 && i < i2 && j == j1)
                 {
-                    tx = - (alf_4*(T[j-1][i]+T[j+1][i]) + alf_2*T[j][i-1])/gam_3;
+                    tx = -(alf_3*(T[j][i-1]+T[j][i+1]) + alf_1*T[j+1][i])/gam_3;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                if (i>0 && i<i1 && j==j1)
+                if (i > i1 && i < i2 && j == j2)
                 {
-                    tx = - (alf_3*(T[j][i-1]+T[j][i+1]) + alf_1*T[j-1][i])/gam_3;
+                    tx = -(alf_3*(T[j][i-1]+T[j][i+1]) + alf_1*T[j-1][i])/gam_3;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                else if (i==i1 && j==j1)
+                if (i == i1 && j == j1)
                 {
-                    tx = - (alf_3*T[j][i-1] + alf_4*T[j+1][i] + alf_2*T[j][i+1] + alf_1*T[j1][i])/gam_2;
+                    tx = -(alf_4*T[j-1][i] + alf_2*T[j][i-1] + alf_3*T[j][i+1] + alf_1*T[j+1][i])/gam_2;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                else if (i==i1 && j>j1 && j<j2)
+                if (i == i1 && j == j2)
                 {
-                    tx = - (alf_4*(T[j-1][i]+T[j+1][i]) + alf_2*T[j][i+1])/gam_3;
+                    tx = -(alf_1*T[j-1][i] + alf_2*T[j][i-1] + alf_3*T[j][i+1] + alf_4*T[j+1][i])/gam_2;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                else if (i>0 && i<i2 && j>0 && j<j1)
+                if (i == i2 && j == j1)
+                {
+                    tx = -(alf_4*T[j-1][i] + alf_3*T[j][i-1] + alf_2*T[j][i+1] + alf_1*T[j+1][i])/gam_2;
+                    del = lam * (tx - t0);
+                    t1 = t0 + del;
+                    T[j][i] = t1;
+                    maxpvr(&t1, &del, &maxdel);
+                }
+                if (i == i2 && j == j2)
+                {
+                    tx = -(alf_1*T[j-1][i] + alf_3*T[j][i-1] + alf_2*T[j][i+1] + alf_4*T[j+1][i])/gam_2;
+                    del = lam * (tx - t0);
+                    t1 = t0 + del;
+                    T[j][i] = t1;
+                    maxpvr(&t1, &del, &maxdel);
+                }
+                if (i > 0 && i < i1 && j > 0 && j < j3)
                 {
                     tx = - (alf_1*(T[j-1][i]+T[j+1][i]) + alf_2*(T[j][i-1]+T[j][i+1])) /gam_1;
                     del = lam * (tx - t0);
@@ -117,16 +150,24 @@ int main(int argc, char **argv)
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
                 }
-                else if (i>i1 && i<i2 && j>j1-1 && j<j2)
+                if (i >= i1 && i <= i2 && j > j1 && j < j2)
                 {
                     tx = - (alf_1*(T[j-1][i]+T[j+1][i]) + alf_2*(T[j][i-1]+T[j][i+1])) /gam_1;
                     del = lam * (tx - t0);
                     t1 = t0 + del;
                     T[j][i] = t1;
                     maxpvr(&t1, &del, &maxdel);
+                }
+                if (i > i2 && i < i3 && j > 0 && j < j3)
+                {
+                    tx = - (alf_1*(T[j-1][i]+T[j+1][i]) + alf_2*(T[j][i-1]+T[j][i+1])) /gam_1;
+                    del = lam * (tx - t0);
+                    t1 = t0 + del;
+                    T[j][i] = t1;
+                    maxpvr(&t1, &del, &maxdel);
+                }
                 }
             }
-        }
         nT++;
         double w = maxdel;
         foutT.write((char*)&w, sizeof w);
@@ -154,3 +195,4 @@ int main(int argc, char **argv)
     fou.write((char*)&n_y, sizeof n_y);
     fou.close();
 }
+

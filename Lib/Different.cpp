@@ -42,7 +42,7 @@ void View (int* pArray, int Nstr, int Nstb)
 {
     while (Nstr--)
     {
-        for (int j = 0; j < Nstb; j++)
+        for (int j = 0; j < Nstb-1; j++)
         {
             cout<<setw(3)<<(*pArray)<<" ";
             pArray++;
@@ -57,7 +57,7 @@ void View (double* pArray, int Nstr, const int Nstb)
 {
     while (Nstr--)
     {
-        for (int j = 0; j < Nstb; j++)
+        for (int j = 0; j < Nstb-1; j++)
         {
             cout<<setw(3)<<(*pArray)<<" ";
             pArray++;
@@ -72,7 +72,7 @@ void View (float* pArray, int Nstr, int Nstb)
 {
     while (Nstr--)
     {
-        for (int j = 0; j < Nstb; j++)
+        for (int j = 0; j < Nstb-1; j++)
         {
             cout<<setw(3)<<(*pArray)<<" ";
             pArray++;
