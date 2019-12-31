@@ -116,8 +116,8 @@ class Matrix
                 {
                     *(++pC) = *(++pA) - *(++pB);
                 }
-                Matrix A (pc, N, M);
-                
+            Matrix A (pc, N, M);
+            delete[] pc;
             return A;
     }
     void Increase_Name_Count (void)
@@ -605,10 +605,11 @@ AfterNullR:
             assert(i < N*M && i >= 0);
             return *(pa+i);
     }
-    void Rand(void)
+    void Rand(int Max_value = 9)
     {
+        ++Max_value;
         for (T* pt = pa + N*M -1; pt >= pa; --pt)
-            *pt = rand()%10;
+            *pt = rand()%Max_value;
         return;
     }
     virtual const Matrix<T>& View (const int bytes_per_element = 8, const bool Show_Name = 0) const

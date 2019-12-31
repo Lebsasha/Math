@@ -279,10 +279,10 @@ public:
         }
         int i = N - 1;
         pd[i*M + i] = pa[i*M+i];
-            for (int k1 = 0; k1 < i; ++k1)
-            {
-                pd[i*M + i] -= L[i*M + k1]*L[i*M + k1]*pd[k1*M+k1];
-            }
+        for (int k1 = 0; k1 < i; ++k1)
+        {
+            pd[i*M + i] -= L[i*M + k1]*L[i*M + k1]*pd[k1*M+k1];
+        }
         for (; pl < plEnd; pl+=M+1, plt+=M+1)
         {
             *pl = 1;
@@ -927,60 +927,56 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
     assert (Max_Step > DBL_EPSILON);
     const int N = F.Get_N();
     double x = x_From;
-    const int Iterations = 1500;
-    Matrix<double> yk (1, Iterations*N);
+    const int Iterations = 150000;
+    Matrix<double> yk (N, Iterations);
     Matrix<double> tk (1, Iterations);
     Matrix<double> F_curr = u0;
     Matrix<double> tk_curr (1, N);
     Matrix<double> y_curr (1, N+1);
     auto tk_i = tk.First_i();
-    //auto yk_i = yk.First_i();
+    *tk_i++ = x_From;
     const auto Eps_End = Epsilon.Last_i();
-    auto yk_First = yk.First_i() + N;
-    auto yk_End = yk_First;
-    for (auto iu = u0.First_i()+ (N - 1), iy = yk.First_i() + (N - 1); iu >= u0.First_i(); --iu, --iy)
+    auto yk_First = yk.First_i();
+    auto yk_End = yk.First_i() + N;
+    for (auto iu = u0.First_i()+ (N - 1), iy = yk_End - 1; iu >= u0.First_i(); --iu, --iy)
     {
         *iy = *iu;
     }
     int i = 0;
     while (x < x_To)
     {
-//        if (i >= 1320)
-//        {
-//            for (int u = i; u < Iterations; ++u)
-//                cout<<yk[i]<<" ";
-//        }
-        for (auto iy = y_curr.First_i(), iyk = yk_First-N /*On first iteration yk.First_i()*/ ; iyk < yk_First; ++iy, ++iyk)
+        for (auto iy = y_curr.First_i(), iyk = yk_First; iyk < yk_End; ++iy, ++iyk)
         {
             *iy = *iyk;
         }
         *y_curr.Last_i() = x;
+        yk_First += N;
+        yk_End += N;
         F_curr = F.f(y_curr);
         for (auto it = tk_curr.First_i(), iF = F_curr.First_i(), iEps = Epsilon.First_i(); iEps <= Eps_End; ++it, ++iF, ++iEps)
         {
             *it = *iEps/(fabs(*iF)+*iEps/Max_Step);
         }
         *tk_i = tk_curr.Min_element();
-        yk_End += N;
         for (auto it = yk_First, iF = F_curr.First_i(); it < yk_End; ++it, ++iF)
         {
             *it = *(it-N) + *tk_i**iF;
         }
-        yk_First += N;
-        x += *(tk_i++);
+        x += *tk_i;
+        *(tk_i++) = x;
 //        tk.Edit_row(2*I);
         ++i;
     }
-    //tk.View();
-    //cout<<endl;
-    //yk.View();
-    //cout<<++i<<endl;
-    vector<Matrix<double> > A (1, 2);
+    cout<<++i<<endl;
+    vector<Matrix<double> > A (2);
     A.at(0) = tk;
     A.at(1) = yk;
     return A;
 }
-
+double absol (double x)
+{
+    return x > 0 ? x : -x;
+}
 vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, const double x_From, const double x_To, const Matrix<double>& u0, const Matrix<double>& Epsilon, const double t_min, const double t_max, const bool Strategy = 0)
 {
     //u0 in column, because of 25 string down!!!
@@ -996,7 +992,7 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     for (auto ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie)
         assert (*ie > 0);
     const int N = F.Get_N();
-    int Itrtns = 200;
+    int Itrtns = 20000;
     int Itrtns_curr = 0;
     double tk = t_min; //
     double tk_prv = t_min; //
@@ -1039,9 +1035,9 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
         *(iStr--) = tk;
         *(iStr--) = *y_next_curr_with_x.Last_i();
         for (auto iy_curr = y_curr.Last_i(); iy_curr >= y_curr.First_i(); --iy_curr, --iStr)
-            {
-                *iStr = *iy_curr;
-            }
+        {
+            *iStr = *iy_curr;
+        }
 eps_curr_bigger_then_epsilon:
         do
         {
@@ -1055,58 +1051,64 @@ eps_curr_bigger_then_epsilon:
             {
                 *iStr = *iy_next_curr;
             }
-            Strange_matrix.View();
+//            Strange_matrix.View();
 //        cout<<"F_curr"<<endl;
-            F_curr = F.f(Strange_matrix).Multiple_Matrix_by_Number(-1.0).View();
+            F_curr = F.f(Strange_matrix).Multiple_Matrix_by_Number(-1.0)/*.View()*/;
 //        cout<<"Derivative"<<endl;
             Drvtve = F.Derivative(Strange_matrix);
             Drvtve.Edit_col(N);
-            Drvtve.View();
+//            Drvtve.View();
             Delta = Drvtve.Solve(F_curr);       //.Multiple_Matrix_by_Number(-1.0).View();
-            Delta.View();
-            cout<<Delta1<<' '<<Delta2<<endl<<endl;
+//            Delta.View();
+//            cout<<Delta1<<' '<<Delta2<<endl<<endl;
         }
         while (++i <= Num_it && ((Delta1 = F_curr.Max_element_fabs()) > Eps1) && ((Delta2 = Solve_Nonlinear_Equations::fDelta2(y_next_curr, Delta)) > Eps2));
         Delta.Null();
-        cout<<i<<endl;
+//        cout<<i<<endl;
         i = 0;
-        y_next_curr.View();
+//        y_next_curr.View();
         for (auto ie = Epsln_curr.Last_i(), iy_prv = y_prv_curr.Last_i(), iy_curr = y_curr.Last_i(), iy_next = y_next_curr.Last_i(); ie >= Epsln_curr.First_i(); --ie, --iy_prv, --iy_curr, --iy_next)
         {
             *ie = tk/(tk+tk_prv)*((tk/tk_prv)*(*iy_curr - *iy_prv) + *iy_curr - *iy_next);
         }
-        for (auto ie_curr = Epsln_curr.Last_i(), ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie_curr, --ie)
-        {
-            if (*ie_curr > *ie)
-            {
-                tk /= 2;
-                y_next_curr = y_curr;
-                for (auto inx = y_next_curr.Last_i(), ix = y_next_curr_with_x.Last_i()-1; inx >= y_next_curr.First_i(); --inx, --ix)
-                {
-                    *ix = *inx;
-                }
-                y_next_curr_with_x.Unsafe_index(N) -= tk;
-                goto eps_curr_bigger_then_epsilon;
-            }
-        }
+//        Epsln_curr.View();
+//        Epsilon.View();
         if (!Strategy)
+        {
+            for (auto ie_curr = Epsln_curr.Last_i(), ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie_curr, --ie)
+            {
+                if (*ie_curr > *ie)
+                {
+                    tk /= 2;
+                    y_next_curr = y_curr;
+                    for (auto inx = y_next_curr.Last_i(), ix = y_next_curr_with_x.Last_i()-1; inx >= y_next_curr.First_i(); --inx, --ix)
+                    {
+                        *ix = *inx;
+                    }
+                    y_next_curr_with_x.Unsafe_index(N) -= tk;
+                    goto eps_curr_bigger_then_epsilon;
+                }
+            }
+//        if (!Strategy)
             for (auto itk_curr = tk_curr_next.Last_i(), iEps_curr = Epsln_curr.Last_i(), iEps = Epsilon.Last_i(); iEps >= Epsilon.First_i(); --itk_curr, --iEps, --iEps_curr)
             {
-                *itk_curr = sqrt(*iEps/fabs(*iEps_curr))*tk;
+                *itk_curr = sqrt(*iEps/absol(*iEps_curr))*tk;
             }
+        }
         else
             for (auto itk_curr = tk_curr_next.Last_i(), iEps_curr = Epsln_curr.Last_i(), iEps = Epsilon.Last_i(); iEps >= Epsilon.First_i(); --itk_curr, --iEps, --iEps_curr)
             {
-                *itk_curr = fabs(*iEps_curr) > *iEps/4 ? tk : tk+tk;
+                *itk_curr = absol(*iEps_curr) > *iEps ? tk/2 : absol(*iEps_curr) > *iEps/4 ? tk : tk+tk;
             }
         tk_prv = tk;
+//        tk_curr_next.View();
         tk = tk_curr_next.Min_element();
         if (tk > t_max)
             tk = t_max;
-        y_curr.View();
-        y_next_curr.View();
-        cout<<tk_prv<<' '<<tk<<' '<<endl;
-        tk_curr_next.View();
+//        y_curr.View();
+//        y_next_curr.View();
+//        cout<<tk_prv<<' '<<tk<<' '<<endl;
+//        tk_curr_next.View();
         y_prv_curr = y_curr;
         y_curr = y_next_curr;
         yk_Last += N;
