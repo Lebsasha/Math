@@ -98,12 +98,17 @@ public:
     virtual bool Read_from_file (string& sa)
     {
         ifstream ifsa (sa.c_str(), ios::binary);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
         return Read_from_file(ifsa);
     }
     virtual bool Read_from_file (const char* A)
     {
         ifstream ifsa (A, ios::binary);
-        return Read_from_file(ifsa);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
     }
     virtual bool Read_from_file (ifstream& sa)
     {
@@ -134,12 +139,16 @@ public:
     virtual void Write_to_file (string& a) const
     {
         ofstream ofsa (a.c_str(), ios::binary);
-        return Write_to_file (ofsa);
+         Write_to_file (ofsa);
+        ofsa.close();
+        return;
     }
     virtual void Write_to_file (const char* A) const
     {
         ofstream ofsa (A, ios::binary);
-        return Write_to_file (ofsa);
+        Write_to_file (ofsa);
+        ofsa.close();
+        return;
     }
     virtual void Write_to_file (ofstream& sa) const
     {
@@ -241,7 +250,7 @@ public:
         const double* pC = C.Get_pa() + C.Get_N()*1 - 1;
         double* const pBeg = ps.Get_pa() + ps.Get_N()*1 - 1; //const_?
         double* const pEnd = ps.Get_pa();
-        k = N - 1;
+        //assert(k == N - 1);
         k = M;
         for (double* pt = pBeg; pt >= pEnd; --pt, pMatrix -= (k--))
         {
@@ -279,10 +288,10 @@ public:
         }
         int i = N - 1;
         pd[i*M + i] = pa[i*M+i];
-            for (int k1 = 0; k1 < i; ++k1)
-            {
-                pd[i*M + i] -= L[i*M + k1]*L[i*M + k1]*pd[k1*M+k1];
-            }
+        for (int k1 = 0; k1 < i; ++k1)
+        {
+            pd[i*M + i] -= L[i*M + k1]*L[i*M + k1]*pd[k1*M+k1];
+        }
         for (; pl < plEnd; pl+=M+1, plt+=M+1)
         {
             *pl = 1;
@@ -812,11 +821,11 @@ double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
     double Temp = 0;
     for (double* x = X_i.Get_pa() + X_i.Get_Size() - 1, *dx = Delta.Get_pa() + Delta.Get_Size() - 1; x >= X_i.Get_pa(); --x, --dx)
     {
-        if (*x + *dx < 1 && *dx > Delta2)
+        if (fabs(*x + *dx) < 1 && fabs(*dx) > Delta2)
         {
             Delta2 = *dx;
         }
-        else if ((Temp = *dx/(*x+*dx)) > Delta2)
+        else if ((Temp = fabs(*dx/(*x+*dx))) > Delta2)
         {
             Delta2 = Temp;
         }
@@ -907,7 +916,8 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Matrix<double>&
     while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i <= Num_it);
     return ixy;
 }
-}
+//////////////////////////////////////////////////////////////////////<<<<<<< HEAD
+//////////////////////////////////////////////////////////////////////}
 
 
 namespace Solve_Differential_Equations
@@ -927,7 +937,7 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
     assert (Max_Step > DBL_EPSILON);
     const int N = F.Get_N();
     double x = x_From;
-    const int Iterations = 1500;
+    const int Iterations = 150000;
     Matrix<double> yk (N, Iterations);
     Matrix<double> tk (1, Iterations);
     Matrix<double> F_curr = u0;
@@ -973,7 +983,10 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
     A.at(1) = yk;
     return A;
 }
-
+double absol (double x)
+{
+    return x > 0 ? x : -x;
+}
 vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, const double x_From, const double x_To, const Matrix<double>& u0, const Matrix<double>& Epsilon, const double t_min, const double t_max, const bool Strategy = 0)
 {
     //u0 in column, because of 25 string down!!!
@@ -989,7 +1002,7 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     for (auto ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie)
         assert (*ie > 0);
     const int N = F.Get_N();
-    int Itrtns = 200;
+    int Itrtns = 20000;
     int Itrtns_curr = 0;
     double tk = t_min; //
     double tk_prv = t_min; //
@@ -1032,9 +1045,9 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
         *(iStr--) = tk;
         *(iStr--) = *y_next_curr_with_x.Last_i();
         for (auto iy_curr = y_curr.Last_i(); iy_curr >= y_curr.First_i(); --iy_curr, --iStr)
-            {
-                *iStr = *iy_curr;
-            }
+        {
+            *iStr = *iy_curr;
+        }
 eps_curr_bigger_then_epsilon:
         do
         {
@@ -1048,7 +1061,7 @@ eps_curr_bigger_then_epsilon:
             {
                 *iStr = *iy_next_curr;
             }
-            Strange_matrix/*.View()*/;
+//            Strange_matrix.View();
 //        cout<<"F_curr"<<endl;
             F_curr = F.f(Strange_matrix).Multiple_Matrix_by_Number(-1.0)/*.View()*/;
 //        cout<<"Derivative"<<endl;
@@ -1068,31 +1081,37 @@ eps_curr_bigger_then_epsilon:
         {
             *ie = tk/(tk+tk_prv)*((tk/tk_prv)*(*iy_curr - *iy_prv) + *iy_curr - *iy_next);
         }
-        for (auto ie_curr = Epsln_curr.Last_i(), ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie_curr, --ie)
-        {
-            if (*ie_curr > *ie)
-            {
-                tk /= 2;
-                y_next_curr = y_curr;
-                for (auto inx = y_next_curr.Last_i(), ix = y_next_curr_with_x.Last_i()-1; inx >= y_next_curr.First_i(); --inx, --ix)
-                {
-                    *ix = *inx;
-                }
-                y_next_curr_with_x.Unsafe_index(N) -= tk;
-                goto eps_curr_bigger_then_epsilon;
-            }
-        }
+//        Epsln_curr.View();
+//        Epsilon.View();
         if (!Strategy)
+        {
+            for (auto ie_curr = Epsln_curr.Last_i(), ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie_curr, --ie)
+            {
+                if (*ie_curr > *ie)
+                {
+                    tk /= 2;
+                    y_next_curr = y_curr;
+                    for (auto inx = y_next_curr.Last_i(), ix = y_next_curr_with_x.Last_i()-1; inx >= y_next_curr.First_i(); --inx, --ix)
+                    {
+                        *ix = *inx;
+                    }
+                    y_next_curr_with_x.Unsafe_index(N) -= tk;
+                    goto eps_curr_bigger_then_epsilon;
+                }
+            }
+//        if (!Strategy)
             for (auto itk_curr = tk_curr_next.Last_i(), iEps_curr = Epsln_curr.Last_i(), iEps = Epsilon.Last_i(); iEps >= Epsilon.First_i(); --itk_curr, --iEps, --iEps_curr)
             {
-                *itk_curr = sqrt(*iEps/fabs(*iEps_curr))*tk;
+                *itk_curr = sqrt(*iEps/absol(*iEps_curr))*tk;
             }
+        }
         else
             for (auto itk_curr = tk_curr_next.Last_i(), iEps_curr = Epsln_curr.Last_i(), iEps = Epsilon.Last_i(); iEps >= Epsilon.First_i(); --itk_curr, --iEps, --iEps_curr)
             {
-                *itk_curr = fabs(*iEps_curr) > *iEps/4 ? tk : tk+tk;
+                *itk_curr = absol(*iEps_curr) > *iEps ? tk/2 : absol(*iEps_curr) > *iEps/4 ? tk : tk+tk;
             }
         tk_prv = tk;
+//        tk_curr_next.View();
         tk = tk_curr_next.Min_element();
         if (tk > t_max)
             tk = t_max;
@@ -1201,6 +1220,7 @@ Matrix<double> Find_Polinom (const Matrix<double> X, const Matrix<double> Y)
     }
     View(pS, X.Get_Size(), 1);
     return Find_Polinom_m_power(X, Y, Find_min_by_abs(pS, X.Get_Size())+1);
+}
 }
 }
 #endif // MATH_H

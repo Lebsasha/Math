@@ -156,11 +156,7 @@ public:
         }
         Increase_Name_Count();
     }
-<<<<<<< HEAD
     Matrix (const int a, const int b, bool If_null = 1): Name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), pa(new T [N*M])
-=======
-    Matrix (const int a, const int b): Name("Matrix "), N(a), M(b), pa(new T [N*M])
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         if (If_null)
         Null();
@@ -215,15 +211,14 @@ public:
         pa = pT;
         return 1;
     }
-<<<<<<< HEAD
     bool If_Symmetric (void) const
     {
         if (N != M)
             return 0;
-        int i = 0;
+        int i = 1;
         T* pcEnd = this->First_i();
         pcEnd += M - 1;
-        for (T* pb = this->Last_i(), *pc = pb; pb >= pa; pb -= i + 1, pc += M*(i-1) - 1 - 1)
+        for (T* pb = this->Last_i() - 1, *pc = pb - (M - 1); pb >= pa; pb -= i, pc += (N-i)*M - 1)
         {
             for (; pc >= pcEnd; --pb, pc -= M)
             {
@@ -236,8 +231,6 @@ public:
         }
         return 1;
     }
-=======
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     bool Edit_row (const int a)
     {
         if (!pa)
@@ -320,19 +313,10 @@ AfterNullR:
             *pt = *(--pT);
         return *this;
     }
-<<<<<<< HEAD
     Matrix Multi (Matrix& B) const
-=======
-    Matrix& Multi (Matrix& B)
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
             assert(M == B.N);
             T* pc = new T [N*B.M];
-            if (!pc)
-            {
-                cout<<"Haven't enough dynamic memory."<<endl;
-                assert(pc);
-            }
             for (T* t = pc+N*B.M-1; t >= pc; --t)
                 *t = 0;
             T* pEnd = pa + N*M;
@@ -341,29 +325,11 @@ AfterNullR:
                 for (T* pB = B.pa; pB < B.pa + B.M; ++pB, ++pC)
                     for (T* pA1 = pA, *pB1 = pB; pA1 < pA + M; pB1 += B.M, ++pA1)
                         *pC += *pA1**pB1;
-<<<<<<< HEAD
             Matrix<T> A (pc, N, B.M);
             delete[] pc;
             return A;
     }
     Matrix Multi (const vector<T>& B) const
-=======
-            delete[] pa;
-            pa = pc;
-            M = B.M;
-            return *this;
-        }
-        catch (int i)
-        {
-            if (i == 1)
-                cout<<"Dimentionses "<<M<<"and "<<B.N<<" must equal";
-            if (i == 2)
-                cout<<"Haven't enough dynamic memory."<<endl;
-            return *this;
-        }
-    }
-    Matrix& Multi (const vector<T>& B)
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         Matrix<T> a(B);
         return Multi (a);

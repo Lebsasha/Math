@@ -92,11 +92,11 @@ int main(void)
                     TT[j][i] = t0 - bet_3*(alf_3*(T[j][i-1]+T[j][i+1]) + alf_1*T[j+1][i] +gam_3*t0);
                 if (i>i1 && i<i2 && j==NY-1)
                     TT[j][i] = t0 - bet_3*(alf_3*(T[j][i-1]+T[j][i+1]) + alf_1*T[j-1][i] +gam_3*t0);
-                if (i == i1 && j > 0 && j < j1)
+                if (i == i1 && j < j1)
                     TT[j][i] = t0 - bet_3*(alf_4*(T[j-1][i]+T[j+1][i]) + alf_2*T[j][i-1] + gam_3*t0);
                 if (i == i1 && j > j2 && j < j3)
                     TT[j][i] = t0 - bet_3*(alf_4*(T[j-1][i]+T[j+1][i]) + alf_2*T[j][i-1] + gam_3*t0);
-                if (i == i2 && j > 0 && j < j1)
+                if (i == i2 && j < j1)
                     TT[j][i] = t0 - bet_3*(alf_4*(T[j-1][i]+T[j+1][i]) + alf_2*T[j][i+1] + gam_3*t0);
                 if (i == i2 && j > j2 && j < j3)
                     TT[j][i] = t0 - bet_3*(alf_4*(T[j-1][i]+T[j+1][i]) + alf_2*T[j][i+1] + gam_3*t0);
@@ -114,9 +114,9 @@ int main(void)
                 if (i == i2 && j == j2)
                     TT[j][i] = t0 - bet_2*(alf_1*T[j-1][i] + alf_3*T[j][i-1] + alf_2*T[j][i+1] + alf_4*T[j+1][i] + gam_2*t0);
 
-                if (i > 0 && i < i1 && j > 0 && j < j3)
+                if (i < i1 && j < j3)
                     TT[j][i] = t0 - bet_1*(alf_1*(T[j][i-1]+T[j][i+1]) + alf_2*(T[j-1][i]+T[j+1][i]) + gam_1*t0);
-                if (i > i2 && i < i3 && j > 0 && j < j3)
+                if (i > i2 && i < i3 && j < j3)
                     TT[j][i] = t0 - bet_1*(alf_1*(T[j][i-1]+T[j][i+1]) + alf_2*(T[j-1][i]+T[j+1][i]) + gam_1*t0);
                 if (i>=i1 && i <=i2 && j > j1 && j < j2)
                     TT[j][i] = t0 - bet_1*(alf_1*(T[j][i-1]+T[j][i+1]) + alf_2*(T[j-1][i]+T[j+1][i]) + gam_1*t0);

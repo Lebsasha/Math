@@ -49,7 +49,6 @@ void Remove (Node* Prev)
 }
 bool Read_from_t_file_list_st (ifstream& iFile, Node*& Head)
 {
-<<<<<<< HEAD
     Node* One = new Node;
     Read_from_f_txt(iFile, &One->Pal);
     Head->pNext = One;
@@ -68,26 +67,6 @@ bool Read_from_t_file_list_st (ifstream& iFile, Node*& Head)
         }
     }
     return 1;
-=======
-Node* One = new Node;
-Read_from_f_txt(iFile, &One->Pal);
-Head->pNext = One;
-Node* Prev = Head;
-while (!iFile.fail())
-{
-One = new Node;
-if (One)
-{
-Read_from_f_txt(iFile, &One->Pal);
-Add (Head, One);
-}
-else
-{
-return 0;
-}
-}
-return 1;
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 }
 Node* Goto (Node* Head, int co)
 {
@@ -119,7 +98,6 @@ void Delete (Node1* Prev)
 }
 double Calc (Node1* Head, Node1* Tail)
 {
-<<<<<<< HEAD
     double Res = 0;
     const Node1* Head1 = Head;
     while ( Head1 != Tail)
@@ -130,15 +108,3 @@ double Calc (Node1* Head, Node1* Tail)
     }
     return Res;
 }
-=======
-	double Res = 0;
-	const Node1* Head1 = Head;
-	while ( Head1 != Tail)
-	{
-		Res *= Head->Pal+Tail->Pal;
-		Head = Head->pNext;
-		Tail = Tail->pPrev;
-	}
-	return Res;
-}
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e

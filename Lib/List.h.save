@@ -8,6 +8,7 @@
 using namespace std;
 struct Student
 {
+<<<<<<< HEAD
     string Name;
     string Surname;
     string SecName;
@@ -43,6 +44,41 @@ struct Node
     {}
     Node (): pNext(nullptr), Pal()
     {}
+=======
+	string Name;
+	string Surname;
+	string SecName;
+	int Ages;
+	int Male;
+	int Kurs;
+	int Marks;
+	void View (void)
+	{
+		cout<<this->Surname;
+		cout<<endl<<this->Name;
+		cout<<endl<<this->SecName;
+		cout<<endl<<this->Ages;
+		cout<<endl<<this->Male;
+		cout<<endl<<this->Kurs;
+		cout<<endl<<this->Marks;
+		cout<<endl;
+	}
+	bool Compare (Student& Somewho)
+	{
+		if (this->Surname.compare (Somewho.Surname) >= 0)
+			return 1;
+		return 0;
+	}
+};
+struct Node
+{
+	Node* pNext;
+	Student Pal;
+	Node (const Student& Temp): pNext(NULL), Pal (Temp)
+	{}
+	Node (): pNext(NULL)
+	{}
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 };
 bool Read_from_t_file_list_st (ifstream& iFile, Node*& Head);
 void View (const Node* Head);
