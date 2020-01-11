@@ -1,7 +1,3 @@
-// *** ADDED BY HEADER FIXUP ***
-#include <ctime>
-#include <istream>
-// *** END ***
 #include <time.h>
 #include <iostream>
 #include <cstdlib>

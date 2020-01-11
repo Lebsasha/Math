@@ -20,7 +20,15 @@
 
 1569248244 ude/c++/6/math.h>
 
-1568316503 source:/home/alexander/Documents/Num_Methods/Lib/Different.cpp
+1570140400 source:/home/alexander/Documents/Num_Methods/Lib/Different.cpp
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<vector>
+	<iterator>
+	<ctime>
+	<istream>
 	<time.h>
 	<iostream>
 	<cstdlib>
@@ -28,19 +36,35 @@
 	<vector>
 	<iterator>
 
-1569589786 
+1570140300 
 
 1569501862 source:/home/alexander/Documents/Num_Methods/Lib/Math.cpp
 
 1568148038 source:/home/alexander/Documents/Num_Methods/Lib/Matrix.cpp
 
-1569574502 source:/home/alexander/Documents/Num_Methods/2_Lab/main.cpp
+1570141548 source:/home/alexander/Documents/Num_Methods/2_Lab/main.cpp
 	<iostream>
 	"../Lib/Math.h"
+	<istream>
+	<iostream>
+	"../Lib/Different.h"
+	"../Lib/Math.h"
 
-1569589496 th.h"
+1570141548 th.h"
 
-1569583772 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+1570142038 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
+	<istream>
 	<iostream>
 	<fstream>
 	<iomanip>
@@ -53,12 +77,15 @@
 	<iterator>
 	<math.h>
 
-1569585060 /home/alexander/Documents/Num_Methods/Lib/Math.h
+1570141350 /home/alexander/Documents/Num_Methods/Lib/Math.h
+	"../Lib/Matrix.h"
 	"../Lib/Matrix.h"
 
-1569590480 trix.h"
+1570194655 trix.h"
 
-1568316503 source:d:\num_methods\backup\lib\different.cpp
+1570192417 source:d:\num_methods\backup\lib\different.cpp
+	<ctime>
+	<istream>
 	<time.h>
 	<iostream>
 	<cstdlib>
@@ -70,50 +97,16 @@
 
 1568148038 source:d:\num_methods\backup\lib\matrix.cpp
 
-1569589496 source:d:\num_methods\backup\2_lab\main.cpp
-	<iostream>
-	"../Lib/Math.h"
-
-1569590480 d:\num_methods\backup\lib\math.h
-	"../Lib/Matrix.h"
-
-1569589786 d:\num_methods\backup\lib\matrix.h
-	<iostream>
-	<fstream>
-	<iomanip>
-	<string>
-	<string.h>
-	<stdlib.h>
-	<limits.h>
-	<float.h>
-	<vector>
-	<iterator>
-	<math.h>
-
-1570140400 source:/home/alexander/Documents/Num_Methods/Lib/Different.cpp
-	<ctime>
-	<istream>
-	<time.h>
-	<iostream>
-	<cstdlib>
-	<iomanip>
-	<vector>
-	<iterator>
-
-1569501862 source:/home/alexander/Documents/Num_Methods/Lib/Math.cpp
-
-1568148038 source:/home/alexander/Documents/Num_Methods/Lib/Matrix.cpp
-
-1570141548 source:/home/alexander/Documents/Num_Methods/2_Lab/main.cpp
+1570141548 source:d:\num_methods\backup\2_lab\main.cpp
 	<istream>
 	<iostream>
 	"../Lib/Different.h"
 	"../Lib/Math.h"
 
-1570625113 /home/alexander/Documents/Num_Methods/Lib/Math.h
+1570194655 d:\num_methods\backup\lib\math.h
 	"../Lib/Matrix.h"
 
-1570624774 /home/alexander/Documents/Num_Methods/Lib/Matrix.h
+1570194749 d:\num_methods\backup\lib\matrix.h
 	<istream>
 	<iostream>
 	<fstream>
@@ -129,4 +122,47 @@
 
 1570140300 /home/alexander/Documents/Num_Methods/Lib/Different.h
 	<vector>
+
+1570140300 d:\num_methods\backup\lib\different.h
+	<vector>
+
+1570192417 source:/home/alexander/Documents/Num_Methods/1/Math/Lib/Different.cpp
+	<ctime>
+	<istream>
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<vector>
+	<iterator>
+
+1569501862 source:/home/alexander/Documents/Num_Methods/1/Math/Lib/Math.cpp
+
+1568148038 source:/home/alexander/Documents/Num_Methods/1/Math/Lib/Matrix.cpp
+
+1570141548 source:/home/alexander/Documents/Num_Methods/1/Math/2_Lab/main.cpp
+	<istream>
+	<iostream>
+	"../Lib/Different.h"
+	"../Lib/Math.h"
+
+1570140300 /home/alexander/Documents/Num_Methods/1/Math/Lib/Different.h
+	<vector>
+
+1570644202 /home/alexander/Documents/Num_Methods/1/Math/Lib/Math.h
+	"../Lib/Matrix.h"
+
+1570194749 /home/alexander/Documents/Num_Methods/1/Math/Lib/Matrix.h
+	<istream>
+	<iostream>
+	<fstream>
+	<iomanip>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<vector>
+	<iterator>
+	<math.h>
 

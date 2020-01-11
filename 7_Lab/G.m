@@ -1,4 +1,3 @@
-clc
 clear all
 Precision = 'double';
 fidp = fopen ('Param.dat', 'r', 'l');

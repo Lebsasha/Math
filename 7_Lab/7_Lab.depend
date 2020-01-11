@@ -7,3 +7,28 @@
 	<fstream>
 	<iostream>
 
+1577445452 
+
+1577813858 source:/home/alexander/Projects/Num_Methods_true/7_Lab/main.cpp
+	<stdlib.h>
+	<string.h>
+	<string>
+	<math.h>
+	<fstream>
+	<iostream>
+	<algorithm>
+	"../Lib/Different.h"
+
+1573045556 /home/alexander/Projects/Num_Methods_true/Lib/Different.h
+	"stdafx.h"
+	<vector>
+
+1577811502 source:/home/alexander/Projects/Num_Methods_true/Lib/Different.cpp
+	<time.h>
+	<iostream>
+	<cstdlib>
+	<iomanip>
+	<assert.h>
+	<vector>
+	<iterator>
+

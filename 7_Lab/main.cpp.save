@@ -134,9 +134,9 @@ int main(void)
         {
             idt=0;
             Name = "";
-            for (int is = ++ndt; is >= 1; is /= 10)
+            for (int i1 = ++ndt; i1 >= 1; i1 /= 10)
             {
-                Name += '0' + is%10;
+                Name += '0' + i%10;
             }
             Name += 'T';
             reverse (Name.begin(), Name.end());
@@ -163,7 +163,7 @@ int main(void)
     }
     int n_x = NX;
     int n_y = NY;
-    int n_k = --ndt;
+    int n_k = ndt;
     ofstream fou("Param.dat",ios_base::out | ios_base::trunc | ios_base::binary);
     fou.write((const char* const)&n_x, sizeof n_x);
     fou.write((const char* const)&n_y, sizeof n_y);

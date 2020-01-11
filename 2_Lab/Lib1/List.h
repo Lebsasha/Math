@@ -3,49 +3,9 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
-#if __cplusplus < 201103L
-#define nullptr NULL
-#endif
 using namespace std;
 struct Student
 {
-<<<<<<< HEAD
-    string Name;
-    string Surname;
-    string SecName;
-    int Ages;
-    int Male;
-    int Kurs;
-    int Marks;
-    Student (void): Name(), Surname(), SecName(), Ages(0), Male(0), Kurs(0), Marks(0)
-    {}
-    void View (void)
-    {
-        cout<<this->Surname;
-        cout<<endl<<this->Name;
-        cout<<endl<<this->SecName;
-        cout<<endl<<this->Ages;
-        cout<<endl<<this->Male;
-        cout<<endl<<this->Kurs;
-        cout<<endl<<this->Marks;
-        cout<<endl;
-    }
-    bool Compare (Student& Somewho)
-    {
-        if (this->Surname.compare (Somewho.Surname) >= 0)
-            return 1;
-        return 0;
-    }
-};
-struct Node
-{
-    Node* pNext;
-    Student Pal;
-    Node (const Student& Temp): pNext(nullptr), Pal (Temp)
-    {}
-    Node (): pNext(nullptr), Pal()
-    {}
-=======
 	string Name;
 	string Surname;
 	string SecName;
@@ -79,7 +39,6 @@ struct Node
 	{}
 	Node (): pNext(NULL)
 	{}
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 };
 bool Read_from_t_file_list_st (ifstream& iFile, Node*& Head);
 void View (const Node* Head);
@@ -92,15 +51,6 @@ Node* Goto (Node* Head, int co);
 
 struct Node1
 {
-<<<<<<< HEAD
-    Node1* pNext;
-    Node1* pPrev;
-    double Pal;
-    Node1 (): pNext(nullptr), pPrev(nullptr), Pal(0)
-    {}
-    Node1 (double x): pNext(nullptr), pPrev (nullptr), Pal(x)
-    {}
-=======
 	Node1* pNext;
 	Node1* pPrev;
 	double Pal;
@@ -108,7 +58,6 @@ struct Node1
 	{}
 	Node1 (double x): Pal(x), pNext(NULL), pPrev (NULL)
 	{}
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 };
 void Add (Node1* Place, Node1* Some);
 void Delete (Node1* Prev);

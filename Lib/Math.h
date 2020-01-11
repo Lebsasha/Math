@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 #ifndef MATH_H
 #define MATH_H
 #include "../Lib/Matrix.h"
 #include "Different.h"
+=======
+#include "../Lib/Matrix.h"
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 class Matrix_SE: public Matrix<double>
 {
     bool High_accuracy;
@@ -10,6 +14,11 @@ protected:
 public:
     Matrix_SE  (): Matrix<double>(), High_accuracy(1), Type('N')
     {}
+<<<<<<< HEAD
+=======
+//    Matrix_SE (const Matrix<double>& A): Matrix<double>(A), High_accuracy(1), Type('N')
+//    {}
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     Matrix_SE (const Matrix<double>& A): Matrix<double>(A), High_accuracy(1), Type('N')
     {}
     Matrix_SE (double* pA, const int a, const int b): Matrix<double>(pA, a, b),  High_accuracy(1), Type('N')
@@ -75,6 +84,10 @@ public:
     {
         double* pb = pa + Col*(M+1);
         const double* pEnd = pa + N*M;
+<<<<<<< HEAD
+=======
+        //double* p2 = pa + Col + M;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         double El = *pb;
         int Ind_of_Max = Col;
         int Cur_Ind = Col;
@@ -89,6 +102,7 @@ public:
         }
         return Ind_of_Max;
     }
+<<<<<<< HEAD
     virtual const Matrix_SE& View (const int i = 8, const bool Show_Name = 0) const
     {
         //cout<<Type<<' ';/////////////////////////////////////////////////////
@@ -99,10 +113,36 @@ public:
     {
         ifstream ifsa (sa.c_str(), ios::binary);
         return Read_from_file(ifsa);
+=======
+    virtual const Matrix_SE& View (void) const
+    {
+        //cout<<Type<<' ';/////////////////////////////////////////////////////
+        Matrix::View();
+        return *this;
+    }
+    double& Get_El (const int i)
+    {
+        if (i < N*M)
+            return *(pa + i);
+        double* d = new double (UINT_MAX);
+        return *d;
+    }
+    double& operator[] (const int i)
+    {
+        return Get_El(i);
+    }
+    virtual bool Read_from_file (string& sa)
+    {
+        ifstream ifsa (sa.c_str(), ios::binary);
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     }
     virtual bool Read_from_file (const char* A)
     {
         ifstream ifsa (A, ios::binary);
+<<<<<<< HEAD
         return Read_from_file(ifsa);
     }
     virtual bool Read_from_file (ifstream& sa)
@@ -130,15 +170,35 @@ public:
         }
         sa.close();
         return 1;
+=======
+        bool Temp = Read_from_file(ifsa);
+        ifsa.close();
+        return Temp;
+    }
+    virtual bool Read_from_file (ifstream& sa)
+    {
+        delete pa;
+        if (sa.eof())
+            return 0;
+        sa.read(&Type, sizeof(char));
+        return Matrix::Read_from_file(sa);
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     }
     virtual void Write_to_file (string& a) const
     {
         ofstream ofsa (a.c_str(), ios::binary);
+<<<<<<< HEAD
         return Write_to_file (ofsa);
+=======
+         Write_to_file (ofsa);
+        ofsa.close();
+        return;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     }
     virtual void Write_to_file (const char* A) const
     {
         ofstream ofsa (A, ios::binary);
+<<<<<<< HEAD
         return Write_to_file (ofsa);
     }
     virtual void Write_to_file (ofstream& sa) const
@@ -157,6 +217,16 @@ public:
             sa.write(reinterpret_cast<char*>(a), Size);
         }
         sa.close();
+=======
+        Write_to_file (ofsa);
+        ofsa.close();
+        return;
+    }
+    virtual void Write_to_file (ofstream& sa) const
+    {
+        sa.write (&Type, sizeof(char));
+        return Matrix::Write_to_file(sa);;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     }
     virtual ~Matrix_SE (void)
     {}
@@ -169,7 +239,15 @@ public:
     {
         Type = 'L';
     }
+<<<<<<< HEAD
     Matrix_SLE (const Matrix<double>& A): Matrix_SE(A)
+=======
+//    Matrix_SLE (const Matrix<double>& A): Matrix_SE(A)
+//    {
+//        Type = 'L';
+//    }
+    Matrix_SLE (Matrix<double> A): Matrix_SE(A)
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         Type = 'L';
     }
@@ -177,7 +255,15 @@ public:
     {
         Type = 'L';
     }
+<<<<<<< HEAD
     Matrix_SLE (const Matrix_SE& A): Matrix_SE(A)
+=======
+//    Matrix_SLE (const Matrix_SE& A): Matrix_SE(A)
+//    {
+//        Type = 'L';
+//    }
+    Matrix_SLE (Matrix_SE A): Matrix_SE(A)
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         Type = 'L';
     }
@@ -189,6 +275,7 @@ public:
     {
         Type = 'L';
     }
+<<<<<<< HEAD
     Matrix_SLE T (void) const
     {
         Matrix_SLE B (M, N);
@@ -200,6 +287,27 @@ public:
             for (double* pa2 = pa1, *pb2 = pb1; pb2 < pbEnd; pb2+=N, ++pa2)
             {
                 *pb2 = *pa2;
+=======
+    bool If_Symmetric (void) const
+    {
+        bool a = 1;
+        return !a;
+    }
+    Matrix_SLE T (void) const
+    {
+        Matrix_SLE B;
+        if (B.Edit_row(N) && B.Edit_col(M))
+        {
+            double* pb = B.pa;
+            double* pbEnd = pb + N*M;
+            double* paEnd = pa + N*M;
+            for (double* pa1 = pa, *pb1 = pb; pa1 < paEnd; pa1+=M, ++pb1)
+            {
+                for (double* pa2 = pa1, *pb2 = pb1; pb2 < pbEnd; pb2+=N, ++pa2)
+                {
+                    *pb2 = *pa2;
+                }
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
             }
         }
         return B;
@@ -216,17 +324,28 @@ public:
         for (int i = 0; i < N - 1; i++)
         {
             k = S.Find_Max_El_in_Col(i);
+<<<<<<< HEAD
             if (fabs(S[k*M+k]) < 10*DBL_EPSILON)
             {
                 cout<<"Ne sovmestnaya systema"<<endl;
                 assert (fabs(S[k*M+k]) < 10*DBL_EPSILON);
+=======
+            if (fabs(S.Get_El(k*M+k)) < 10*DBL_EPSILON)
+            {
+                Matrix<double> A;
+                return Matrix<double> ();
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
             }
             if (i != k)
             {
                 S.Replace_Rows(i, k);
                 C.Replace_Rows(i, k);
             }
+<<<<<<< HEAD
             T = S[i*M+i];
+=======
+            T = S.Get_El(i*M+i);
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
             S.Multi_Row_by_Num(i, 1/T);
             C.Multi_Row_by_Num(i, 1/T);
             for (k = i + 1; k < N; ++k)
@@ -237,11 +356,21 @@ public:
             }
         }
         Matrix<double> ps (N, 1);
+<<<<<<< HEAD
         const double* pMatrix = S.Get_pa() + S.Get_N()*S.Get_M() - 1;
         const double* pC = C.Get_pa() + C.Get_N()*1 - 1;
         double* const pBeg = ps.Get_pa() + ps.Get_N()*1 - 1; //const_?
         double* const pEnd = ps.Get_pa();
         k = N - 1;
+=======
+        //double* pEnd = ps + N;
+        //for (double* pi = 0; pi < pEnd; )
+        const double* pMatrix = S.Get_pa() + S.Get_N()*S.Get_M() - 1;
+        const double* pC = C.Get_pa() + C.Get_N()*1 - 1;
+        double* pBeg = ps.Get_pa() + ps.Get_N()*1 - 1; //const_?
+        double* pEnd = ps.Get_pa();
+        k = N - 1; //////////////////////////////////////////////////
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         k = M;
         for (double* pt = pBeg; pt >= pEnd; --pt, pMatrix -= (k--))
         {
@@ -250,6 +379,7 @@ public:
                 *pt = *pt - *pMatrix*(*pc);
             *pt = *pt/(*pMatrix);
         }
+<<<<<<< HEAD
         return ps;
     }
     Matrix<double> LDLT (const Matrix<double>& b) const
@@ -336,6 +466,14 @@ public:
         }
 //        Y.View();
         return Y;
+=======
+        //Matrix<double> D (ps.Get_pa(), N, 1);
+        return ps;
+    }
+    Matrix<double> LDLT (Matrix<double> b) const
+    {
+        return Matrix<double> ();
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     }
     vector<double> Solve_by_Gauss_Method_v (vector<double>& C)
     {
@@ -344,14 +482,22 @@ public:
         for (int i = 0; i < N - 1; i++)
         {
             k = this->Find_Max_El_in_Col(i);
+<<<<<<< HEAD
             if (operator[](k*M+k) < 10*DBL_EPSILON)
+=======
+            if (Get_El(k*M+k) < 10*DBL_EPSILON)
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
                 return vector<double> (1);
             if (i != k)
             {
                 this->Replace_Rows(i, k);
                 swap (C[k], C[i]);
             }
+<<<<<<< HEAD
             T = operator[](i*M+i);
+=======
+            T = Get_El(i*M+i);
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
             this->Multi_Row_by_Num(i, 1/T);
             C[i] = C[i]/T;
             for (k = i + 1; k < N; ++k)
@@ -362,11 +508,20 @@ public:
             }
         }
         vector<double> ps (N);
+<<<<<<< HEAD
+=======
+        //double* pEnd = ps + N;
+        //for (double* pi = 0; pi < pEnd; )
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         double* pMatrix = pa + N*M - 1;
         vector<double>::reverse_iterator ivA = C.rbegin();
         vector<double>::reverse_iterator ivBeg = ps.rbegin(); //const_?
         vector<double>::const_reverse_iterator ivEnd = ps.rend();
+<<<<<<< HEAD
         assert (k == N - 1); //////////////////////////////////////////////////
+=======
+        k = N - 1; //////////////////////////////////////////////////
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         k = M;
         for (vector<double>::reverse_iterator pt = ivBeg; pt < ivEnd; ++pt, pMatrix -= (k--))
         {
@@ -377,9 +532,15 @@ public:
         }
         return ps;
     }
+<<<<<<< HEAD
     virtual const Matrix_SLE& View (const int i = 8, const bool Show_Name = 0) const
     {
         Matrix_SE::View(i, Show_Name);
+=======
+    virtual const Matrix_SLE& View (void)
+    {
+        Matrix_SE::View();
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         return *this;
     }
     virtual ~Matrix_SLE(void)
@@ -415,6 +576,7 @@ public:
     {
         return Fn(x);
     }
+<<<<<<< HEAD
 #include "limits.h"
 #include "math.h"
     double Integral_by_user_def (double (*AntiDer) (double, double), const double from, const double to) const;
@@ -507,6 +669,10 @@ public:
         }
         return R;
     }
+=======
+    double Integral_by_user_def (double (*AntiDer) (double, double), const double from, const double to) const;
+    double Integral_by_definition (const double from, const double to) const;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     friend ostream& operator<< (ostream& a, Function Fn);
     ~Function (void)
     {
@@ -572,6 +738,13 @@ public:
         }
         return m;
     }
+<<<<<<< HEAD
+=======
+//    ~Matrix_SNE (void)
+//    {
+//        delete[] pa;
+//    }
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 };
 class Function2
 {
@@ -589,21 +762,34 @@ public:
     {
         return NullF2;
     }
+<<<<<<< HEAD
 //    double Derivative_by_user_def (double (*Der) (const Matrix<double>&), const Matrix<double> x)
 //    {
 //        return Der(x);
 //    }
     Matrix<double> Derivative_by_definition_M_in_column (const Matrix<double>& X) const
+=======
+//    double Derivative_by_user_def (double (*Der) (double, double), double x,)
+//    {
+//        return Der(x);
+//    }
+    Matrix_SLE Derivative_by_definition_M_in_column (const Matrix<double>& X) const
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         int Num_of_variables = X.Get_Size();
         Matrix<double> A (Num_of_variables, 1);
         double* pa = A.Get_pa();
+<<<<<<< HEAD
         const double M = 0.01; //0.05   0.1////////////////////////////////////////////////////////////////////////
+=======
+        const double M = 0.01; //0.05   0.1/////////////////////////////////////////////////////////////////////////////
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         double F = Fn(X);
         Matrix<double> DX(X);
         double* pEnd = DX.Get_pa() + DX.Get_Size();
         for (double* pDX = DX.Get_pa(), *pX = X.Get_pa(); pDX < pEnd; ++pDX, ++pX, ++pa)
         {
+<<<<<<< HEAD
             if( *pDX < 10*DBL_EPSILON)
             {
                 *pDX += 1e-6;
@@ -622,12 +808,21 @@ public:
 //            {
 //
 //            }
+=======
+            *pDX += M*(*pDX);
+            *pa = (Fn(DX) - F)/(M*(*pX));
+            *pDX = *pX;
+        }
+        //*pa-- = (Fn(x + M*x, y) - Fn(x, y))/M*;
+        //*pa = (Fn(x, y + M*y) - Fn(x, y))/Epsy;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         return A;
     }
     double f(const Matrix<double>& X) const
     {
         return Fn(X);
     }
+<<<<<<< HEAD
     double Integral_by_user_def (double (*AntiDer) (const Matrix<double>&), const Matrix<double>& From, const Matrix<double>& To) const;
     double Integral_by_definition (const Matrix<double>& From, const Matrix<double>& To) const //By Sympthon method, only for 2 variables
     {
@@ -681,6 +876,10 @@ public:
         }
         return Integral*=xh*yh/9;
     }
+=======
+    double Integral_by_user_def (double (*AntiDer) (const Matrix<double>&), const double from_x, const double from_y, const double to_x, const double to_y) const;
+    double Integral_by_definition (const double from_x, const double from_y, const double to_x, const double to_y) const;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     ~Function2 (void)
     {
         Fn = NullF2;
@@ -695,6 +894,16 @@ public:
     {}
     Array_of_Functions2 (const int S): N(S), Fn (new Function2[N])
     {}
+<<<<<<< HEAD
+=======
+//    Array_of_Functions2 (Array_of_Functions2& Ar): N(Ar.N), Fn (new Function2[N])
+//    {
+//        for (Function2* pFn = Fn + N - 1, *pFa = Ar.Fn +  Ar.N - 1; pFn >= Fn; --pFn, --pFa)
+//        {
+//            *pFn = *pFa;
+//        }
+//    }
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     Array_of_Functions2 (const Array_of_Functions2& Ar): N(Ar.N), Fn (new Function2[N])
     {
         for (Function2* pFn = Fn + N - 1, *pFa = Ar.Fn +  Ar.N - 1; pFn >= Fn; --pFn, --pFa)
@@ -732,6 +941,7 @@ public:
         }
         return *this;
     }
+<<<<<<< HEAD
     inline int Get_N (void) const
     {
         return N;
@@ -741,15 +951,40 @@ public:
         return Fn;
     }
     inline Function2* Get_Pointer (void) const
+=======
+    int Get_N (void) const
+    {
+        return N;
+    }
+    Function2* Get_Fn (void) const
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         return Fn;
     }
     Function2& operator[] (const int S) const
     {
+<<<<<<< HEAD
         assert (S > -1 && S < N);
         return *(Fn + S);
     }
     Matrix<double> f (const Matrix<double>& X) const //return matrix in ONE column
+=======
+        try
+        {
+            if (S > -1 && S < N)
+            {
+                return *(Fn + S);
+            }
+            throw 1;
+        }
+        catch (int i)
+        {
+            cout<<"Warning, Function2 haven't"<<S<<"element";
+            return *Fn;
+        }
+    }
+    Matrix<double> f (const Matrix<double>& X) const
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         Matrix<double> A (N, 1);
         double* pa = A.Get_pa() + N - 1;
@@ -759,13 +994,21 @@ public:
         }
         return A;
     }
+<<<<<<< HEAD
     Matrix<double> Derivative (const Matrix<double>& X) const //return matrix in Num_of_variables column and N rows
+=======
+    Matrix<double> Derivative (const Matrix<double>& X) const
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     {
         const int Num_of_variables = X.Get_Size();
         Matrix<double> A (N, Num_of_variables);
         double* pa = A.Get_pa() + A.Get_Size() - 1;
         Matrix<double> Temp (Num_of_variables, 1);
+<<<<<<< HEAD
         double* pTemp = nullptr;
+=======
+        double* pTemp = 0;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         for (Function2* pFn = Fn + N - 1; pFn >= Fn; --pFn)
         {
             Temp = pFn->Derivative_by_definition_M_in_column(X);
@@ -777,6 +1020,7 @@ public:
         }
         return A;
     }
+<<<<<<< HEAD
     Matrix<double> Integral (const Matrix<double> From, const Matrix<double> To) const //return matrix in ONE column
     {
         assert (From.Get_Size() == To.Get_Size() && (From.Get_M() == To.Get_M() || From.Get_N() == To.Get_N()));
@@ -788,6 +1032,9 @@ public:
         }
         return A;
     }
+=======
+    Matrix<double> Integral (const double from_x, const double from_y, const double to_x, const double to_y) const;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     double Max (const Matrix<double>& X) const
     {
         double m = 0;
@@ -804,25 +1051,38 @@ public:
         delete[] Fn;
     }
 };
+<<<<<<< HEAD
 namespace Solve_Nonlinear_Equations
 {
+=======
+
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
 {
     double Delta2 = 0;
     double Temp = 0;
     for (double* x = X_i.Get_pa() + X_i.Get_Size() - 1, *dx = Delta.Get_pa() + Delta.Get_Size() - 1; x >= X_i.Get_pa(); --x, --dx)
     {
+<<<<<<< HEAD
         if (*x + *dx < 1 && *dx > Delta2)
         {
             Delta2 = *dx;
         }
         else if ((Temp = *dx/(*x+*dx)) > Delta2)
+=======
+        if (fabs(*x + *dx) < 1 && fabs(*dx) > Delta2)
+        {
+            Delta2 = *dx;
+        }
+        else if ((Temp = fabs(*dx/(*x+*dx))) > Delta2)
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         {
             Delta2 = Temp;
         }
     }
     return Delta2;
 }
+<<<<<<< HEAD
 Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, const Matrix<double>& xy, const double& Eps1, const double& Eps2)
 {
     assert (Func.Get_Pointer() != nullptr);
@@ -859,20 +1119,33 @@ Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, co
 Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Matrix<double>& xy, const double Eps1, const double Eps2, const Array_of_Functions2& Der_of_Arr)
 {
     // by Newton method
+=======
+Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functions2& Der_of_Arr, const Matrix<double>& xy, const double Eps1, const double Eps2)
+{
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     const int Num_it = 10000;
     int i = 0;
     Matrix<double> ixy (xy);
     Matrix<double> Delta(xy.Get_N(), xy.Get_M());
     Matrix<double> High_Precision_ixy (xy);
     Matrix<double> High_Precision_Delta(xy.Get_N(), xy.Get_M());
+<<<<<<< HEAD
     Matrix_SLE High_Precision_Derivative (xy.Get_N(), xy.Get_N()); //It is not a mistake!
     Matrix_SLE Derivative;
+=======
+    Matrix_SLE Derivative;
+    Matrix_SLE High_Precision_Derivative (xy.Get_N(), xy.Get_N()); //It is not a mistake!
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
     Matrix<double> Sol;
     double Delta1 = 0;
     double Delta2 = 0;
     do
     {
+<<<<<<< HEAD
         cout<<setw(10)<<Delta1<<setw(10)<<Delta2<<setw(6)<<++i<<endl;
+=======
+        cout<<setw(11)<<Delta1<<setw(11)<<Delta2<<setw(6)<<++i<<endl;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 //        cout<<"ixy"<<endl;
 //        ixy.View();
 //        cout<<"Delta"<<endl;
@@ -884,9 +1157,15 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Matrix<double>&
 //        cout<<"Derivative"<<endl;
         Derivative = Func.Derivative(ixy);
         Delta = Derivative.Solve(Sol);
+<<<<<<< HEAD
 //        cout<<"High_Precision_ixy"<<endl;
 //        High_Precision_ixy.View();
 //        cout<<"High_Precision_Delta"<<endl;
+=======
+//        cout<<"HP_ixy"<<endl;
+//        High_Precision_ixy.View();
+//        cout<<"HP_Delta"<<endl;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
 //        High_Precision_Delta.View();
         High_Precision_ixy = High_Precision_ixy + High_Precision_Delta;
         Function2* pF = Der_of_Arr.Get_Fn() + Der_of_Arr.Get_N() - 1;
@@ -896,7 +1175,11 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Matrix<double>&
         }                         //.Multiple_Matrix_by_Number(-1).View();
         cout<<"With user defined derivative F."<<endl;
         Sol = Func.f(High_Precision_ixy).View();
+<<<<<<< HEAD
 //        cout<<"High_Precision_Derivative"<<endl;
+=======
+//        cout<<"HP_Derivative"<<endl;
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
         High_Precision_Delta = High_Precision_Derivative.Solve(Sol);
         if (fabs(Delta1) > fabs(Sol[0]))
         {
@@ -907,6 +1190,7 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Matrix<double>&
     while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i <= Num_it);
     return ixy;
 }
+<<<<<<< HEAD
 }
 
 
@@ -1213,3 +1497,5 @@ Matrix<double> Find_Polinom (const Matrix<double> X, const Matrix<double> Y)
 }
 }
 #endif // MATH_H
+=======
+>>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e
