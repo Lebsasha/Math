@@ -1,4 +1,5 @@
 #include <iostream>
+#include <boost/test/unit_test.hpp>
 #define NDEBUG 1
 #include "../Lib/Math.h"
 using namespace std;
@@ -30,7 +31,16 @@ inline double Diff_u2_sp (const Matrix<double>& X)
     double x = *(X.Get_pointer()+4);
     return X.Unsafe_index_c(1) - X.Unsafe_index_c(3) - (-Pow(X.Unsafe_index_c(1), 2) + (2.5+35/40)*x/(1+x*x))*X.Unsafe_index_c(5);
 }
-int main()
+int main_for_Lab_3();
+
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_3___)
+BOOST_AUTO_TEST_CASE(Case_for_lab_3)
+        {
+                BOOST_CHECK(main_for_Lab_3()==0);
+        }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_3 ()
 {
     Array_of_Functions2 A (2);
     A[0] = Diff_u1;

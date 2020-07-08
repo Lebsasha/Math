@@ -123,411 +123,6 @@ Num_methods/fast:
 	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/build
 .PHONY : Num_methods/fast
 
-1_Lab/main.o: 1_Lab/main.cpp.o
-
-.PHONY : 1_Lab/main.o
-
-# target to build an object file
-1_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o
-.PHONY : 1_Lab/main.cpp.o
-
-1_Lab/main.i: 1_Lab/main.cpp.i
-
-.PHONY : 1_Lab/main.i
-
-# target to preprocess a source file
-1_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/1_Lab/main.cpp.i
-.PHONY : 1_Lab/main.cpp.i
-
-1_Lab/main.s: 1_Lab/main.cpp.s
-
-.PHONY : 1_Lab/main.s
-
-# target to generate assembly for a file
-1_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/1_Lab/main.cpp.s
-.PHONY : 1_Lab/main.cpp.s
-
-2_Lab/Lib1/Different.o: 2_Lab/Lib1/Different.cpp.o
-
-.PHONY : 2_Lab/Lib1/Different.o
-
-# target to build an object file
-2_Lab/Lib1/Different.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o
-.PHONY : 2_Lab/Lib1/Different.cpp.o
-
-2_Lab/Lib1/Different.i: 2_Lab/Lib1/Different.cpp.i
-
-.PHONY : 2_Lab/Lib1/Different.i
-
-# target to preprocess a source file
-2_Lab/Lib1/Different.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.i
-.PHONY : 2_Lab/Lib1/Different.cpp.i
-
-2_Lab/Lib1/Different.s: 2_Lab/Lib1/Different.cpp.s
-
-.PHONY : 2_Lab/Lib1/Different.s
-
-# target to generate assembly for a file
-2_Lab/Lib1/Different.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.s
-.PHONY : 2_Lab/Lib1/Different.cpp.s
-
-2_Lab/Lib1/List.o: 2_Lab/Lib1/List.cpp.o
-
-.PHONY : 2_Lab/Lib1/List.o
-
-# target to build an object file
-2_Lab/Lib1/List.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o
-.PHONY : 2_Lab/Lib1/List.cpp.o
-
-2_Lab/Lib1/List.i: 2_Lab/Lib1/List.cpp.i
-
-.PHONY : 2_Lab/Lib1/List.i
-
-# target to preprocess a source file
-2_Lab/Lib1/List.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.i
-.PHONY : 2_Lab/Lib1/List.cpp.i
-
-2_Lab/Lib1/List.s: 2_Lab/Lib1/List.cpp.s
-
-.PHONY : 2_Lab/Lib1/List.s
-
-# target to generate assembly for a file
-2_Lab/Lib1/List.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.s
-.PHONY : 2_Lab/Lib1/List.cpp.s
-
-2_Lab/Lib1/Matrix.o: 2_Lab/Lib1/Matrix.cpp.o
-
-.PHONY : 2_Lab/Lib1/Matrix.o
-
-# target to build an object file
-2_Lab/Lib1/Matrix.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o
-.PHONY : 2_Lab/Lib1/Matrix.cpp.o
-
-2_Lab/Lib1/Matrix.i: 2_Lab/Lib1/Matrix.cpp.i
-
-.PHONY : 2_Lab/Lib1/Matrix.i
-
-# target to preprocess a source file
-2_Lab/Lib1/Matrix.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.i
-.PHONY : 2_Lab/Lib1/Matrix.cpp.i
-
-2_Lab/Lib1/Matrix.s: 2_Lab/Lib1/Matrix.cpp.s
-
-.PHONY : 2_Lab/Lib1/Matrix.s
-
-# target to generate assembly for a file
-2_Lab/Lib1/Matrix.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.s
-.PHONY : 2_Lab/Lib1/Matrix.cpp.s
-
-2_Lab/Lib1/Vector.o: 2_Lab/Lib1/Vector.cpp.o
-
-.PHONY : 2_Lab/Lib1/Vector.o
-
-# target to build an object file
-2_Lab/Lib1/Vector.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o
-.PHONY : 2_Lab/Lib1/Vector.cpp.o
-
-2_Lab/Lib1/Vector.i: 2_Lab/Lib1/Vector.cpp.i
-
-.PHONY : 2_Lab/Lib1/Vector.i
-
-# target to preprocess a source file
-2_Lab/Lib1/Vector.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.i
-.PHONY : 2_Lab/Lib1/Vector.cpp.i
-
-2_Lab/Lib1/Vector.s: 2_Lab/Lib1/Vector.cpp.s
-
-.PHONY : 2_Lab/Lib1/Vector.s
-
-# target to generate assembly for a file
-2_Lab/Lib1/Vector.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.s
-.PHONY : 2_Lab/Lib1/Vector.cpp.s
-
-2_Lab/main.o: 2_Lab/main.cpp.o
-
-.PHONY : 2_Lab/main.o
-
-# target to build an object file
-2_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o
-.PHONY : 2_Lab/main.cpp.o
-
-2_Lab/main.i: 2_Lab/main.cpp.i
-
-.PHONY : 2_Lab/main.i
-
-# target to preprocess a source file
-2_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/main.cpp.i
-.PHONY : 2_Lab/main.cpp.i
-
-2_Lab/main.s: 2_Lab/main.cpp.s
-
-.PHONY : 2_Lab/main.s
-
-# target to generate assembly for a file
-2_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/2_Lab/main.cpp.s
-.PHONY : 2_Lab/main.cpp.s
-
-3_Lab/main.o: 3_Lab/main.cpp.o
-
-.PHONY : 3_Lab/main.o
-
-# target to build an object file
-3_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o
-.PHONY : 3_Lab/main.cpp.o
-
-3_Lab/main.i: 3_Lab/main.cpp.i
-
-.PHONY : 3_Lab/main.i
-
-# target to preprocess a source file
-3_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/3_Lab/main.cpp.i
-.PHONY : 3_Lab/main.cpp.i
-
-3_Lab/main.s: 3_Lab/main.cpp.s
-
-.PHONY : 3_Lab/main.s
-
-# target to generate assembly for a file
-3_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/3_Lab/main.cpp.s
-.PHONY : 3_Lab/main.cpp.s
-
-4_Lab/main.o: 4_Lab/main.cpp.o
-
-.PHONY : 4_Lab/main.o
-
-# target to build an object file
-4_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o
-.PHONY : 4_Lab/main.cpp.o
-
-4_Lab/main.i: 4_Lab/main.cpp.i
-
-.PHONY : 4_Lab/main.i
-
-# target to preprocess a source file
-4_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/4_Lab/main.cpp.i
-.PHONY : 4_Lab/main.cpp.i
-
-4_Lab/main.s: 4_Lab/main.cpp.s
-
-.PHONY : 4_Lab/main.s
-
-# target to generate assembly for a file
-4_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/4_Lab/main.cpp.s
-.PHONY : 4_Lab/main.cpp.s
-
-5_Lab/main.o: 5_Lab/main.cpp.o
-
-.PHONY : 5_Lab/main.o
-
-# target to build an object file
-5_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o
-.PHONY : 5_Lab/main.cpp.o
-
-5_Lab/main.i: 5_Lab/main.cpp.i
-
-.PHONY : 5_Lab/main.i
-
-# target to preprocess a source file
-5_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/5_Lab/main.cpp.i
-.PHONY : 5_Lab/main.cpp.i
-
-5_Lab/main.s: 5_Lab/main.cpp.s
-
-.PHONY : 5_Lab/main.s
-
-# target to generate assembly for a file
-5_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/5_Lab/main.cpp.s
-.PHONY : 5_Lab/main.cpp.s
-
-6_Lab/main.o: 6_Lab/main.cpp.o
-
-.PHONY : 6_Lab/main.o
-
-# target to build an object file
-6_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o
-.PHONY : 6_Lab/main.cpp.o
-
-6_Lab/main.i: 6_Lab/main.cpp.i
-
-.PHONY : 6_Lab/main.i
-
-# target to preprocess a source file
-6_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/6_Lab/main.cpp.i
-.PHONY : 6_Lab/main.cpp.i
-
-6_Lab/main.s: 6_Lab/main.cpp.s
-
-.PHONY : 6_Lab/main.s
-
-# target to generate assembly for a file
-6_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/6_Lab/main.cpp.s
-.PHONY : 6_Lab/main.cpp.s
-
-6_Lab_default/main.o: 6_Lab_default/main.cpp.o
-
-.PHONY : 6_Lab_default/main.o
-
-# target to build an object file
-6_Lab_default/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o
-.PHONY : 6_Lab_default/main.cpp.o
-
-6_Lab_default/main.i: 6_Lab_default/main.cpp.i
-
-.PHONY : 6_Lab_default/main.i
-
-# target to preprocess a source file
-6_Lab_default/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.i
-.PHONY : 6_Lab_default/main.cpp.i
-
-6_Lab_default/main.s: 6_Lab_default/main.cpp.s
-
-.PHONY : 6_Lab_default/main.s
-
-# target to generate assembly for a file
-6_Lab_default/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.s
-.PHONY : 6_Lab_default/main.cpp.s
-
-7_Lab/main.o: 7_Lab/main.cpp.o
-
-.PHONY : 7_Lab/main.o
-
-# target to build an object file
-7_Lab/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o
-.PHONY : 7_Lab/main.cpp.o
-
-7_Lab/main.i: 7_Lab/main.cpp.i
-
-.PHONY : 7_Lab/main.i
-
-# target to preprocess a source file
-7_Lab/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab/main.cpp.i
-.PHONY : 7_Lab/main.cpp.i
-
-7_Lab/main.s: 7_Lab/main.cpp.s
-
-.PHONY : 7_Lab/main.s
-
-# target to generate assembly for a file
-7_Lab/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab/main.cpp.s
-.PHONY : 7_Lab/main.cpp.s
-
-7_Lab/main_default.o: 7_Lab/main_default.cpp.o
-
-.PHONY : 7_Lab/main_default.o
-
-# target to build an object file
-7_Lab/main_default.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o
-.PHONY : 7_Lab/main_default.cpp.o
-
-7_Lab/main_default.i: 7_Lab/main_default.cpp.i
-
-.PHONY : 7_Lab/main_default.i
-
-# target to preprocess a source file
-7_Lab/main_default.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.i
-.PHONY : 7_Lab/main_default.cpp.i
-
-7_Lab/main_default.s: 7_Lab/main_default.cpp.s
-
-.PHONY : 7_Lab/main_default.s
-
-# target to generate assembly for a file
-7_Lab/main_default.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.s
-.PHONY : 7_Lab/main_default.cpp.s
-
-7_Lab_default/main.o: 7_Lab_default/main.cpp.o
-
-.PHONY : 7_Lab_default/main.o
-
-# target to build an object file
-7_Lab_default/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o
-.PHONY : 7_Lab_default/main.cpp.o
-
-7_Lab_default/main.i: 7_Lab_default/main.cpp.i
-
-.PHONY : 7_Lab_default/main.i
-
-# target to preprocess a source file
-7_Lab_default/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.i
-.PHONY : 7_Lab_default/main.cpp.i
-
-7_Lab_default/main.s: 7_Lab_default/main.cpp.s
-
-.PHONY : 7_Lab_default/main.s
-
-# target to generate assembly for a file
-7_Lab_default/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.s
-.PHONY : 7_Lab_default/main.cpp.s
-
-Lab_6-7/7_Lab_default/main.o: Lab_6-7/7_Lab_default/main.cpp.o
-
-.PHONY : Lab_6-7/7_Lab_default/main.o
-
-# target to build an object file
-Lab_6-7/7_Lab_default/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o
-.PHONY : Lab_6-7/7_Lab_default/main.cpp.o
-
-Lab_6-7/7_Lab_default/main.i: Lab_6-7/7_Lab_default/main.cpp.i
-
-.PHONY : Lab_6-7/7_Lab_default/main.i
-
-# target to preprocess a source file
-Lab_6-7/7_Lab_default/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.i
-.PHONY : Lab_6-7/7_Lab_default/main.cpp.i
-
-Lab_6-7/7_Lab_default/main.s: Lab_6-7/7_Lab_default/main.cpp.s
-
-.PHONY : Lab_6-7/7_Lab_default/main.s
-
-# target to generate assembly for a file
-Lab_6-7/7_Lab_default/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.s
-.PHONY : Lab_6-7/7_Lab_default/main.cpp.s
-
 Lib/Different.o: Lib/Different.cpp.o
 
 .PHONY : Lib/Different.o
@@ -663,6 +258,33 @@ Lib/Vector.cpp.s:
 	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Lib/Vector.cpp.s
 .PHONY : Lib/Vector.cpp.s
 
+Run_tests.o: Run_tests.cpp.o
+
+.PHONY : Run_tests.o
+
+# target to build an object file
+Run_tests.cpp.o:
+	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Run_tests.cpp.o
+.PHONY : Run_tests.cpp.o
+
+Run_tests.i: Run_tests.cpp.i
+
+.PHONY : Run_tests.i
+
+# target to preprocess a source file
+Run_tests.cpp.i:
+	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Run_tests.cpp.i
+.PHONY : Run_tests.cpp.i
+
+Run_tests.s: Run_tests.cpp.s
+
+.PHONY : Run_tests.s
+
+# target to generate assembly for a file
+Run_tests.cpp.s:
+	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/Run_tests.cpp.s
+.PHONY : Run_tests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -672,51 +294,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Num_methods"
-	@echo "... 1_Lab/main.o"
-	@echo "... 1_Lab/main.i"
-	@echo "... 1_Lab/main.s"
-	@echo "... 2_Lab/Lib1/Different.o"
-	@echo "... 2_Lab/Lib1/Different.i"
-	@echo "... 2_Lab/Lib1/Different.s"
-	@echo "... 2_Lab/Lib1/List.o"
-	@echo "... 2_Lab/Lib1/List.i"
-	@echo "... 2_Lab/Lib1/List.s"
-	@echo "... 2_Lab/Lib1/Matrix.o"
-	@echo "... 2_Lab/Lib1/Matrix.i"
-	@echo "... 2_Lab/Lib1/Matrix.s"
-	@echo "... 2_Lab/Lib1/Vector.o"
-	@echo "... 2_Lab/Lib1/Vector.i"
-	@echo "... 2_Lab/Lib1/Vector.s"
-	@echo "... 2_Lab/main.o"
-	@echo "... 2_Lab/main.i"
-	@echo "... 2_Lab/main.s"
-	@echo "... 3_Lab/main.o"
-	@echo "... 3_Lab/main.i"
-	@echo "... 3_Lab/main.s"
-	@echo "... 4_Lab/main.o"
-	@echo "... 4_Lab/main.i"
-	@echo "... 4_Lab/main.s"
-	@echo "... 5_Lab/main.o"
-	@echo "... 5_Lab/main.i"
-	@echo "... 5_Lab/main.s"
-	@echo "... 6_Lab/main.o"
-	@echo "... 6_Lab/main.i"
-	@echo "... 6_Lab/main.s"
-	@echo "... 6_Lab_default/main.o"
-	@echo "... 6_Lab_default/main.i"
-	@echo "... 6_Lab_default/main.s"
-	@echo "... 7_Lab/main.o"
-	@echo "... 7_Lab/main.i"
-	@echo "... 7_Lab/main.s"
-	@echo "... 7_Lab/main_default.o"
-	@echo "... 7_Lab/main_default.i"
-	@echo "... 7_Lab/main_default.s"
-	@echo "... 7_Lab_default/main.o"
-	@echo "... 7_Lab_default/main.i"
-	@echo "... 7_Lab_default/main.s"
-	@echo "... Lab_6-7/7_Lab_default/main.o"
-	@echo "... Lab_6-7/7_Lab_default/main.i"
-	@echo "... Lab_6-7/7_Lab_default/main.s"
 	@echo "... Lib/Different.o"
 	@echo "... Lib/Different.i"
 	@echo "... Lib/Different.s"
@@ -732,6 +309,9 @@ help:
 	@echo "... Lib/Vector.o"
 	@echo "... Lib/Vector.i"
 	@echo "... Lib/Vector.s"
+	@echo "... Run_tests.o"
+	@echo "... Run_tests.i"
+	@echo "... Run_tests.s"
 .PHONY : help
 
 

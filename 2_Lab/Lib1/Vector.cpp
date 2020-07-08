@@ -1,7 +1,9 @@
-#include "stdafx.h"
 //#include "Vector.h"
 #include <iostream>
 using namespace std;
+/**
+ * @brief Something strange file
+ */
 /*Vector (const Physics** pA, const int N)
 {
 Physics** pa = pA + N -1;

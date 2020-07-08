@@ -2,6 +2,19 @@
 #define MATH_H
 #include "../Lib/Matrix.h"
 #include "Different.h"
+
+double Norm (Matrix<double> A)
+{
+    double* pEnd = A.Get_pointer() + A.Get_N()*A.Get_M();
+    double a = *A.Get_pointer();
+    for (double* pb = A.Get_pointer() + 1; pb < pEnd; ++pb)
+    {
+        if (fabs(*pb) > fabs(a))
+            a = *pb;
+    }
+    return a;
+}
+
 class Matrix_SE: public Matrix<double>
 {
     bool High_accuracy;
@@ -865,7 +878,7 @@ Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, co
     while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i <= Num_it);
     return ixy;
 }
-Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Matrix<double>& xy, const double Eps1, const double Eps2, const Array_of_Functions2& Der_of_Arr)
+Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functions2& Der_of_Arr, const Matrix<double>& xy, const double Eps1, const double Eps2)
 {
     // by Newton method
     const int Num_it = 10000;

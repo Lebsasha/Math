@@ -44,7 +44,6 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/alexander/Projects/Num_methods/2_Lab/Lib1"/>
 					<Add directory="/home/alexander/Projects/Num_methods/3_Lab"/>
 					<Add directory="/home/alexander/Projects/Num_methods/Lib"/>
 					<Add directory="/usr/include/c++/8"/>
@@ -70,7 +69,6 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/alexander/Projects/Num_methods/2_Lab/Lib1"/>
 					<Add directory="/home/alexander/Projects/Num_methods/3_Lab"/>
 					<Add directory="/home/alexander/Projects/Num_methods/Lib"/>
 					<Add directory="/usr/include/c++/8"/>
@@ -90,69 +88,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/alexander/Projects/Num_methods/1_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.h">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.h">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.h">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Tree.h">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.h">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/3_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/3_Lab/version.h">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/4_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/5_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/6_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/6_Lab_default/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/7_Lab/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/7_Lab/main_default.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/7_Lab_default/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/Lab_6-7/7_Lab_default/main.cpp">
-			<Option target="Num_methods"/>
-		</Unit>
 		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Different.cpp">
 			<Option target="Num_methods"/>
 		</Unit>
@@ -177,13 +112,13 @@
 		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Matrix.h">
 			<Option target="Num_methods"/>
 		</Unit>
-		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Tree.h">
-			<Option target="Num_methods"/>
-		</Unit>
 		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Vector.cpp">
 			<Option target="Num_methods"/>
 		</Unit>
 		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Vector.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Run_tests.cpp">
 			<Option target="Num_methods"/>
 		</Unit>
 		<Unit filename="/home/alexander/Projects/Num_methods/CMakeLists.txt">

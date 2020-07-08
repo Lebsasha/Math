@@ -74,12 +74,12 @@ clean: CMakeFiles/Num_methods.dir/clean
 CMakeFiles/Num_methods.dir/all:
 	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/depend
 	$(MAKE) -f CMakeFiles/Num_methods.dir/build.make CMakeFiles/Num_methods.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 "Built target Num_methods"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target Num_methods"
 .PHONY : CMakeFiles/Num_methods.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Num_methods.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles 21
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Num_methods.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Num_methods.dir/rule

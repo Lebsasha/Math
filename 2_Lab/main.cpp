@@ -2,6 +2,7 @@
 #include <istream>
 // *** END ***
 #include <iostream>
+#include <boost/test/unit_test.hpp>
 //#include "/media/alexander/loadtool/Num_Methods/Lib/Matrix.h"
 #include "../Lib/Different.h"
 #include "../Lib/Math.h"
@@ -139,7 +140,17 @@ double Func6 (const Matrix<double>& A)
     }
 }
 #define next_linee cout<<endl;
-int main(void)
+
+int main_for_Lab_2();
+
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_2)
+BOOST_AUTO_TEST_CASE(Case_for_lab_2)
+        {
+                BOOST_CHECK(main_for_Lab_2()==0);
+        }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_2 ()
 {
     const double Eps1 = 1E-9;
     const double Eps2 = 1E-9;
@@ -154,14 +165,14 @@ int main(void)
     Matrix<double> X1 (2, 1);
     X1[0] = 1;
     X1[1] = 1;
-    Matrix<double> Y1 = Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
+    Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
     X1.View();
     Y1.View();
     next_linee
     Matrix<double> X2 (2, 1);
     X2[0] = -1;
     X2[1] = -1;
-    Matrix<double> Y2 = Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
+    Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
     X2.View();
     Y2.View();
     cout << "Hello world!" << endl;

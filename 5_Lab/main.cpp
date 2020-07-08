@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 //#define nullptr NULL
+#include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
 using namespace std;
 
@@ -12,8 +13,16 @@ inline double f2 (const Matrix<double>& X)// 32
 {
     return 4 - *X.Get_pointer()**X.Get_pointer() - *(X.Get_pointer()+1)**(X.Get_pointer()+1);
 }
+int main_for_Lab_5();
 
-int main()
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_5)
+    BOOST_AUTO_TEST_CASE(Case_for_lab_5)
+    {
+        BOOST_CHECK(main_for_Lab_5()==0);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_5 ()
 {
     cout<<sizeof(unsigned long)<<endl;
 //    int VERYIMPORTANT = 1;

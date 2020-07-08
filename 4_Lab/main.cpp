@@ -6,9 +6,20 @@
 #include <assert.h>
 #include <regex>
 #include <math.h>
+#include <boost/test/unit_test.hpp>
 #include "../Lib/Different.h"
 #include "../Lib/Math.h"
-int main()
+
+int main_for_Lab_4();
+
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_4)
+    BOOST_AUTO_TEST_CASE(Case_for_lab_4)
+    {
+        BOOST_CHECK(main_for_Lab_4()==0);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_4 ()
 {
     const int N = 6;
     double pa[] = {0, 20, 40, 60, 80, 100};

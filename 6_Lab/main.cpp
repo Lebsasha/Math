@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <fstream>
+#include <boost/test/unit_test.hpp>
 #define  PRES   double
 #define  NXB     15
 #define  NX        NXB*3+1
@@ -20,7 +21,16 @@ void maxpvr(double *t1, double *del, double *maxdel)
     if (d > *maxdel) *maxdel = d;
 }
 
-int main(int argc, char **argv)
+int main_for_Lab_6();
+
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_6)
+    BOOST_AUTO_TEST_CASE(Case_for_lab_6)
+    {
+        BOOST_CHECK(main_for_Lab_6()==0);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_6 ()
 {
     ofstream foutT("dT.dat",ios_base::out | ios_base::trunc | ios_base::binary);
     int    i1, i2, i3, j1, j2, j3, rp, i, j, k=0;
@@ -177,7 +187,7 @@ int main(int argc, char **argv)
     foutT.close();
     ofstream fouT("nT.dat",ios_base::out | ios_base::trunc | ios_base::binary);
     fouT.write((char*)&nT, sizeof nT);
-    fouT.close(); // закрываем файл
+    fouT.close(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     ofstream fout("Pole.dat",ios_base::out | ios_base::trunc | ios_base::binary);
     for (j = 0; j < NY; j++)
     {
@@ -194,5 +204,6 @@ int main(int argc, char **argv)
     fou.write((char*)&n_x, sizeof n_x);
     fou.write((char*)&n_y, sizeof n_y);
     fou.close();
+    return 0;
 }
 

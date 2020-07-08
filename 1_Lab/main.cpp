@@ -13,6 +13,7 @@
 #define nullptr NULL
 #define endl "\n"
 #include <locale.h>
+#include <boost/test/unit_test.hpp>
 using namespace std;
 void View (const vector<double>&);
 vector<double> Minus (vector<double>& a, vector<double>& b)
@@ -26,7 +27,16 @@ vector<double> Minus (vector<double>& a, vector<double>& b)
     }
     return c;
 }
-int main ()
+int main_for_Lab_1();
+
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_1___)
+BOOST_AUTO_TEST_CASE(Case_for_lab_1)
+        {
+            BOOST_CHECK(main_for_Lab_1()==0);
+        }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_1 ()
 {
     const int N = 3;
     Matrix_SLE A;
@@ -59,8 +69,6 @@ int main ()
     double delta = Norm (Minus(Solution2, Solucion1))/Norm(Solucion1);
     cout<<"δ delta = "<<delta;
 
-
-<<<<<<< HEAD
     //A.Read_from_file("A.matr_l");//B.matr_l
     double p[] = {1, 2, 2, 1};
     Matrix_SLE C (p, 2, 2);
@@ -101,41 +109,3 @@ time(&i1);
     //system ("read Dummy");
     return 0;
 }*/
-=======
-//    A.Read_from_file("A.matr_l");//B.matr_l
-//    Matrix<double> b (vb);
-//    B = A.Solve(b);
-    return 0;
-}
-void View (const vector<double>& El1)
-{
-    for (vector<double>::const_iterator i = El1.begin(); i < El1.end(); ++i)
-        cout<<*i<<endl;
-    return;
-}
-/*void* operator new (size_t size)
-{
-    Return the name of the object;
-}*/
-void randoe(int*, const int, const int, int=10);
-/*int main()
-{
-tm a11;
-long int i1 = 0;
-time(&i1);
-
-    string path("/home/alexander/Documents/Projects/Temp/1");
-    //getline (cin, path);
-    int i = path.find_last_of('/');
-    string Name;
-    Name.insert(0, path, i + 1, path.length() - i);
-    path = "xterm -T " + Name + " -e /usr/bin/cb_console_runner LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. " + path;
-    //system ("gnome-terminal");
-    //xterm -T 1 -e /usr/bin/cb_console_runner LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. /home/alexander/Documents/Projects/Temp/1
-    //system("/home/alexander/Desktop/apt-upd > qwqwqwqwwqwqwqwqww");
-    //system ("rm qwqwqwqwwqwqwqwqww");
-    system (path.c_str());
-    //system ("read Dummy");
-    return 0;
-}*/
->>>>>>> ec95f91ed173f170c4c98998802d56dbf22b6d2e

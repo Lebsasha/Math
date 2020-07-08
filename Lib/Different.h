@@ -3,6 +3,7 @@
 #ifdef VISUAL_STUDIO
 #include "stdafx.h"
 #endif // VISUAL_ST
+#include <cmath>
 void randoe (int*, const int, const int, int);
 void randoe (double*, const int, const int, int);
 void randoe (float*, const int, const int, int);

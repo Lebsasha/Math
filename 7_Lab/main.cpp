@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+#include <boost/test/unit_test.hpp>
 #include "../Lib/Different.h"
 //#define PRES double
 #define NXB 15
@@ -20,7 +21,16 @@
 #define HX 0.2f
 #define HY 0.3f
 using namespace std;
-int main(void)
+int main_for_Lab_7();
+
+BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_7)
+    BOOST_AUTO_TEST_CASE(Case_for_lab_7)
+    {
+        BOOST_CHECK(main_for_Lab_7()==0);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+
+int main_for_Lab_7 ()
 {
     int i, j, k;
     int idt=0;
@@ -169,4 +179,5 @@ int main(void)
     fou.write((const char* const)&n_y, sizeof n_y);
     fou.write((const char* const)&n_k, sizeof n_y);
     fou.close();
+    return 0;
 }

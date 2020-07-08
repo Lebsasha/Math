@@ -57,204 +57,9 @@ include CMakeFiles/Num_methods.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Num_methods.dir/flags.make
 
-CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o: ../1_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/1_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/1_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/1_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/1_Lab/main.cpp > CMakeFiles/Num_methods.dir/1_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/1_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/1_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/1_Lab/main.cpp -o CMakeFiles/Num_methods.dir/1_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o: ../2_Lab/Lib1/Different.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o -c /home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.cpp
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.cpp > CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.i
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.cpp -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.s
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o: ../2_Lab/Lib1/List.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o -c /home/alexander/Projects/Num_methods/2_Lab/Lib1/List.cpp
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/2_Lab/Lib1/List.cpp > CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.i
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/2_Lab/Lib1/List.cpp -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.s
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o: ../2_Lab/Lib1/Matrix.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o -c /home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.cpp
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.cpp > CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.i
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.cpp -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.s
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o: ../2_Lab/Lib1/Vector.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o -c /home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.cpp
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.cpp > CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.i
-
-CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.cpp -o CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.s
-
-CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o: ../2_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/2_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/2_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/2_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/2_Lab/main.cpp > CMakeFiles/Num_methods.dir/2_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/2_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/2_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/2_Lab/main.cpp -o CMakeFiles/Num_methods.dir/2_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o: ../3_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/3_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/3_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/3_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/3_Lab/main.cpp > CMakeFiles/Num_methods.dir/3_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/3_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/3_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/3_Lab/main.cpp -o CMakeFiles/Num_methods.dir/3_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o: ../4_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/4_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/4_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/4_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/4_Lab/main.cpp > CMakeFiles/Num_methods.dir/4_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/4_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/4_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/4_Lab/main.cpp -o CMakeFiles/Num_methods.dir/4_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o: ../5_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/5_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/5_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/5_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/5_Lab/main.cpp > CMakeFiles/Num_methods.dir/5_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/5_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/5_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/5_Lab/main.cpp -o CMakeFiles/Num_methods.dir/5_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o: ../6_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/6_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/6_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/6_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/6_Lab/main.cpp > CMakeFiles/Num_methods.dir/6_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/6_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/6_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/6_Lab/main.cpp -o CMakeFiles/Num_methods.dir/6_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o: ../6_Lab_default/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o -c /home/alexander/Projects/Num_methods/6_Lab_default/main.cpp
-
-CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/6_Lab_default/main.cpp > CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.i
-
-CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/6_Lab_default/main.cpp -o CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.s
-
-CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o: ../7_Lab/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o -c /home/alexander/Projects/Num_methods/7_Lab/main.cpp
-
-CMakeFiles/Num_methods.dir/7_Lab/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/7_Lab/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/7_Lab/main.cpp > CMakeFiles/Num_methods.dir/7_Lab/main.cpp.i
-
-CMakeFiles/Num_methods.dir/7_Lab/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/7_Lab/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/7_Lab/main.cpp -o CMakeFiles/Num_methods.dir/7_Lab/main.cpp.s
-
-CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o: ../7_Lab/main_default.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o -c /home/alexander/Projects/Num_methods/7_Lab/main_default.cpp
-
-CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/7_Lab/main_default.cpp > CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.i
-
-CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/7_Lab/main_default.cpp -o CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.s
-
-CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o: ../7_Lab_default/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o -c /home/alexander/Projects/Num_methods/7_Lab_default/main.cpp
-
-CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/7_Lab_default/main.cpp > CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.i
-
-CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/7_Lab_default/main.cpp -o CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.s
-
-CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o: CMakeFiles/Num_methods.dir/flags.make
-CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o: ../Lab_6-7/7_Lab_default/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o -c /home/alexander/Projects/Num_methods/Lab_6-7/7_Lab_default/main.cpp
-
-CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/Lab_6-7/7_Lab_default/main.cpp > CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.i
-
-CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/Lab_6-7/7_Lab_default/main.cpp -o CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.s
-
 CMakeFiles/Num_methods.dir/Lib/Different.cpp.o: CMakeFiles/Num_methods.dir/flags.make
 CMakeFiles/Num_methods.dir/Lib/Different.cpp.o: ../Lib/Different.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Different.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Different.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Lib/Different.cpp.o -c /home/alexander/Projects/Num_methods/Lib/Different.cpp
 
 CMakeFiles/Num_methods.dir/Lib/Different.cpp.i: cmake_force
@@ -267,7 +72,7 @@ CMakeFiles/Num_methods.dir/Lib/Different.cpp.s: cmake_force
 
 CMakeFiles/Num_methods.dir/Lib/List.cpp.o: CMakeFiles/Num_methods.dir/flags.make
 CMakeFiles/Num_methods.dir/Lib/List.cpp.o: ../Lib/List.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/Num_methods.dir/Lib/List.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Num_methods.dir/Lib/List.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Lib/List.cpp.o -c /home/alexander/Projects/Num_methods/Lib/List.cpp
 
 CMakeFiles/Num_methods.dir/Lib/List.cpp.i: cmake_force
@@ -280,7 +85,7 @@ CMakeFiles/Num_methods.dir/Lib/List.cpp.s: cmake_force
 
 CMakeFiles/Num_methods.dir/Lib/Math.cpp.o: CMakeFiles/Num_methods.dir/flags.make
 CMakeFiles/Num_methods.dir/Lib/Math.cpp.o: ../Lib/Math.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Math.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Math.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Lib/Math.cpp.o -c /home/alexander/Projects/Num_methods/Lib/Math.cpp
 
 CMakeFiles/Num_methods.dir/Lib/Math.cpp.i: cmake_force
@@ -293,7 +98,7 @@ CMakeFiles/Num_methods.dir/Lib/Math.cpp.s: cmake_force
 
 CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o: CMakeFiles/Num_methods.dir/flags.make
 CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o: ../Lib/Matrix.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o -c /home/alexander/Projects/Num_methods/Lib/Matrix.cpp
 
 CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.i: cmake_force
@@ -306,7 +111,7 @@ CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.s: cmake_force
 
 CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o: CMakeFiles/Num_methods.dir/flags.make
 CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o: ../Lib/Vector.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o -c /home/alexander/Projects/Num_methods/Lib/Vector.cpp
 
 CMakeFiles/Num_methods.dir/Lib/Vector.cpp.i: cmake_force
@@ -317,55 +122,40 @@ CMakeFiles/Num_methods.dir/Lib/Vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/Lib/Vector.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/Lib/Vector.cpp -o CMakeFiles/Num_methods.dir/Lib/Vector.cpp.s
 
+CMakeFiles/Num_methods.dir/Run_tests.cpp.o: CMakeFiles/Num_methods.dir/flags.make
+CMakeFiles/Num_methods.dir/Run_tests.cpp.o: ../Run_tests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Num_methods.dir/Run_tests.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Num_methods.dir/Run_tests.cpp.o -c /home/alexander/Projects/Num_methods/Run_tests.cpp
+
+CMakeFiles/Num_methods.dir/Run_tests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Num_methods.dir/Run_tests.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexander/Projects/Num_methods/Run_tests.cpp > CMakeFiles/Num_methods.dir/Run_tests.cpp.i
+
+CMakeFiles/Num_methods.dir/Run_tests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Num_methods.dir/Run_tests.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexander/Projects/Num_methods/Run_tests.cpp -o CMakeFiles/Num_methods.dir/Run_tests.cpp.s
+
 # Object files for target Num_methods
 Num_methods_OBJECTS = \
-"CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o" \
-"CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o" \
-"CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o" \
-"CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o" \
-"CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o" \
-"CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o" \
-"CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o" \
 "CMakeFiles/Num_methods.dir/Lib/Different.cpp.o" \
 "CMakeFiles/Num_methods.dir/Lib/List.cpp.o" \
 "CMakeFiles/Num_methods.dir/Lib/Math.cpp.o" \
 "CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o" \
-"CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o"
+"CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o" \
+"CMakeFiles/Num_methods.dir/Run_tests.cpp.o"
 
 # External object files for target Num_methods
 Num_methods_EXTERNAL_OBJECTS =
 
-Num_methods: CMakeFiles/Num_methods.dir/1_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/2_Lab/Lib1/Different.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/2_Lab/Lib1/List.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/2_Lab/Lib1/Matrix.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/2_Lab/Lib1/Vector.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/2_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/3_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/4_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/5_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/6_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/6_Lab_default/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/7_Lab/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/7_Lab/main_default.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/7_Lab_default/main.cpp.o
-Num_methods: CMakeFiles/Num_methods.dir/Lab_6-7/7_Lab_default/main.cpp.o
 Num_methods: CMakeFiles/Num_methods.dir/Lib/Different.cpp.o
 Num_methods: CMakeFiles/Num_methods.dir/Lib/List.cpp.o
 Num_methods: CMakeFiles/Num_methods.dir/Lib/Math.cpp.o
 Num_methods: CMakeFiles/Num_methods.dir/Lib/Matrix.cpp.o
 Num_methods: CMakeFiles/Num_methods.dir/Lib/Vector.cpp.o
+Num_methods: CMakeFiles/Num_methods.dir/Run_tests.cpp.o
 Num_methods: CMakeFiles/Num_methods.dir/build.make
 Num_methods: CMakeFiles/Num_methods.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable Num_methods"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alexander/Projects/Num_methods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable Num_methods"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Num_methods.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

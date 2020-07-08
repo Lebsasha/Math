@@ -1,6 +1,5 @@
 #ifndef LIST_H
 #define LIST_H
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 using namespace std;
