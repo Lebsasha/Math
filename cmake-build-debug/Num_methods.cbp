@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Num_methods"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/alexander/Projects/Num_methods/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/alexander/Projects/Num_methods/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/alexander/Projects/Num_methods/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Num_methods">
+				<Option output="/home/alexander/Projects/Num_methods/cmake-build-debug/Num_methods" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/alexander/Projects/Num_methods/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/alexander/Projects/Num_methods/2_Lab/Lib1"/>
+					<Add directory="/home/alexander/Projects/Num_methods/3_Lab"/>
+					<Add directory="/home/alexander/Projects/Num_methods/Lib"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 Num_methods"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Num_methods/fast">
+				<Option output="/home/alexander/Projects/Num_methods/cmake-build-debug/Num_methods" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/alexander/Projects/Num_methods/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/alexander/Projects/Num_methods/2_Lab/Lib1"/>
+					<Add directory="/home/alexander/Projects/Num_methods/3_Lab"/>
+					<Add directory="/home/alexander/Projects/Num_methods/Lib"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 Num_methods/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/alexander/Projects/Num_methods/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/alexander/Projects/Num_methods/1_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Different.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Matrix.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Tree.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/Lib1/Vector.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/2_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/3_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/3_Lab/version.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/4_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/5_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/6_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/6_Lab_default/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/7_Lab/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/7_Lab/main_default.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/7_Lab_default/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lab_6-7/7_Lab_default/main.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Different.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Different.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/List.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/List.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Math.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Math.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Matrix.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Matrix.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Tree.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Vector.cpp">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/Lib/Vector.h">
+			<Option target="Num_methods"/>
+		</Unit>
+		<Unit filename="/home/alexander/Projects/Num_methods/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

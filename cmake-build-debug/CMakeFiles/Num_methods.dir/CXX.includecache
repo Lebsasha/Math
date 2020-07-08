@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.cpp
+List.h
+/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.h
+iostream
+-
+fstream
+-
+
+/home/alexander/Projects/Num_methods/2_Lab/Lib1/List.h
+stdafx.h
+/home/alexander/Projects/Num_methods/2_Lab/Lib1/stdafx.h
+iostream
+-
+string
+-
+
