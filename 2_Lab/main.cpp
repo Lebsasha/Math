@@ -176,6 +176,6 @@ int main_for_Lab_2 ()
     X2.View();
     Y2.View();
     cout << "Hello world!" << endl;
-    Get_Pause();
+//    Get_Pause();
     return 0;
 }

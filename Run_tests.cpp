@@ -4,6 +4,7 @@
 #define BOOST_TEST_MAIN
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
+std::string Path = "../Logs/";
 #include "1_Lab/main.cpp"
 #include "2_Lab/main.cpp"
 #include "3_Lab/main.cpp"
@@ -16,7 +17,8 @@ using namespace std;
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_1)
     BOOST_AUTO_TEST_CASE(Case_for_lab_1)
     {
-
+        cout<<"All"<<endl;
+        BOOST_WARN_EQUAL(4, 5);
     }
 BOOST_AUTO_TEST_SUITE_END()
 
