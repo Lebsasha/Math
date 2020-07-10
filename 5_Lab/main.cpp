@@ -33,7 +33,7 @@ int main_for_Lab_5 ()
     Matrix<double> To (2, 1);
     From[0] = From[1] = -1;
     To[0] = To[1] = 1;
-    cout<<F2.Integral_by_definition(From, To);
+    cout<<F2.Integral_by_definition(From, To)<<endl;
 //    register int i = 0;
 //    cout<<&i<<endl;//1.44982 37.33
     return 0;

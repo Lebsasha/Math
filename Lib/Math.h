@@ -651,13 +651,13 @@ public:
         return Fn(X);
     }
     double Integral_by_user_def (double (*AntiDer) (const Matrix<double>&), const Matrix<double>& From, const Matrix<double>& To) const;
-    double Integral_by_definition (const Matrix<double>& From, const Matrix<double>& To) const //By Sympthon method, only for 2 variables
+    double Integral_by_definition (const Matrix<double>& From, const Matrix<double>& To, const unsigned long long x_max_steps=1000ULL, const unsigned long long y_max_steps=1000ULL) const //By Sympthon method, only for 2 variables
     {
         assert (To.Get_Size() == 2 && From.Get_Size() == 2);
         double Integral = 0;
         unsigned long long xN = 1;
         double xLength = To[0] - From[0];
-        while(xLength/xN > DBL_EPSILON && xN < 10000ULL)// 10000000000 - very big deflection (error)!!!
+        while(xLength/xN > DBL_EPSILON && xN < x_max_steps)// 10'000'000'000 - very big deflection (error)!!!
         {
             xN *= 2;
         }
@@ -666,7 +666,7 @@ public:
         double xEnd = To[0];
         unsigned long long yN = 1;
         double yLength = To[1] - From[1];
-        while(yLength/yN > DBL_EPSILON && yN < 10000ULL)// 10000000000 - very big deflection (error)!!!
+        while(yLength/yN > DBL_EPSILON && yN < y_max_steps)// 10000000000 - very big deflection (error)!!!
         {
             yN *= 2;
         }
