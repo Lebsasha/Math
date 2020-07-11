@@ -15,11 +15,12 @@ std::string Path = "../Logs/";
 //#include "7_Lab/main.cpp"
 #include "Different.h"
 #include <cfloat>
+#include <fstream>
 using namespace std;
 //TODO Поддержка существования пути Path
 //if(!oFile)
 //cout<<error;
-BOOST_AUTO_TEST_SUITE(General)
+BOOST_AUTO_TEST_SUITE(For_Different)
     BOOST_AUTO_TEST_CASE(If_simple_test)
     {
         BOOST_CHECK(if_simple(3) == 1);
@@ -30,7 +31,7 @@ BOOST_AUTO_TEST_SUITE(General)
         BOOST_CHECK_CLOSE(Celsius_to_Farenheigts(-40), -40, DBL_EPSILON);
         BOOST_CHECK_CLOSE(Farenheigts_to_Celsius(-40), -40, DBL_EPSILON);
     }
-    BOOST_AUTO_TEST_CASE(Rand_max_and_view_arr_test)
+    BOOST_AUTO_TEST_CASE(Rand_max_and_view_tests)
     {
         short arr[5] = {1, 2, 3, 4, 5};
         fill_random_values(arr, 1, 5, static_cast<short>(0), static_cast<short>(20));
@@ -40,9 +41,6 @@ BOOST_AUTO_TEST_SUITE(General)
         double arr2[5] = {1, 2, 3, 4, 5};
         fill_random_values(arr2, 1, 5, static_cast<double>(0), static_cast<double>(20));
         View(arr2, 1, 5);
-    }
-    BOOST_AUTO_TEST_CASE(Vect_view_test)
-    {
         vector<unsigned long long> vect {1, 2, 3, 4, 5};
         View(vect);
     }
@@ -50,10 +48,6 @@ BOOST_AUTO_TEST_SUITE(General)
     {
         BOOST_CHECK(Pow(4, 5)==1024);
         BOOST_CHECK(Pow(3, 3)==27);
-    }
-    BOOST_AUTO_TEST_CASE(Rand_num_test)
-    {
-        cout<<my_rand_number()<<endl;
     }
     BOOST_AUTO_TEST_CASE(Pause_test)
     {

@@ -14,10 +14,3 @@ double Pow (const double x, const int i) noexcept
 {
     return Pow_impl(x, i, 1);
 }
-
-long long my_rand_number()
-{
-    int* pointer = new int (5);
-    delete pointer;
-    return (long long) pointer;
-}
