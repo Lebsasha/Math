@@ -38,6 +38,4 @@ add_executable(Num_methods
         Lib/Matrix.cpp
 #        Lib/Matrix.h
 #        Lib/Tree.h
-        Lib/Vector.cpp
-#        Lib/Vector.h
         Run_tests.cpp)
