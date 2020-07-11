@@ -1,7 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
-#include <stdlib.h>
-using namespace std;
+#include <iostream>
+#include <cstdlib>
 /*void Null (int* T, const int N)
 {
 for (int*t = T+N-1; t >= T; --t)
@@ -16,7 +16,7 @@ class Vector
 public:
     Vector (): N(0), a(NULL)
     {}
-    Vector (const T A): N(1), a(new T [N])
+    explicit Vector (const T& A): N(1), a(new T [N])
     {
         *a = A;
     }
@@ -44,22 +44,21 @@ public:
         for (T* pA = a + N-1; pA >= a; --pA)
             *pA = rand()%Biggest_Num;
     }
-    friend ostream& operator<< (ostream& a, const Vector& v)
+    friend std::ostream& operator<< (std::ostream& str, const Vector& v)
     {
         T* End = v.a + v.N - 1;
         for (T* pa = v.a; pa <= End; ++pa)
         {
-            (*pa)->View();
-            a<<endl;
+            (*pa)->View();///@attention Why?
+            str << std::endl;
         }
-        return a;
+        return str;
     }
     inline void Set_size (const int M)
     {
         this->N = M;
-        return;
-    }
-    inline int Get_size (void) const
+   }
+    inline int Get_size () const
     {
         return N;
     }
@@ -76,7 +75,7 @@ public:
     {
         T* M = new T[N+1];
         if (!M)
-            return 0;
+            return false;
         if (!a)
         {
             *M = El;
@@ -98,7 +97,7 @@ public:
         delete[] a;
         ++N;
         a = M;
-        return 1;
+        return true;
     }
     void Delete (const int i)
     {
@@ -109,9 +108,8 @@ public:
         T* pEnd = a + --N;
         for (T* pA = a + i - 1; pA < pEnd; ++pA)
             *pA = *(pA + 1);
-        return;
-    }
-    int Export (ofstream& osa)
+   }
+    int Export (std::ofstream& osa)
     {
         osa.write(reinterpret_cast<char*>(&N), sizeof(int));
         T* pEnd = a + N;
@@ -119,7 +117,7 @@ public:
             (*pA)->Export(osa);
         return N;
     }
-    int Import (ifstream& isa)
+    int Import (std::ifstream& isa)
     {
         if (isa.eof())
             return 0;
@@ -133,7 +131,7 @@ public:
             if (isa.eof())
                 return 0;
             isa.read(C, 4);
-            string S(C);
+            std::string S(C);
             if (S == "Gra")
                 *pA = new Gravity;
             else if (S == "EMI")
@@ -146,7 +144,7 @@ public:
                 *pA = new Weak;
             else
             {
-                cout<<"Wrong F.bin file"<<endl;
+                std::cout<<"Wrong F.bin file"<<std::endl;
                 return 0;
             }
             if (!(*pA)->Import(isa))
@@ -162,7 +160,7 @@ public:
         else
             exit (1);
     }
-    virtual ~Vector (void)
+    virtual ~Vector ()
     {
         T* pEnd = a + N;
         for (T* pA = a; pA < pEnd; ++pA)
