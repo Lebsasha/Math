@@ -53,11 +53,6 @@ int main_for_Lab_3 ()
     Eps[1] = Eps[0] = 1e-3;
     vector<Matrix<double> > yk = Solve_Differential_Equations::Explicit_Euler_method (A, 0, 1, u0, Eps, 0.01);
     ofstream oFile_Exp(Path + "Explicit.txt");
-    if(!oFile_Exp)
-    {
-        cout << "Bad" << endl;
-        exit(33);
-    }
     auto iEnd_e = yk[0].First_i();
     for (auto iyk = yk[1].Last_i(), itk = yk[0].Last_i(); itk >= iEnd_e; --iyk, --itk)
     {
@@ -87,7 +82,4 @@ int main_for_Lab_3 ()
 }
 
 //drand48();
-
-/*# define assert(expr) \
-((expr)	? __ASSERT_VOID_CAST (0) : __assert_fail (#expr, __FILE__, __LINE__, __ASSERT_FUNCTION))*/
 

@@ -34,3 +34,4 @@
 
 /Logs/
 /cmake-build-debug/
+*_Lab*/bin

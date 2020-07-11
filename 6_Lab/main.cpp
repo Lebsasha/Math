@@ -3,8 +3,6 @@
 #include <fstream>
 #include <boost/test/unit_test.hpp>
 extern std::string Path;
-namespace Lab_6
-{
 #define  PRES   double
 #define  NXB     15
 #define  NX        NXB*3+1
@@ -195,4 +193,3 @@ namespace Lab_6
         fou.close();
         return 0;
     }
-}

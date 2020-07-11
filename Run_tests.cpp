@@ -16,7 +16,9 @@ std::string Path = "../Logs/";
 #include "Different.h"
 #include <cfloat>
 using namespace std;
-
+//TODO Поддержка существования пути Path
+//if(!oFile)
+//cout<<error;
 BOOST_AUTO_TEST_SUITE(General)
     BOOST_AUTO_TEST_CASE(If_simple_test)
     {
