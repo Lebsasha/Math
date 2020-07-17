@@ -5,6 +5,7 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 //#define BOOST_TEST_LOG_LEVEL all
+
 std::string Path = "../Logs/";
 //#include "1_Lab/main.cpp"
 //#include "2_Lab/main.cpp"
@@ -51,6 +52,8 @@ BOOST_AUTO_TEST_SUITE(For_Different)
     }
     BOOST_AUTO_TEST_CASE(Pause_test)
     {
+        int i;
+        cin>>i;
         Get_Pause();
     }
 BOOST_AUTO_TEST_SUITE_END()
