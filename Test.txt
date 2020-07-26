@@ -1,2 +1,2 @@
 Dummy stub 
-s
+22
