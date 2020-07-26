@@ -9,6 +9,8 @@
 #include <cstdio>
 #include <vector>
 #include <random>
+#include <cassert>
+
 std::mt19937 gen(2);//time(nullptr));
 template<typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type fill_random_values (T* pArray, const size_t Nstr, const size_t Nstb, const T& lowest= 0, const T& biggest= std::numeric_limits<T>::max())
@@ -60,8 +62,8 @@ void View (const std::vector<T>& El1) noexcept
     std::cout<<*(El1.cend()-1)<<std::endl;
 }
 
-template<class T, size_t N>
-T& Find_min_by_abs (T(&arr)[N]) noexcept
+template<class T>
+T& Find_min_by_abs (T* arr, size_t N) noexcept
 {
     T& a = *arr;
     for (T* p = arr + N - 1; p > arr; --p)
@@ -71,6 +73,12 @@ T& Find_min_by_abs (T(&arr)[N]) noexcept
     }
     return a;
 }
+template<class T, size_t N>
+T& Find_min_by_abs (T(&arr)[N]) noexcept
+{
+    return Find_min_by_abs(arr, N);
+}
+
 template<class T, size_t N>
 T& Find_max_by_abs (T(&arr)[N]) noexcept
 {
@@ -103,13 +111,22 @@ constexpr bool if_simple (const int n)
     }
     return true;
 }
-///@returns a^b
-double Pow (double a, int b) noexcept;
+///@param Product Don't mind on this parameter
+///@returns x^i
+constexpr double Pow (const double x, const int i, const double Product=1)
+{
+    assert(i >= 0);
+    if (i == 1)
+        return Product * x;
+    if (i == 0)
+        return Product;
+    return Pow(x, i - 1, Product * x);
+}
 long long my_rand_number();
 inline void Get_Pause() noexcept
 {
 #ifdef linux
-    std::cout<<"Enter something and hit \"enter\" to continue"<<std::endl;
+    std::cout<<"Hit \"enter\" to continue"<<std::endl;
     system ("read dummy");
 #else
     #ifdef windows
