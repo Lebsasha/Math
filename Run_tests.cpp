@@ -116,6 +116,8 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         cout<<num.get_base()<<endl;
         num.set_base(10);
         BOOST_CHECK(num.Get_Number<int>() == 12345);
+        num+=Big_number(4);
+        BOOST_CHECK(num.Get_Number<int>() == 12345+4);
     }
 
 #include <iterator>

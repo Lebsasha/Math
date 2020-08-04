@@ -50,18 +50,10 @@ public:
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
 //        assert(sign_plus || std::is_signed<T>::value);
         assert((2ULL << (sizeof(T) * 8 - 1)) - 1 >= Pow(base, number.size()) - 1);
-//        static_assert(static_cast<T>(2) << (8 * sizeof(T)) >= number.size());
         T num = *number.crbegin();
-#ifndef NDEBUG
-        T num_for_safety = num;
-#endif
         for (auto it = number.crbegin() + 1; it < number.crend(); ++it)
         {
             num = *it + 10 * num;
-#ifndef NDEBUG
-            assert(num >= num_for_safety);
-            num_for_safety = num;
-#endif
         }
 //        if (!sign_plus)
 //            num = -num;
@@ -102,7 +94,7 @@ public:
         return ans;
     }
 
-    Big_number operator-(const Big_number& big_number) const
+    Big_number operator-(const Big_number& big_number) const //TODO
     {
         return *this;
     }
@@ -125,12 +117,12 @@ public:
         return ans;
     }
 
-    Big_number operator%(Big_number big_number) const
+    Big_number operator%(Big_number big_number) const //TODO
     {
         return Divide(big_number, MOD);
     }
 
-    Big_number operator/(const Big_number& big_number) const
+    Big_number operator/(const Big_number& big_number) const //TODO
     {
         return Divide(big_number, DIVIDE);
     }
@@ -172,7 +164,10 @@ public:
     bool operator<(const Big_number& big_number) const
     {
         if (base != big_number.base)
+        {
             std::cerr << "base != big_number.base in operator<" << std::endl;
+            return false;
+        }
         if (number.size() != big_number.number.size())
             return number.size() < big_number.number.size();
         auto itr1 = number.crbegin();
@@ -194,7 +189,10 @@ public:
     bool operator>(const Big_number& big_number) const
     {
         if (base != big_number.base)
+        {
             std::cerr << "base != big_number.base in operator>" << std::endl;
+            return false;
+        }
         if (number.size() != big_number.number.size())
             return number.size() > big_number.number.size();
         auto itr1 = number.crbegin();
@@ -230,7 +228,7 @@ private:
     const static bool MOD = false;
     const static bool DIVIDE = true;
     std::vector<unsigned char> number;
-    ///@note Zero has '+'
+//    ///@note Zero has '+'
 //    bool sign_plus;
     /// base can be in range [0, 16] on "standard" computer
     unsigned char base;
