@@ -6,6 +6,7 @@
 #define NUM_METHODS_BIG_INT_NUMBERS
 
 #include "Different.h"
+#include <iterator>
 #include <boost/logic/tribool.hpp>
 #include <cassert>
 #include <vector>
@@ -30,7 +31,6 @@ public:
             number.push_back(num % base);
             num /= base;
         }
-        std::reverse(number.begin(), number.end());
     }
 
     Big_number(const Big_number& big_number) : /*sign_plus(big_number.sign_plus),*/ number(big_number.number), base(big_number.base)
@@ -76,14 +76,14 @@ public:
         return *this;
     }
 
-    void set_base(const unsigned char base_)
+    /// base can be in range [0, 16] on "standard" computer
+    void set_base(const int base_)
     {
-        assert(base_ <= sqrt(std::numeric_limits<unsigned char>::max()));
+        assert(base_ <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
         base = base_;
-
     }
 
-    [[nodiscard]] unsigned char get_base() const
+    [[nodiscard]] int get_base() const
     {
         return base;
     }
@@ -111,7 +111,7 @@ public:
     {
         Big_number ans = multiply_by_num(*big_number.number.crbegin());
         auto itrEnd = ans.number.rend();
-        for (auto digit_l = big_number.number.crbegin() +1; digit_l < big_number.number.crend(); ++digit_l)
+        for (auto digit_l = big_number.number.crbegin() + 1; digit_l < big_number.number.crend(); ++digit_l)
         {
             ans.number.push_back(*ans.number.rbegin());
             itrEnd = ans.number.rend() - 1;
@@ -169,24 +169,56 @@ public:
         return !operator==(big_number);
     }
 
-    boost::tribool operator<(const Big_number& big_number) const
+    bool operator<(const Big_number& big_number) const
     {
-        return boost::tribool(boost::logic::indeterminate);
+        if (base != big_number.base)
+            std::cerr << "base != big_number.base in operator<" << std::endl;
+        if (number.size() != big_number.number.size())
+            return number.size() < big_number.number.size();
+        auto itr1 = number.crbegin();
+        auto itr2 = big_number.number.crbegin();
+        for (; itr2 < big_number.number.crend(); ++itr1, ++itr2)
+        {
+            if (*itr1 == *itr2)
+                continue;
+            return *itr1 < *itr2;
+        }
+        return false; // Numbers are equal
     }
 
-    boost::tribool operator<=(const Big_number& big_number) const
+    bool operator<=(const Big_number& big_number) const
     {
-        return boost::tribool(boost::logic::indeterminate);
+        return *this == big_number || *this < big_number;
     }
 
-    boost::tribool operator>(const Big_number& big_number) const
+    bool operator>(const Big_number& big_number) const
     {
-        return boost::tribool(boost::logic::indeterminate);
+        if (base != big_number.base)
+            std::cerr << "base != big_number.base in operator>" << std::endl;
+        if (number.size() != big_number.number.size())
+            return number.size() > big_number.number.size();
+        auto itr1 = number.crbegin();
+        auto itr2 = big_number.number.crbegin();
+        for (; itr2 < big_number.number.crend(); ++itr1, ++itr2)
+        {
+            if (*itr1 == *itr2)
+                continue;
+            return *itr1 > *itr2;
+        }
+        return false; // Numbers are equal
     }
 
-    boost::tribool operator>=(const Big_number& big_number) const
+    bool operator>=(const Big_number& big_number) const
     {
-        return boost::tribool(boost::logic::indeterminate);
+        return *this == big_number || *this > big_number;
+    }
+
+    void View() const
+    {
+        Big_number Temp = *this;
+        Temp.set_base(10);
+        std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(std::cout, ""));
+        std::cout << std::endl;
     }
 
     ~Big_number()

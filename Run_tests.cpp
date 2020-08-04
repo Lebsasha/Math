@@ -87,24 +87,35 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
     BOOST_FIXTURE_TEST_CASE (Operators, Fixture_for_tests)
     {
         BOOST_CHECK((Three + Four).Get_Number<int>() == 7);
-        BOOST_CHECK((Three + Four + Four + Four + Three).Get_Number<int>() == 7+7+4);
+        BOOST_CHECK((Three + Four + Four + Four + Three).Get_Number<int>() == 7 + 7 + 4);
         BOOST_CHECK((Four - Three) == Big_number(1));
         BOOST_CHECK((Four * Three).Get_Number<int>() == 12);
-        BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) ==  Big_number(UINT_MAX)*Big_number(2));
+        BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) == Big_number(UINT_MAX) * Big_number(2));
         BOOST_CHECK(Four == Three + Big_number(1));
         BOOST_CHECK(Four != Three + Big_number(1000));
         BOOST_CHECK(Four < Three + Big_number(1000));
+        BOOST_CHECK(!(Four < Three));
+        BOOST_CHECK(!(Four < Four));
         BOOST_CHECK(Four <= Three + Big_number(1));
-        BOOST_CHECK(Four > Four + Big_number(-1));
+        BOOST_CHECK(!(Four > Four + Big_number(10)));
+        BOOST_CHECK(Four + Big_number(10) > Four);
+        BOOST_CHECK(!(Four > Four));
         BOOST_CHECK(Four >= Four);
         BOOST_CHECK(Four / Four == Big_number(1));
         BOOST_CHECK(Three / Four == Big_number(0));
         BOOST_CHECK(Four / Three == Big_number(1));
-//        Big_number Four_m = std::move(Four);
-//        BOOST_CHECK(Four_m.Get_Number<char>() == 4);
-//        Four_m = Three;
-//        BOOST_CHECK(Four_m == Three);
-//        BOOST_CHECK(Four_m.Get_Number<unsigned char>() == 3);
+        Big_number Four_m = std::move(Four);
+        BOOST_CHECK(Four_m.Get_Number<char>() == 4);
+        Four_m = Three;
+        BOOST_CHECK(Four_m == Three);
+        BOOST_CHECK(Four_m.Get_Number<unsigned char>() == 3);
+        Big_number num (12345);
+        num.View();
+        num.set_base(16);
+        num.View();
+        cout<<num.get_base()<<endl;
+        num.set_base(10);
+        BOOST_CHECK(num.Get_Number<int>() == 12345);
     }
 
 #include <iterator>
