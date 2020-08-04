@@ -7,12 +7,11 @@
 
 #include "Different.h"
 #include <iterator>
-#include <boost/logic/tribool.hpp>
-#include <cassert>
-#include <vector>
-#include <type_traits>
+//#include <cassert>
+//#include <vector>
+//#include <type_traits>
 #include <algorithm>
-#include <iostream>
+//#include <iostream>
 
 class Big_number
 {
@@ -219,10 +218,7 @@ public:
         std::cout << std::endl;
     }
 
-    ~Big_number()
-    {
-
-    }
+    ~Big_number() = default;
 
 private:
     const static bool MOD = false;
@@ -249,7 +245,7 @@ private:
         }
     }
 
-    Big_number multiply_by_num(const unsigned char& i) const
+    [[nodiscard]] Big_number multiply_by_num(const unsigned char& i) const
     {
         assert(i < 16);
         Big_number ans = *this;
@@ -259,7 +255,7 @@ private:
         return ans;
     }
 
-    Big_number Divide(const Big_number& divisor, const bool mode) const
+    [[nodiscard]] Big_number Divide(const Big_number& divisor, const bool mode) const
     {
         return *this;
     }
