@@ -87,6 +87,8 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
     BOOST_FIXTURE_TEST_CASE (Operators, Fixture_for_tests)
     {
         BOOST_CHECK((Three + Four).Get_Number<int>() == 7);
+        BOOST_CHECK((Three + Four + Four + Four + Three).Get_Number<int>() == 7+7+4);
+        BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) ==  Big_number(UINT_MAX)*Big_number(2));
         BOOST_CHECK((Four - Three) == Big_number(1));
         BOOST_CHECK((Four * Three).Get_Number<int>() == 12);
         BOOST_CHECK(Four == Three + Big_number(1));
@@ -98,12 +100,20 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         BOOST_CHECK(Four / Four == Big_number(1));
         BOOST_CHECK(Three / Four == Big_number(0));
         BOOST_CHECK(Four / Three == Big_number(1));
-        Big_number Four_m = std::move(Four);
-        BOOST_CHECK(Four_m.Get_Number<char>() == 4);
-        Four_m = Three;
-        BOOST_CHECK(Four_m == Three);
-        BOOST_CHECK(Four_m.Get_Number<unsigned char>() == 3);
-//        cout<<(Four / Three).Get_Number<int>();
+//        Big_number Four_m = std::move(Four);
+//        BOOST_CHECK(Four_m.Get_Number<char>() == 4);
+//        Four_m = Three;
+//        BOOST_CHECK(Four_m == Three);
+//        BOOST_CHECK(Four_m.Get_Number<unsigned char>() == 3);
+    }
+
+#include <iterator>
+
+    BOOST_AUTO_TEST_CASE(CCCCASEEEEEEEEE)
+    {
+        vector<int> a{1, 2, 3};
+        auto itr = a.begin();
+        std::advance(itr, 2);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -143,4 +153,58 @@ nothing 	- does not report any information
 
         cout<<__LINE__<<' '<<__FILE__<<' '<<__FUNCTION__<<' '<<__PRETTY_FUNCTION__<<' '<<__cplusplus<<' '<<endl;
         69 /home/alexander/Projects/Num_methods/Run_tests.cpp Fixture_for_tests Fixture_for_tests::Fixture_for_tests() 201703
+
+        std::cout<<std::is_lvalue_reference_v<Big_number&><<std::endl;
+        true
+        std::cout<<std::is_rvalue_reference_v<Big_number&&><<std::endl;
+        true
+
+    template <typename T>
+struct SquareMatrix {
+ SquareMatrix(std::initializer_list<T> val) v
+ : dim{ square_root(val.size()) }, w
+ data(dim, std::vector<T>{}) { x
+ auto itr = val.begin(); y
+ for(size_t row{}; row<dim; row++){
+ data[row].assign(itr, itr+dim); z
+ itr += dim; {
+ }
+ }
+ T& at(size_t row, size_t col) {
+ if (row >= dim || col >= dim)
+ throw std::out_of_range{ "Index invalid." }; |
+ return data[row][col]; }
+ }
+ const size_t dim;
+private:
+ std::vector<std::vector<T>> data;
+};
+
+
+
+
+
+
+
+
+
+ struct SS
+{
+    typedef int aaaaa_int;
+    typedef int aaaaa_void;
+    typedef long aaaaa_long;
+};
+template<typename SSS>
+    typename enable_if<is_void_v<void_t<typename SSS::aaaaa_int, typename SSS::aaaaa_void, typename SSS::aaaaa_long>>, void>::type
+    Determine_SS (SSS s)
+    {
+        cout<<"SS !"<<endl;
+    }
+
+template<typename SSS>
+typename enable_if<!(is_void_v<void_t<typename SSS::aaaaa_int, typename SSS::aaaaa_void, typename SSS::aaaaa_long>>), void>::type
+Determine_SS (SSS s)
+{
+    cout<<"Not SS"<<endl;
+}
  */
