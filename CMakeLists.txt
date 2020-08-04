@@ -29,7 +29,6 @@ add_executable(Num_methods
 #        7_Lab/main.cpp
 #        #7_Lab_default/main.cpp
 #        #Lab_6-7/7_Lab_default/main.cpp
-        Lib/Different.cpp
 #        Lib/Different.h
         Lib/List.cpp
 #        Lib/List.h

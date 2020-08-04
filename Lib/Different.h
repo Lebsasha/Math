@@ -57,9 +57,10 @@ void View (T* pArray, size_t Nstr, const size_t Nstb) noexcept
 template<typename T>
 void View (const std::vector<T>& El1) noexcept
 {
-    for (auto i = El1.cbegin(); i < El1.cend() - 1; ++i)
+    auto iEnd = El1.cend() - 1;
+    for (auto i = El1.cbegin(); i < iEnd; ++i)
         std::cout<<*i<<' ';
-    std::cout<<*(El1.cend()-1)<<std::endl;
+    std::cout<<*(iEnd)<<std::endl;
 }
 
 template<class T>
