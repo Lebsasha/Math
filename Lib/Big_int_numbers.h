@@ -68,15 +68,17 @@ public:
         return num;
     }
 
-    Big_number& operator=(Big_number big_number)// TODO swap error prone?
+    Big_number& operator=(Big_number big_number)
     {
-        std::swap(*this, big_number);
+        number = std::move(big_number.number);
+        base = big_number.base;
+//        std::swap(*this, big_number);
         return *this;
     }
 
     void set_base(const unsigned char base_)
     {
-        assert(base_ <= std::numeric_limits<unsigned char>::max() / 2);
+        assert(base_ <= sqrt(std::numeric_limits<unsigned char>::max()));
         base = base_;
 
     }
@@ -96,18 +98,7 @@ public:
         {
             *digit_r += *digit_l;
         }
-        itEnd = ans.number.cend() - 1;
-        for (auto digit_r = ans.number.begin(); digit_r < itEnd; ++digit_r)
-        {
-            *(digit_r + 1) += *digit_r / base;
-            *digit_r = *digit_r % base;
-        }
-        if (*ans.number.rbegin() >= base)
-        {
-            ans.number.push_back(*ans.number.rbegin() / base);
-            *(ans.number.rbegin() + 1) = *(ans.number.rbegin() + 1) % base;
-        }
-
+        ans.normalise();
         return ans;
     }
 
@@ -118,13 +109,20 @@ public:
 
     Big_number operator*(const Big_number& big_number) const
     {
-        Big_number ans;
-        for(auto digit_l = big_number.number.crbegin(); digit_l <big_number.number.crend(); ++digit_l)
+        Big_number ans = multiply_by_num(*big_number.number.crbegin());
+        auto itrEnd = ans.number.rend();
+        for (auto digit_l = big_number.number.crbegin() +1; digit_l < big_number.number.crend(); ++digit_l)
         {
-//            ans += multiply_by_num (*digit_l);
-
+            ans.number.push_back(*ans.number.rbegin());
+            itrEnd = ans.number.rend() - 1;
+            for (auto itr = ans.number.rbegin() + 1; itr < itrEnd; ++itr)
+            {
+                *itr = *(itr + 1);
+            }
+            *itrEnd = 0;
+            ans += multiply_by_num(*digit_l);
         }
-        return *this;
+        return ans;
     }
 
     Big_number operator%(Big_number big_number) const
@@ -202,13 +200,40 @@ private:
     std::vector<unsigned char> number;
     ///@note Zero has '+'
 //    bool sign_plus;
-    /// base can be in range [0, 127] on "standard" computer
+    /// base can be in range [0, 16] on "standard" computer
     unsigned char base;
+
+    void normalise()
+    {
+        Big_number& ans = *this;
+        auto itEnd = ans.number.cend() - 1;
+        for (auto digit_r = ans.number.begin(); digit_r < itEnd; ++digit_r)
+        {
+            *(digit_r + 1) += *digit_r / base;
+            *digit_r = *digit_r % base;
+        }
+        if (*ans.number.rbegin() >= base)
+        {
+            ans.number.push_back(*ans.number.rbegin() / base);
+            *(ans.number.rbegin() + 1) = *(ans.number.rbegin() + 1) % base;
+        }
+    }
+
+    Big_number multiply_by_num(const unsigned char& i) const
+    {
+        assert(i < 16);
+        Big_number ans = *this;
+        for (auto& digit: ans.number)
+            digit = digit * i;
+        ans.normalise();
+        return ans;
+    }
 
     Big_number Divide(const Big_number& divisor, const bool mode) const
     {
         return *this;
     }
+
 };
 
 #endif //NUM_METHODS_BIG_INT_NUMBERS

@@ -88,9 +88,9 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
     {
         BOOST_CHECK((Three + Four).Get_Number<int>() == 7);
         BOOST_CHECK((Three + Four + Four + Four + Three).Get_Number<int>() == 7+7+4);
-        BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) ==  Big_number(UINT_MAX)*Big_number(2));
         BOOST_CHECK((Four - Three) == Big_number(1));
         BOOST_CHECK((Four * Three).Get_Number<int>() == 12);
+        BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) ==  Big_number(UINT_MAX)*Big_number(2));
         BOOST_CHECK(Four == Three + Big_number(1));
         BOOST_CHECK(Four != Three + Big_number(1000));
         BOOST_CHECK(Four < Three + Big_number(1000));
