@@ -10,8 +10,10 @@
 #include <limits>
 #include <iterator>
 #include "../Lib/Math.h"
+#if __cplusplus  < 201103L
 #define nullptr NULL
 #define endl "\n"
+#endif
 #include <locale.h>
 #include <boost/test/unit_test.hpp>
 using namespace std;
