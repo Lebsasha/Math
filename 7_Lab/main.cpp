@@ -1,13 +1,9 @@
-#include <stdlib.h>
-#include <string.h>
 #include <string>
-#include <math.h>
 #include <fstream>
 #include <iostream>
-#include <algorithm>
 #include <boost/test/unit_test.hpp>
-extern string Path;
-#include "../Lib/Different.h"
+extern std::string Path;
+
 //#define PRES double
 #define NXB 15
 #define NYB 12

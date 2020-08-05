@@ -1,10 +1,6 @@
-// *** ADDED BY HEADER FIXUP ***
-#include <istream>
-// *** END ***
 #include <iostream>
 #include <boost/test/unit_test.hpp>
 //#include "/media/alexander/loadtool/Num_Methods/Lib/Matrix.h"
-#include "../Lib/Different.h"
 #include "../Lib/Math.h"
 using namespace std;
 double Func1 (const Matrix<double>& A)

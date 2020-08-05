@@ -5,6 +5,7 @@
 #define BOOST_TEST_DYN_LINK
 //#define BOOST_TEST_LOG_LEVEL all
 #include "Lib/Big_int_numbers.h"
+#define NDEBUG 1
 
 #include <boost/test/unit_test.hpp>
 #include "1_Lab/main.cpp"
@@ -15,7 +16,6 @@
 #include "6_Lab/main.cpp"
 #include "7_Lab/main.cpp"
 #include <cfloat>
-#include <fstream>
 
 using namespace std;
 //TODO Поддержка существования пути Path

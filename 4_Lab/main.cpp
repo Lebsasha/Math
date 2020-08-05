@@ -1,13 +1,6 @@
-#include <iostream>
-#include <algorithm>
-#define CB 0
-//#define VISUAL_STUDIO
-//#define NDEBUG 1
-#include <assert.h>
-#include <regex>
 #include <math.h>
 #include <boost/test/unit_test.hpp>
-#include "../Lib/Different.h"
+//#define NDEBUG 1
 #include "../Lib/Math.h"
 
 int main_for_Lab_4();

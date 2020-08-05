@@ -1,6 +1,5 @@
 #include <iostream>
 #include <boost/test/unit_test.hpp>
-#define NDEBUG 1
 #include "../Lib/Math.h"
 using namespace std;
 extern string Path;

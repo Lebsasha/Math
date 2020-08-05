@@ -1,8 +1,7 @@
-#include <stdlib.h>
-#include <math.h>
 #include <fstream>
 #include <boost/test/unit_test.hpp>
 extern std::string Path;
+
 #define  PRES   double
 #define  NXB     15
 #define  NX        NXB*3+1

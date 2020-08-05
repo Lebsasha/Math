@@ -1,21 +1,13 @@
 #include <iostream>
 #include <vector>
-#include <time.h>
-#include <iomanip>
-#include <string>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-#include <fstream>
 #include <limits>
-#include <iterator>
+#include <clocale>
+#include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
 #if __cplusplus  < 201103L
 #define nullptr NULL
 #define endl "\n"
 #endif
-#include <locale.h>
-#include <boost/test/unit_test.hpp>
 using namespace std;
 void View (const vector<double>&);
 vector<double> Minus (vector<double>& a, vector<double>& b)

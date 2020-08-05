@@ -1,6 +1,4 @@
 #include <iostream>
-#include <math.h>
-//#define nullptr NULL
 #include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
 using namespace std;

@@ -7,11 +7,7 @@
 
 #include "Different.h"
 #include <iterator>
-//#include <cassert>
-//#include <vector>
-//#include <type_traits>
 #include <algorithm>
-//#include <iostream>
 
 class Big_number
 {
