@@ -4,7 +4,10 @@
 #define BOOST_TEST_MAIN
 #define BOOST_TEST_DYN_LINK
 //#define BOOST_TEST_LOG_LEVEL all
+#include <boost/multiprecision/cpp_int.hpp>
+
 #include "Lib/Big_int_numbers.h"
+
 #define NDEBUG 1
 
 #include <boost/test/unit_test.hpp>
@@ -89,8 +92,12 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         BOOST_CHECK((Three + Four).Get_Number<int>() == 7);
         BOOST_CHECK((Three + Four + Four + Four + Three).Get_Number<int>() == 7 + 7 + 4);
         BOOST_CHECK((Four - Three) == Big_number(1));
+        BOOST_CHECK((Four + Four + Four - Three) == Big_number(9));
+        BOOST_CHECK((Four * Three + Three * Four + Four - Three * Three * Three) == Big_number(4 * 3 + 3 * 4 + 4 - 3 * 3 * 3));
+        BOOST_CHECK(Four * Three + Three * Four + Four - Three * Three * Three - Big_number(1) == false);
         BOOST_CHECK((Four * Three).Get_Number<int>() == 12);
         BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) == Big_number(UINT_MAX) * Big_number(2));
+        BOOST_CHECK((Big_number(ULLONG_MAX) + Big_number(ULLONG_MAX) + Big_number(ULLONG_MAX)) == Big_number(ULLONG_MAX) * Big_number(3));
         BOOST_CHECK(Four == Three + Big_number(1));
         BOOST_CHECK(Four != Three + Big_number(1000));
         BOOST_CHECK(Four < Three + Big_number(1000));
@@ -109,15 +116,15 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         Four_m = Three;
         BOOST_CHECK(Four_m == Three);
         BOOST_CHECK(Four_m.Get_Number<unsigned char>() == 3);
-        Big_number num (12345);
+        Big_number num(12345);
         num.View();
         num.set_base(16);
         num.View();
-        cout<<num.get_base()<<endl;
+        cout << num.get_base() << endl;
         num.set_base(10);
         BOOST_CHECK(num.Get_Number<int>() == 12345);
-        num+=Big_number(4);
-        BOOST_CHECK(num.Get_Number<int>() == 12345+4);
+        num += Big_number(4);
+        BOOST_CHECK(num.Get_Number<int>() == 12345 + 4);
     }
 
 #include <iterator>
@@ -127,6 +134,9 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         vector<int> a{1, 2, 3};
         auto itr = a.begin();
         std::advance(itr, 2);
+        boost::multiprecision::cpp_int num = 5;
+        num = num + 6555;
+
     }
 
 BOOST_AUTO_TEST_SUITE_END()

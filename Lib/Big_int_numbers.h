@@ -64,7 +64,7 @@ public:
     }
 
     /// base can be in range [0, 16] on "standard" computer
-    void set_base(const int base_)
+    void set_base(const int base_)//TODO
     {
         assert(base_ <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
         base = base_;
@@ -89,9 +89,33 @@ public:
         return ans;
     }
 
-    Big_number operator-(const Big_number& big_number) const //TODO
+    Big_number operator-(const Big_number& big_number) const
     {
-        return *this;
+        assert (*this >= big_number);
+        Big_number ans = *this;
+        auto p1 = ans.number.begin();
+        auto p3 = p1;
+        for (auto v2: big_number.number)
+        {
+            if (*p1 >= v2)
+                *p1 -= v2;
+            else
+            {
+                p3 = p1;
+                while (*(++p3) == 0);
+                *(p3) -= 1;
+                for (auto p = p1 + 1; p < p3; ++p)
+                    *p = base - 1;
+                *p1 += base;
+                *p1 -= v2;
+            }
+            ++p1;
+        }
+        for (auto p = ans.number.rbegin(); p < ans.number.rend() - 1 && *p == 0; p = ans.number.rbegin())
+        {
+            ans.number.erase((p + 1).base());
+        }
+        return ans;
     }
 
     Big_number operator*(const Big_number& big_number) const
@@ -204,6 +228,11 @@ public:
     bool operator>=(const Big_number& big_number) const
     {
         return *this == big_number || *this > big_number;
+    }
+
+    operator bool() const
+    {
+        return !(number.size() == 1 && number[0] == 0);
     }
 
     void View() const
