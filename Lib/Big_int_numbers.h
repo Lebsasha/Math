@@ -5,9 +5,10 @@
 #ifndef NUM_METHODS_BIG_INT_NUMBERS
 #define NUM_METHODS_BIG_INT_NUMBERS
 
-#include "Different.h"
 #include <iterator>
 #include <algorithm>
+#include <ostream>
+#include "Different.h"
 
 class Big_number
 {
@@ -92,6 +93,12 @@ public:
         return ans;
     }
 
+    template<typename T>
+    Big_number operator+(const T& num) const
+    {
+        return *this + Big_number(num);
+    }
+
     Big_number operator-(const Big_number& big_number) const
     {
         /// minuend - subtrahend = difference;
@@ -124,6 +131,12 @@ public:
         return ans;
     }
 
+    template<typename T>
+    Big_number operator-(const T& num) const
+    {
+        return *this - Big_number(num);
+    }
+
     Big_number operator*(const Big_number& multiplier) const
     {
         /// multiplicand * multiplier = product;
@@ -142,6 +155,12 @@ public:
             ans += multiply_by_num(*digit_l);
         }
         return ans;
+    }
+
+    template<typename T>
+    Big_number operator*(const T& num) const
+    {
+        return *this * Big_number(num);
     }
 
     Big_number operator%(Big_number big_number) const //TODO
@@ -179,9 +198,14 @@ public:
 //        return Divide(big_number, DIVIDE);
     }
 
-    Big_number pow() const//TODO
+    Big_number pow(unsigned int i) const
     {
-        return *this;
+        if (!i)
+            return Big_number(1);
+        Big_number ans = *this;
+        while (--i)
+            ans *= *this;
+        return ans;
     }
 
     Big_number& operator+=(const Big_number& big_number)
