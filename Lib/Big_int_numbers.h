@@ -63,9 +63,10 @@ public:
         return *this;
     }
 
-    /// base can be in range [0, 16] on "standard" computer
+    /// base can be in range [2, 16] on "standard" computer
     void set_base(const int base_)//TODO
     {
+        assert(base_ >= 2);
         assert(base_ <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
         base = base_;
     }
@@ -77,10 +78,12 @@ public:
 
     Big_number operator+(const Big_number& big_number) const
     {
+        /// addend_1 + addend_2 = sum;
+        /// addend_1 == sum == ans here for optimisation purposes
         Big_number ans = this->number.size() >= big_number.number.size() ? *this : big_number;
-        const Big_number& addend = this->number.size() >= big_number.number.size() ? big_number : *this;
-        auto itEnd = addend.number.cend();
-        auto digit_l = addend.number.cbegin();
+        const Big_number& addend_2 = this->number.size() >= big_number.number.size() ? big_number : *this;
+        auto itEnd = addend_2.number.cend();
+        auto digit_l = addend_2.number.cbegin();
         for (auto digit_r = ans.number.begin(); digit_l < itEnd; ++digit_r, ++digit_l)
         {
             *digit_r += *digit_l;
@@ -91,46 +94,51 @@ public:
 
     Big_number operator-(const Big_number& big_number) const
     {
+        /// minuend - subtrahend = difference;
+        /// minuend == difference == ans here for optimisation purposes
         assert (*this >= big_number);
         Big_number ans = *this;
-        auto p1 = ans.number.begin();
-        auto p3 = p1;
-        for (auto v2: big_number.number)
+        auto i_minuend = ans.number.begin();
+        auto i_minuend_finder_non_zeros = i_minuend;
+        for (auto v_subtrahend: big_number.number)
         {
-            if (*p1 >= v2)
-                *p1 -= v2;
+            if (*i_minuend >= v_subtrahend)
+                *i_minuend -= v_subtrahend;
             else
             {
-                p3 = p1;
-                while (*(++p3) == 0);
-                *(p3) -= 1;
-                for (auto p = p1 + 1; p < p3; ++p)
+                i_minuend_finder_non_zeros = i_minuend;
+                while (*(++i_minuend_finder_non_zeros) == 0);
+                *(i_minuend_finder_non_zeros) -= 1;
+                for (auto p = i_minuend + 1; p < i_minuend_finder_non_zeros; ++p)
                     *p = base - 1;
-                *p1 += base;
-                *p1 -= v2;
+                *i_minuend += base;
+                *i_minuend -= v_subtrahend;
             }
-            ++p1;
+            ++i_minuend;
         }
-        for (auto p = ans.number.rbegin(); p < ans.number.rend() - 1 && *p == 0; p = ans.number.rbegin())
+        for (auto i_lead_zeros = ans.number.rbegin();
+             i_lead_zeros < ans.number.rend() - 1 && *i_lead_zeros == 0; i_lead_zeros = ans.number.rbegin())
         {
-            ans.number.erase((p + 1).base());
+            ans.number.erase((i_lead_zeros + 1).base());
         }
         return ans;
     }
 
-    Big_number operator*(const Big_number& big_number) const
+    Big_number operator*(const Big_number& multiplier) const
     {
-        Big_number ans = multiply_by_num(*big_number.number.crbegin());
-        auto itrEnd = ans.number.rend();
-        for (auto digit_l = big_number.number.crbegin() + 1; digit_l < big_number.number.crend(); ++digit_l)
+        /// multiplicand * multiplier = product;
+        /// multiplicand == product == ans here for optimisation purposes
+        Big_number ans = multiply_by_num(*multiplier.number.crbegin());
+        auto i_end = ans.number.rend();
+        for (auto digit_l = multiplier.number.crbegin() + 1; digit_l < multiplier.number.crend(); ++digit_l)
         {
             ans.number.push_back(*ans.number.rbegin());
-            itrEnd = ans.number.rend() - 1;
-            for (auto itr = ans.number.rbegin() + 1; itr < itrEnd; ++itr)
+            i_end = ans.number.rend() - 1;
+            for (auto i_mover = ans.number.rbegin() + 1; i_mover < i_end; ++i_mover)
             {
-                *itr = *(itr + 1);
+                *i_mover = *(i_mover + 1);
             }
-            *itrEnd = 0;
+            *i_end = 0;
             ans += multiply_by_num(*digit_l);
         }
         return ans;
@@ -141,9 +149,39 @@ public:
         return Divide(big_number, MOD);
     }
 
-    Big_number operator/(const Big_number& big_number) const //TODO
+    Big_number operator/(const Big_number& divisor) const //TODO
     {
-        return Divide(big_number, DIVIDE);
+        /// dividend / divisor = quotient;
+        /// dividend % divisor = remainder;
+
+        /// QUOTIENT
+
+
+        Big_number dividend = *this;
+        if(dividend < divisor)
+            return Big_number();
+        Big_number quotent;
+        quotent.number.clear();
+        int quot;
+        Big_number remainder;
+        remainder.number.clear();
+        auto p = dividend.number.rbegin();
+        do
+        {
+            remainder.number.push_back(*p);
+            ++p;
+        }
+        while (remainder < divisor);
+        quot = remainder.divide_simple(divisor);
+        quotent.number.push_back(quot);
+
+        return quotent;
+//        return Divide(big_number, DIVIDE);
+    }
+
+    Big_number pow() const//TODO
+    {
+        return *this;
     }
 
     Big_number& operator+=(const Big_number& big_number)
@@ -235,12 +273,12 @@ public:
         return !(number.size() == 1 && number[0] == 0);
     }
 
-    void View() const
+    void View(std::ostream& ostr = std::cout) const
     {
         Big_number Temp = *this;
         Temp.set_base(10);
-        std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(std::cout, ""));
-        std::cout << std::endl;
+        std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
+        ostr << std::endl;
     }
 
     ~Big_number() = default;
@@ -251,7 +289,7 @@ private:
     std::vector<unsigned char> number;
 //    ///@note Zero has '+'
 //    bool sign_plus;
-    /// base can be in range [0, 16] on "standard" computer
+    /// base can be in range [2, 16] on "standard" computer
     unsigned char base;
 
     void normalise()
