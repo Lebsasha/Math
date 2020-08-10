@@ -22,6 +22,8 @@ public:
     explicit Big_number(T num): /*sign_plus(num >= *//*static_cast<T>*//*(0)),*/ number(std::vector<unsigned char>()), base(10)
     {
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
+        if (!num)
+            number.push_back(num);
         while (num)
         {
             number.push_back(num % base);
@@ -141,6 +143,8 @@ public:
     {
         /// multiplicand * multiplier = product;
         /// multiplicand == product == ans here for optimisation purposes
+        if (*this == Big_number() || multiplier == Big_number())
+            return Big_number();
         Big_number ans = multiply_by_num(*multiplier.number.crbegin());
         auto i_end = ans.number.rend();
         for (auto digit_l = multiplier.number.crbegin() + 1; digit_l < multiplier.number.crend(); ++digit_l)
