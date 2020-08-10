@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         BOOST_CHECK((Big_number(1001) - Big_number(2)).Get_Number<int>() == 999);
         BOOST_CHECK((Four + Four + Four - Three) == Big_number(9));
         BOOST_CHECK((Four * Three + Three * Four + Four - Three * Three * Three) == Big_number(4 * 3 + 3 * 4 + 4 - 3 * 3 * 3));
-        BOOST_CHECK(Four * Three + Three * Four + Four - Three * Three * Three - Big_number(1) == false);
+        BOOST_CHECK(static_cast<bool>(Four * Three + Three * Four + Four - Three * Three * Three - Big_number(1)) == false);
         BOOST_CHECK((Four * Three).Get_Number<int>() == 12);
         BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) == Big_number(UINT_MAX) * Big_number(2));
         BOOST_CHECK((Big_number(ULLONG_MAX) + Big_number(ULLONG_MAX) + Big_number(ULLONG_MAX)) == Big_number(ULLONG_MAX) * Big_number(3));

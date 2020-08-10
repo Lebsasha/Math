@@ -292,7 +292,7 @@ public:
         return *this == big_number || *this > big_number;
     }
 
-    operator bool() const
+    explicit operator bool() const
     {
         return !(number.size() == 1 && number[0] == 0);
     }
@@ -348,5 +348,11 @@ private:
     }
 
 };
+
+std::ostream& operator<<(std::ostream& ostr, const Big_number& num)
+{
+    num.View(ostr);
+    return ostr;
+}
 
 #endif //NUM_METHODS_BIG_INT_NUMBERS
