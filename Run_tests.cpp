@@ -82,28 +82,28 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
     BOOST_AUTO_TEST_CASE(Intercnagable_with_int)
     {
         Big_number num(3);
-        int i = num.Get_Number<int>();
+        int i = num.get_Number<int>();
         cout << i << endl;
         BOOST_CHECK(num == Big_number(i));
     }
     //TODO Я пишу это для тренировки
     BOOST_FIXTURE_TEST_CASE (Operators, Fixture_for_tests)
     {
-        BOOST_CHECK((Three + Four).Get_Number<int>() == 7);
-        BOOST_CHECK((Three + Four + Four + Four + Three).Get_Number<int>() == 7 + 7 + 4);
+        BOOST_CHECK((Three + Four).get_Number<int>() == 7);
+        BOOST_CHECK((Three + Four + Four + Four + Three).get_Number<int>() == 7 + 7 + 4);
         BOOST_CHECK((Four - Three) == Big_number(1));
-        BOOST_CHECK((Big_number(1006) - Big_number(6)).Get_Number<int>() == 1000);
-        BOOST_CHECK((Big_number(1001) - Big_number(2)).Get_Number<int>() == 999);
+        BOOST_CHECK((Big_number(1006) - Big_number(6)).get_Number<int>() == 1000);
+        BOOST_CHECK((Big_number(1001) - Big_number(2)).get_Number<int>() == 999);
         BOOST_CHECK((Four + Four + Four - Three) == Big_number(9));
         BOOST_CHECK((Four * Three + Three * Four + Four - Three * Three * Three) == Big_number(4 * 3 + 3 * 4 + 4 - 3 * 3 * 3));
         BOOST_CHECK(static_cast<bool>(Four * Three + Three * Four + Four - Three * Three * Three - Big_number(1)) == false);
-        BOOST_CHECK((Four * Three).Get_Number<int>() == 12);
+        BOOST_CHECK((Four * Three).get_Number<int>() == 12);
         BOOST_CHECK((Big_number(UINT_MAX) + Big_number(UINT_MAX)) == Big_number(UINT_MAX) * Big_number(2));
         BOOST_CHECK((Big_number(ULLONG_MAX) + Big_number(ULLONG_MAX) + Big_number(ULLONG_MAX)) == Big_number(ULLONG_MAX) * Big_number(3));
-        BOOST_CHECK(Four.pow(0).Get_Number<int>() == 1);
-        BOOST_CHECK(Four.pow(1).Get_Number<int>() == 4);
-        BOOST_CHECK(Four.pow(2).Get_Number<int>() == 16);
-        BOOST_CHECK(Four.pow(3).Get_Number<int>() == 64);
+        BOOST_CHECK(Four.pow(0).get_Number<int>() == 1);
+        BOOST_CHECK(Four.pow(1).get_Number<int>() == 4);
+        BOOST_CHECK(Four.pow(2).get_Number<int>() == 16);
+        BOOST_CHECK(Four.pow(3).get_Number<int>() == 64);
         BOOST_CHECK(Four == Three + Big_number(1));
         BOOST_CHECK(Four != Three + Big_number(1000));
         BOOST_CHECK(Four < Three + Big_number(1000));
@@ -118,10 +118,10 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
 //        BOOST_CHECK(Three / Four == Big_number(0));
 //        BOOST_CHECK(Four / Three == Big_number(1));
         Big_number Four_m = std::move(Four);
-        BOOST_CHECK(Four_m.Get_Number<char>() == 4);
+        BOOST_CHECK(Four_m.get_Number<char>() == 4);
         Four_m = Three;
         BOOST_CHECK(Four_m == Three);
-        BOOST_CHECK(Four_m.Get_Number<unsigned char>() == 3);
+        BOOST_CHECK(Four_m.get_Number<unsigned char>() == 3);
         Big_number num(12345);
         num.View();
         num.set_base(16);
@@ -129,9 +129,9 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         cout << num.get_base() << endl;
         num.set_base(10);
         cout << num << endl;
-        BOOST_CHECK(num.Get_Number<int>() == 12345);
+        BOOST_CHECK(num.get_Number<int>() == 12345);
         num += Big_number(4);
-        BOOST_CHECK(num.Get_Number<int>() == 12345 + 4);
+        BOOST_CHECK(num.get_Number<int>() == 12345 + 4);
     }
 
 #include <iterator>

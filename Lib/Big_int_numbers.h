@@ -41,7 +41,7 @@ public:
     }
 
     template<typename T>
-    T Get_Number() const
+    T get_Number() const
     {
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
 //        assert(sign_plus || std::is_signed<T>::value);
