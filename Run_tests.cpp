@@ -114,9 +114,13 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         BOOST_CHECK(Four + Big_number(10) > Four);
         BOOST_CHECK(!(Four > Four));
         BOOST_CHECK(Four >= Four);
-//        BOOST_CHECK(Four / Four == Big_number(1));
-//        BOOST_CHECK(Three / Four == Big_number(0));
-//        BOOST_CHECK(Four / Three == Big_number(1));
+        BOOST_CHECK(Big_number(197)/Big_number(15) == Big_number(13));
+        BOOST_CHECK(Big_number(1575)/Big_number(15) == Big_number(105));
+        BOOST_CHECK(Big_number(150075)/Big_number(15) == Big_number(10005));//TODO
+        BOOST_CHECK(Big_number(109007)/Big_number(15) == Big_number(7267));//TODO
+        BOOST_CHECK(Four / Four == Big_number(1));
+        BOOST_CHECK(Three / Four == Big_number(0));
+        BOOST_CHECK(Four / Three == Big_number(1));
         Big_number Four_m = std::move(Four);
         BOOST_CHECK(Four_m.get_Number<char>() == 4);
         Four_m = Three;

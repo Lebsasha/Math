@@ -178,27 +178,69 @@ public:
         /// dividend % divisor = remainder;
 
         /// QUOTIENT
-
-
+//return *this;
         Big_number dividend = *this;
-        if(dividend < divisor)
+        if (dividend < divisor)
             return Big_number();
-        Big_number quotent;
-        quotent.number.clear();
-        int quot;
+
+        Big_number quotient;
+        quotient.number.clear();
         Big_number remainder;
-        remainder.number.clear();
+        size_t i = dividend.number.size();
+//        remainder.number.clear();
         auto p = dividend.number.rbegin();
         do
         {
-            remainder.number.push_back(*p);
+            remainder = Big_number(*p) + (remainder * 10);
+//            remainder.number.insert();
             ++p;
-        }
-        while (remainder < divisor);
-        quot = remainder.divide_simple(divisor);
-        quotent.number.push_back(quot);
+            --i;
+        } while (!(remainder >= divisor));
+        int quot = remainder.divide_simple(divisor);
+        dividend = dividend - divisor * quot * Big_number(10).pow(i);
+        quotient.number.push_back(quot);
 
-        return quotent;
+        bool if_zero = false;
+        bool first_run = true;
+        while (dividend >= divisor)
+        {
+            if (divisor * quot == remainder)
+            {
+                dividend.number.push_back(0);
+                if_zero = true;
+//            --i;
+            }
+            p = dividend.number.rbegin();
+            remainder = Big_number(*p);
+            first_run = true;
+            while (remainder < divisor)
+            {
+                if (p == dividend.number.rend())
+                {
+                    remainder = dividend; // final remainder
+//                    break;
+                    goto end;
+                }
+                ++p;
+                remainder = Big_number(*p) + (remainder * 10);
+                --i;
+                if (first_run)
+                    first_run = false;
+                else
+                    quotient.number.push_back(0);
+            }
+            if (if_zero)
+            {
+                dividend.number.pop_back();
+                if_zero = false;
+            }
+            quot = remainder.divide_simple(divisor);
+            dividend = dividend - (divisor * quot * Big_number(10).pow(i));
+            quotient.number.push_back(quot);
+        }
+        end:
+        std::reverse(quotient.number.begin(), quotient.number.end());
+        return quotient;
 //        return Divide(big_number, DIVIDE);
     }
 
@@ -349,6 +391,20 @@ private:
     [[nodiscard]] Big_number Divide(const Big_number& divisor, const bool mode) const
     {
         return *this;
+    }
+
+    int divide_simple(const Big_number& divisor) const
+    {
+        assert (*this >= divisor);
+        int coef = 2;
+        Big_number coef_finder = divisor + divisor;
+        while (*this >= coef_finder)
+        {
+            coef_finder += divisor;
+            ++coef;
+        }
+        assert(coef <= 9);
+        return coef - 1;
     }
 
 };
