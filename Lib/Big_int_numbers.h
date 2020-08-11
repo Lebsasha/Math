@@ -42,6 +42,15 @@ public:
         std::cout << "I'm move operator" << std::endl;
     }
 
+    Big_number& operator=(Big_number big_number)
+    {
+        number = std::move(big_number.number);
+        base = big_number.base;
+        std::cout << "I'm operator=" << std::endl;
+//        std::swap(*this, big_number);
+        return *this;
+    }
+
     template<typename T>
     T get_Number() const
     {
@@ -56,14 +65,6 @@ public:
 //        if (!sign_plus)
 //            num = -num;
         return num;
-    }
-
-    Big_number& operator=(Big_number big_number)
-    {
-        number = std::move(big_number.number);
-        base = big_number.base;
-//        std::swap(*this, big_number);
-        return *this;
     }
 
     /// base can be in range [2, 16] on "standard" computer
@@ -180,6 +181,7 @@ public:
         /// QUOTIENT
 //return *this;
         Big_number dividend = *this;
+        assert (static_cast<bool>(divisor));
         if (dividend < divisor)
             return Big_number();
 
@@ -208,6 +210,7 @@ public:
             {
                 dividend.number.push_back(0);
                 if_zero = true;
+                //TODO
 //            --i;
             }
             p = dividend.number.rbegin();
@@ -233,6 +236,7 @@ public:
             {
                 dividend.number.pop_back();
                 if_zero = false;
+                //TODO
             }
             quot = remainder.divide_simple(divisor);
             dividend = dividend - (divisor * quot * Big_number(10).pow(i));
@@ -244,6 +248,7 @@ public:
 //        return Divide(big_number, DIVIDE);
     }
 
+    /// @attention i must be >= 0
     Big_number pow(unsigned int i) const
     {
         if (!i)
@@ -315,6 +320,7 @@ public:
 
     bool operator>(const Big_number& big_number) const
     {
+        return big_number < *this;
         if (base != big_number.base)
         {
             std::cerr << "base != big_number.base in operator>" << std::endl;
