@@ -248,9 +248,9 @@ public:
 //        return Divide(big_number, DIVIDE);
     }
 
-    /// @attention i must be >= 0
-    Big_number pow(unsigned int i) const
+    Big_number pow(int i) const
     {
+        assert(i>=0);
         if (!i)
             return Big_number(1);
         Big_number ans = *this;
