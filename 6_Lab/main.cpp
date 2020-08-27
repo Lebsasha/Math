@@ -7,7 +7,7 @@ extern std::string Path;
 #define  NX        NXB*3+1
 #define  NYB     12
 #define  NY        NYB*3+1
-#define  REP     3000
+#define  REP_Lab_6     3000
 #define  EPSL   1.e-5
 #define  LL        1.7
 #define  TEM1   5.0f
@@ -56,7 +56,7 @@ extern std::string Path;
         j1 = NYB;
         j2 = NYB * 2;
         j3 = NYB * 3;
-        rp = REP;
+        rp = REP_Lab_6;
         for (j = 0; j <= j3; j++) {
             for (i = 0; i <= i3; i++) {
                 T[j][i] = 0.0f;

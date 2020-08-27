@@ -10,7 +10,7 @@ extern std::string Path;
 #define NX NXB*3+1
 #define NY NYB*3+1
 //#define NYK2 NYB*2
-#define REP 4000
+#define REP_Lab_7 4000
 #define DEL 100
 #define AMAT 1.1f
 #define TEM1 5.0f
@@ -88,7 +88,7 @@ int main_for_Lab_7 ()
         }
     }
     fout.close();
-    for (k=0; k<REP; k++)
+    for (k=0; k < REP_Lab_7; k++)
     {
         for (j=0; j<NY; j++)
         {
