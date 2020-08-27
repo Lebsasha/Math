@@ -177,7 +177,7 @@ public:
 
     Big_number operator%(const Big_number& divisor) const
     {
-        return Divide(divisor, false);
+        return divide(divisor, false);
     }
 
     template<typename T>
@@ -188,7 +188,7 @@ public:
 
     Big_number operator/(const Big_number& divisor) const
     {
-        return Divide(divisor, true);
+        return divide(divisor, true);
     }
 
     template<typename T>
@@ -332,13 +332,11 @@ private:
         return ans;
     }
 
-    [[nodiscard]] Big_number Divide(const Big_number& divisor, const bool if_divide) const //TODO
+    [[nodiscard]] Big_number divide(const Big_number& divisor, const bool if_divide) const //TODO
     {
         /// dividend / divisor = quotient;
         /// dividend % divisor = remainder;
 
-        /// QUOTIENT
-//return *this;
         Big_number dividend = *this;
         assert (static_cast<bool>(divisor));
         if (dividend < divisor)
@@ -346,27 +344,31 @@ private:
 
         Big_number quotient;
         quotient.number.clear();
-        Big_number remainder;
+        Big_number current_part_of_dividend;
         size_t i = dividend.number.size();
-//        remainder.number.clear();
         auto p = dividend.number.rbegin();
         do
         {
-            remainder = Big_number(*p) + (remainder * 10);
-//            remainder.number.insert();
+            current_part_of_dividend = Big_number(*p) + (current_part_of_dividend * 10);
             ++p;
             --i;
-        } while (!(remainder >= divisor));
-        int quot = remainder.divide_simple(divisor);
-        dividend = dividend - divisor * quot * Big_number(10).pow(i);
+        } while (!(current_part_of_dividend >= divisor));
+        int quot = current_part_of_dividend.divide_simple(divisor);
+        Big_number divisor_on_quot = divisor * quot;
+        dividend = dividend - divisor_on_quot * Big_number(10).pow(i);
         quotient.number.push_back(quot);
 
         bool if_zero = false;
         bool first_run = true;
-        size_t offset_from_position = 1;
-        while (dividend >= divisor || divisor * quot == remainder)
+        size_t offset_from_position = divisor_on_quot.number.size();
+        for (auto div = divisor_on_quot.number.crbegin(), rem = current_part_of_dividend.number.crbegin();
+             *div == *rem && offset_from_position != 1; ++div, ++rem)
         {
-            if (divisor * quot == remainder)
+            --offset_from_position;
+        }
+        while (dividend >= divisor || divisor_on_quot == current_part_of_dividend)
+        {
+            if (divisor_on_quot == current_part_of_dividend)
             {
                 dividend.number.push_back(0);
                 if_zero = true;
@@ -379,23 +381,20 @@ private:
                 }
                 if (index_zero == this->number.rend())
                     goto end;
-                //Add new class with alt + insert generator
+                //TODO Add new class with alt + insert generator
             }
             p = dividend.number.rbegin();
-            remainder = Big_number(*p);
+            current_part_of_dividend = Big_number(*p);
 
             first_run = true;
-            while (remainder < divisor)
+            while (current_part_of_dividend < divisor)
             {
                 ++p;
-                if (p == dividend.number.rend())// ?
+                if (p == dividend.number.rend())// Impossible situation ?
                 {
-                    remainder = dividend; // final remainder
-                    std::cout << "Warningg";
-//                    break;
-                    goto end;
+                    assert(false);
                 }
-                remainder = Big_number(*p) + (remainder * 10);
+                current_part_of_dividend = Big_number(*p) + (current_part_of_dividend * 10);
                 if (offset_from_position)
                 {
                     if (offset_from_position == 1)
@@ -412,20 +411,26 @@ private:
             {
                 dividend.number.pop_back();
                 if_zero = false;
-                //TODO
             }
-            quot = remainder.divide_simple(divisor);
+            quot = current_part_of_dividend.divide_simple(divisor);
+            divisor_on_quot = divisor * quot;
             assert(!offset_from_position);
-            offset_from_position = (divisor * quot).number.size();// + 1 -- because it counts jumps - 1 -- because of initialisation
-            // remainder
-            dividend = dividend - (divisor * quot * Big_number(10).pow(i));
+            offset_from_position = divisor_on_quot.number.size();/// + 1 -- because it counts jumps - 1 -- because of initialisation
+            for (auto div = divisor_on_quot.number.crbegin(), rem = current_part_of_dividend.number.crbegin();
+                 *div == *rem && offset_from_position != 1;
+                 ++div, ++rem)
+            {
+                --offset_from_position;
+            }
+            dividend = dividend - (divisor_on_quot * Big_number(10).pow(i));
             quotient.number.push_back(quot);
-        }// while (dividend >= divisor);
+        }
         end:
         std::reverse(quotient.number.begin(), quotient.number.end());
-        //dividend -> remainder
-        return quotient;
-//        return Divide(big_number, DIVIDE);
+        if (if_divide)
+            return quotient;
+        ///dividend -> remainder
+        return dividend;
     }
 
     int divide_simple(const Big_number& divisor) const

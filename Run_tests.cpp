@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_SUITE_END()
 /**
   * std::addressof
   * std::forward
-  *  Function 'Divide' should be marked [[nodiscard]]
+  *  Function 'divide' should be marked [[nodiscard]]
   * \param
   * \param
   * \return
