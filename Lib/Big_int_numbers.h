@@ -271,7 +271,7 @@ public:
 
     Big_number pow(int i) const
     {
-        assert(i>=0);
+        assert(i >= 0);
         if (!i)
             return Big_number(1);
         Big_number ans = *this;
@@ -342,22 +342,6 @@ public:
     bool operator>(const Big_number& big_number) const
     {
         return big_number < *this;
-        if (base != big_number.base)
-        {
-            std::cerr << "base != big_number.base in operator>" << std::endl;
-            return false;
-        }
-        if (number.size() != big_number.number.size())
-            return number.size() > big_number.number.size();
-        auto itr1 = number.crbegin();
-        auto itr2 = big_number.number.crbegin();
-        for (; itr2 < big_number.number.crend(); ++itr1, ++itr2)
-        {
-            if (*itr1 == *itr2)
-                continue;
-            return *itr1 > *itr2;
-        }
-        return false; // Numbers are equal
     }
 
     bool operator>=(const Big_number& big_number) const
@@ -372,9 +356,16 @@ public:
 
     void View(std::ostream& ostr = std::cout) const
     {
-        Big_number Temp = *this;
-        Temp.set_base(10);
-        std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
+        if (base != 10)
+        {
+            Big_number Temp = *this;
+            Temp.set_base(10);
+            std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
+        } else
+        {
+            const Big_number& Temp = *this;
+            std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
+        }
         ostr << std::endl;
     }
 
