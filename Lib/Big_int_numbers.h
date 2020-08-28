@@ -60,7 +60,7 @@ public:
         T num = *number.crbegin();
         for (auto it = number.crbegin() + 1; it < number.crend(); ++it)
         {
-            num = *it + 10 * num;
+            num = *it + base * num;
         }
 //        if (!sign_plus)
 //            num = -num;
@@ -68,18 +68,32 @@ public:
     }
 
     /// base can be in range [2, 16] on "standard" computer
-    void set_base(const int base_)//TODO
+    void set_base(const int new_base)//TODO
     {
-        assert(base_ >= 2);
-        assert(base_ <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
+        assert(new_base >= 2);
+        assert(new_base <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
         Big_number ans;
-        ans.number.clear();
-        while (static_cast<bool>(*this))
+        if (base != 10)
         {
-            ans.number.push_back((*this % base_).get_Number<unsigned char>());
-            *this /= Big_number(base_);
+            int i = 0;
+            for (auto digit: number)
+            {
+                ans += Big_number(base).pow(i) * digit;
+                ++i;
+            }
+            *this = ans;
         }
-        base = base_;
+        if (new_base != 10)
+        {
+            ans.number.clear();
+            while (static_cast<bool>(*this))
+            {
+                ans.number.push_back((*this % new_base).get_Number<unsigned char>());
+                *this /= Big_number(new_base);
+            }
+            *this = ans;
+            base = new_base;
+        }
     }
 
     [[nodiscard]] int get_base() const
@@ -244,9 +258,9 @@ public:
 
     bool operator<(const Big_number& big_number) const
     {
-        if (base != big_number.base)
+        if (base != big_number.base && base != 10 && big_number.base != 10)
         {
-            std::cerr << "base != big_number.base in operator<" << std::endl;
+            std::cerr << "base != big_number.base in operator< or operator>" << std::endl;
             return false;
         }
         if (number.size() != big_number.number.size())
@@ -340,7 +354,12 @@ private:
         Big_number dividend = *this;
         assert (static_cast<bool>(divisor));
         if (dividend < divisor)
-            return Big_number();
+        {
+            if (if_divide)
+                return Big_number();
+            else
+                return *this;
+        }
 
         Big_number quotient;
         quotient.number.clear();
@@ -443,7 +462,7 @@ private:
             coef_finder += divisor;
             ++coef;
         }
-        assert(coef <= 9);
+        assert(coef < base);
         return coef - 1;
     }
 
