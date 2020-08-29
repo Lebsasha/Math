@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <ostream>
 #include "Different.h"
-
+/// remove sign_plus and TODO
 class Big_number
 {
 public:
@@ -47,12 +47,11 @@ public:
         number = std::move(big_number.number);
         base = big_number.base;
         std::cout << "I'm operator=" << std::endl;
-//        std::swap(*this, big_number);
         return *this;
     }
 
     template<typename T>
-    T get_Number() const
+    [[nodiscard]] T get_Number() const
     {
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
 //        assert(sign_plus || std::is_signed<T>::value);
@@ -211,7 +210,7 @@ public:
         return *this / Big_number(num);
     }
 
-    Big_number pow(int i) const
+    [[nodiscard]] Big_number pow(int i) const
     {
         assert(i >= 0);
         if (!i)
@@ -303,7 +302,8 @@ public:
             Big_number Temp = *this;
             Temp.set_base(10);
             std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
-        } else
+        }
+        else
         {
             const Big_number& Temp = *this;
             std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
@@ -346,7 +346,7 @@ private:
         return ans;
     }
 
-    [[nodiscard]] Big_number divide(const Big_number& divisor, const bool if_divide) const //TODO
+    [[nodiscard]] Big_number divide(const Big_number& divisor, const bool if_divide) const
     {
         /// dividend / divisor = quotient;
         /// dividend % divisor = remainder;
@@ -436,8 +436,7 @@ private:
             assert(!offset_from_position);
             offset_from_position = divisor_on_quot.number.size();/// + 1 -- because it counts jumps - 1 -- because of initialisation
             for (auto div = divisor_on_quot.number.crbegin(), rem = current_part_of_dividend.number.crbegin();
-                 *div == *rem && offset_from_position != 1;
-                 ++div, ++rem)
+                 *div == *rem && offset_from_position != 1; ++div, ++rem)
             {
                 --offset_from_position;
             }
@@ -448,11 +447,11 @@ private:
         std::reverse(quotient.number.begin(), quotient.number.end());
         if (if_divide)
             return quotient;
-        ///dividend -> remainder
+        ///dividend is the remainder
         return dividend;
     }
 
-    int divide_simple(const Big_number& divisor) const
+    [[nodiscard]] int divide_simple(const Big_number& divisor) const
     {
         assert (*this >= divisor);
         int coef = 2;
