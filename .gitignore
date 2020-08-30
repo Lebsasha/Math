@@ -35,3 +35,6 @@
 /Logs/
 /cmake-build-debug/
 *_Lab*/bin
+
+.idea/workspace.xml
+.idea/task.xml
