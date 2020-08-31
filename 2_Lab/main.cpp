@@ -14,7 +14,10 @@ double Func1 (const Matrix<double>& A)
         double* pa = A.Get_pointer();
         if (!pa)
             throw 2;
-        return *pa**pa - *(++pa)**pa - 1;
+
+        const double result = *pa * *pa;
+        ++pa;
+        return result - *pa * *pa - 1;
     }
     catch (int i)
     {
@@ -36,7 +39,9 @@ double Func2 (const Matrix<double>& A)
         double* pa = A.Get_pointer();
         if (!pa)
             throw 2;
-        return *pa**(++pa)**pa**pa - *pa - 3;
+        const double result = *pa;
+        ++pa;
+        return result**pa**pa**pa - *pa - 3;
     }
     catch (int i)
     {
@@ -102,7 +107,8 @@ double Func5 (const Matrix<double>& A)
         double* pa = A.Get_pointer();
         if (!pa)
             throw 2;
-        return *(++pa)**pa**pa;
+        ++pa;
+        return *pa**pa**pa;
     }
     catch (int i)
     {
@@ -124,7 +130,9 @@ double Func6 (const Matrix<double>& A)
         double* pa = A.Get_pointer();
         if (!pa)
             throw 2;
-        return 3**pa**(++pa)**pa - *pa;
+        const double result = 3 * *pa;
+        ++pa;
+        return result * *pa * *pa - *pa;
     }
     catch (int i)
     {
@@ -135,43 +143,72 @@ double Func6 (const Matrix<double>& A)
         return -1;
     }
 }
-#define next_linee cout<<endl;
-
-int main_for_Lab_2();
+//int main_for_Lab_2();
 
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_2)
 BOOST_AUTO_TEST_CASE(Case_for_lab_2)
         {
-                BOOST_CHECK(main_for_Lab_2()==0);
+            const double Eps1 = 1E-9;
+            const double Eps2 = 1E-9;
+            Array_of_Functions2 Ar(2);
+            Ar[0] = Func1;
+            Ar[1] = Func2;
+            Array_of_Functions2 Der_of_Ar (4);
+            Der_of_Ar[0] = Func3;
+            Der_of_Ar[1] = Func4;
+            Der_of_Ar[2] = Func5;
+            Der_of_Ar[3] = Func6;
+            Matrix<double> X1 (2, 1);
+            X1[0] = 1;
+            X1[1] = 1;
+            Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
+            X1.View();
+            Y1.View();
+            BOOST_CHECK_CLOSE_FRACTION(Y1[0], 1.6968,1E-5);
+            BOOST_CHECK_CLOSE_FRACTION(Y1[1],1.37081,1E-6);
+            // 1.6968
+            //1.37081
+            cout << endl;
+            Matrix<double> X2 (2, 1);
+            X2[0] = -1;
+            X2[1] = -1;
+            Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
+            X2.View();
+            Y2.View();
+            BOOST_CHECK_CLOSE_FRACTION(Y2[0],-1.47865 ,2E-6);
+            BOOST_CHECK_CLOSE_FRACTION(Y2[1],-1.08922,1E-6);
+//                BOOST_CHECK(main_for_Lab_2()==0);
         }
 BOOST_AUTO_TEST_SUITE_END()
 
-int main_for_Lab_2 ()
-{
-    const double Eps1 = 1E-9;
-    const double Eps2 = 1E-9;
-    Array_of_Functions2 Ar(2);
-    Ar[0] = Func1;
-    Ar[1] = Func2;
-    Array_of_Functions2 Der_of_Ar (4);
-    Der_of_Ar[0] = Func3;
-    Der_of_Ar[1] = Func4;
-    Der_of_Ar[2] = Func5;
-    Der_of_Ar[3] = Func6;
-    Matrix<double> X1 (2, 1);
-    X1[0] = 1;
-    X1[1] = 1;
-    Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
-    X1.View();
-    Y1.View();
-    next_linee
-    Matrix<double> X2 (2, 1);
-    X2[0] = -1;
-    X2[1] = -1;
-    Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
-    X2.View();
-    Y2.View();
-    cout << "Hello world!" << endl;
-//    Get_Pause();
-    return 0;
-}
+//int main_for_Lab_2 ()
+//{
+//    const double Eps1 = 1E-9;
+//    const double Eps2 = 1E-9;
+//    Array_of_Functions2 Ar(2);
+//    Ar[0] = Func1;
+//    Ar[1] = Func2;
+//    Array_of_Functions2 Der_of_Ar (4);
+//    Der_of_Ar[0] = Func3;
+//    Der_of_Ar[1] = Func4;
+//    Der_of_Ar[2] = Func5;
+//    Der_of_Ar[3] = Func6;
+//    Matrix<double> X1 (2, 1);
+//    X1[0] = 1;
+//    X1[1] = 1;
+//    Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
+//    X1.View();
+//    Y1.View();
+//    // 1.6968
+// //1.37081
+//    cout << endl;
+//    Matrix<double> X2 (2, 1);
+//    X2[0] = -1;
+//    X2[1] = -1;
+//    Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
+//    X2.View();
+//    Y2.View();
+//    cout << "Hello world!" << endl;
+////    Get_Pause();
+//    return 0;
+//}

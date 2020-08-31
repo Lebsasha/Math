@@ -34,7 +34,7 @@ int main_for_Lab_1 ()
 {
     const int N = 3;
     Matrix_SLE A;
-    A.Read_from_file("A.matr_l");
+    A.Read_from_file("../1_Lab/A.matr_l");
     //A.View();
     vector<double> vb (N);
     vb[0] = 3;
