@@ -6,7 +6,7 @@
 //#define BOOST_TEST_LOG_LEVEL all
 #include "Lib/Big_int_numbers.h"
 
-//#define NDEBUG 1
+#define NDEBUG 1
 
 #include <boost/test/unit_test.hpp>
 #include "1_Lab/main.cpp"

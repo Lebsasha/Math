@@ -56,7 +56,10 @@ int main_for_Lab_3 ()
     for (auto iyk = yk[1].Last_i(), itk = yk[0].Last_i(); itk >= iEnd_e; --iyk, --itk)
     {
         if (fabs(*itk) > DBL_EPSILON || fabs(*iyk) > DBL_EPSILON || fabs(*(iyk - 1)) > DBL_EPSILON)
-            oFile_Exp<<*itk<< ' '<<*iyk<<' '<<*(iyk--)<<'\n'; //Why undefined?
+        {
+            oFile_Exp<<*itk<< ' '<<*iyk<<' ';
+            oFile_Exp<<*(iyk--)<<'\n';
+        }
         else
             --iyk;
     }
@@ -68,7 +71,10 @@ int main_for_Lab_3 ()
     for (auto iyk = (I_all[1]).Last_i(), itk = (I_all[0]).Last_i(); iyk >= iEnd_i; --iyk, --itk)
     {
         if (fabs(*itk) > DBL_EPSILON || fabs(*iyk) > DBL_EPSILON || fabs(*(iyk - 1)) > DBL_EPSILON)
-        oFile_Imp<<*itk<<' '<<*iyk<<' '<<*(iyk--)<<'\n';
+        {
+            oFile_Imp<<*itk<<' '<<*iyk<<' ';
+            oFile_Imp<<*(iyk--)<<'\n';
+        }
         else
             --iyk;
     }
