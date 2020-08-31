@@ -1,6 +1,6 @@
 #include <fstream>
 #include <boost/test/unit_test.hpp>
-extern std::string Path;
+extern std::string path;
 
 #define  PRES   double
 #define  NXB     15
@@ -34,7 +34,7 @@ extern std::string Path;
     BOOST_AUTO_TEST_SUITE_END()
 
     int main_for_Lab_6() {
-        ofstream foutT(Path+"dT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream foutT(path + "dT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         int i1, i2, i3, j1, j2, j3, rp, i, j, k = 0;
         double T1 = TEM1, T2 = TEM2, h = HX, r = HY, tx, t0, t1, del, maxdel = 0.0f;
         double T[NY][NX];
@@ -173,10 +173,10 @@ extern std::string Path;
             maxdel = 0.0f;
         }
         foutT.close();
-        ofstream fouT(Path+"nT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream fouT(path + "nT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         fouT.write((char *) &nT, sizeof nT);
         fouT.close(); // ��������� ����
-        ofstream fout(Path+"Pole.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream fout(path + "Pole.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         for (j = 0; j < NY; j++) {
             for (i = 0; i < NX; i++) {
                 double w = T[j][i];
@@ -186,7 +186,7 @@ extern std::string Path;
         fout.close();
         int n_x = NX;
         int n_y = NY;
-        ofstream fou(Path+"Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         fou.write((char *) &n_x, sizeof n_x);
         fou.write((char *) &n_y, sizeof n_y);
         fou.close();

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <boost/test/unit_test.hpp>
-extern std::string Path;
+extern std::string path;
 
 //#define PRES double
 #define NXB 15
@@ -78,7 +78,7 @@ int main_for_Lab_7 ()
         T[j3][i] = T1;
         TT[j3][i] = T1;
     }
-    ofstream fout(Path+"T1.dat",ios_base::out | ios_base::trunc | ios_base::binary);
+    ofstream fout(path + "T1.dat", ios_base::out | ios_base::trunc | ios_base::binary);
     for (j = 0; j < NY; j++)
     {
         for (i = 0; i < NX; i++)
@@ -148,7 +148,7 @@ int main_for_Lab_7 ()
             Name += 'T';
             reverse (Name.begin(), Name.end());
             Name += ".dat";
-            ofstream foutn(Path+Name.c_str(), ios_base::out | ios_base::trunc | ios_base::binary);
+            ofstream foutn(path + Name.c_str(), ios_base::out | ios_base::trunc | ios_base::binary);
             for (j = 0; j < NY; j++)
             {
                 for (i = 0; i < NX; i++)
@@ -171,7 +171,7 @@ int main_for_Lab_7 ()
     int n_x = NX;
     int n_y = NY;
     int n_k = --ndt;
-    ofstream fou(Path+"Param.dat",ios_base::out | ios_base::trunc | ios_base::binary);
+    ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
     fou.write((const char* const)&n_x, sizeof n_x);
     fou.write((const char* const)&n_y, sizeof n_y);
     fou.write((const char* const)&n_k, sizeof n_y);

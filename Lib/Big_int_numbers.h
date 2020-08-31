@@ -2,14 +2,14 @@
 // Created by alexander on 17/07/2020.
 //
 
-#ifndef NUM_METHODS_BIG_INT_NUMBERS
-#define NUM_METHODS_BIG_INT_NUMBERS
+#ifndef BIG_INT_NUMBERS
+#define BIG_INT_NUMBERS
 
 #include <iterator>
 #include <algorithm>
 #include <ostream>
 #include "Different.h"
-/// remove sign_plus and TODO
+// TODO remove sign_plus
 class Big_number
 {
 public:
@@ -51,7 +51,7 @@ public:
     }
 
     template<typename T>
-    [[nodiscard]] T get_Number() const
+    [[nodiscard]] T get_number() const
     {
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
 //        assert(sign_plus || std::is_signed<T>::value);
@@ -67,7 +67,7 @@ public:
     }
 
     /// base can be in range [2, 16] on "standard" computer
-    void set_base(const int new_base)//TODO
+    void set_base(const int new_base)
     {
         assert(new_base >= 2);
         assert(new_base <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
@@ -87,7 +87,7 @@ public:
             ans.number.clear();
             while (static_cast<bool>(*this))
             {
-                ans.number.push_back((*this % new_base).get_Number<unsigned char>());
+                ans.number.push_back((*this % new_base).get_number<unsigned char>());
                 *this /= Big_number(new_base);
             }
             *this = ans;
@@ -106,9 +106,9 @@ public:
         /// addend_1 == sum == ans here for optimisation purposes
         Big_number ans = this->number.size() >= big_number.number.size() ? *this : big_number;
         const Big_number& addend_2 = this->number.size() >= big_number.number.size() ? big_number : *this;
-        auto itEnd = addend_2.number.cend();
+        auto it_end = addend_2.number.cend();
         auto digit_l = addend_2.number.cbegin();
-        for (auto digit_r = ans.number.begin(); digit_l < itEnd; ++digit_r, ++digit_l)
+        for (auto digit_r = ans.number.begin(); digit_l < it_end; ++digit_r, ++digit_l)
         {
             *digit_r += *digit_l;
         }
@@ -264,13 +264,12 @@ public:
         }
         if (number.size() != big_number.number.size())
             return number.size() < big_number.number.size();
-        auto itr1 = number.crbegin();
-        auto itr2 = big_number.number.crbegin();
-        for (; itr2 < big_number.number.crend(); ++itr1, ++itr2)
+        auto i_left_digit = number.crbegin();
+        auto i_right_digit = big_number.number.crbegin();
+        for (; i_right_digit < big_number.number.crend(); ++i_left_digit, ++i_right_digit)
         {
-            if (*itr1 == *itr2)
-                continue;
-            return *itr1 < *itr2;
+            if (*i_left_digit != *i_right_digit)
+                return *i_left_digit < *i_right_digit;
         }
         return false; // Numbers are equal
     }
@@ -295,18 +294,18 @@ public:
         return !(number.size() == 1 && number[0] == 0);
     }
 
-    void View(std::ostream& ostr = std::cout) const
+    void view(std::ostream& ostr = std::cout) const
     {
         if (base != 10)
         {
-            Big_number Temp = *this;
-            Temp.set_base(10);
-            std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
+            Big_number temp = *this;
+            temp.set_base(10);
+            std::reverse_copy(temp.number.begin(), temp.number.end(), std::ostream_iterator<int>(ostr, ""));
         }
         else
         {
-            const Big_number& Temp = *this;
-            std::reverse_copy(Temp.number.begin(), Temp.number.end(), std::ostream_iterator<int>(ostr, ""));
+            const Big_number& temp = *this;
+            std::reverse_copy(temp.number.begin(), temp.number.end(), std::ostream_iterator<int>(ostr, ""));
         }
         ostr << std::endl;
     }
@@ -323,8 +322,8 @@ private:
     void normalise()
     {
         Big_number& ans = *this;
-        auto itEnd = ans.number.cend() - 1;
-        for (auto digit_r = ans.number.begin(); digit_r < itEnd; ++digit_r)
+        auto it_end = ans.number.cend() - 1;
+        for (auto digit_r = ans.number.begin(); digit_r < it_end; ++digit_r)
         {
             *(digit_r + 1) += *digit_r / base;
             *digit_r = *digit_r % base;
@@ -400,7 +399,6 @@ private:
                 }
                 if (index_zero == this->number.rend())
                     goto end;
-                //TODO Add new class with alt + insert generator
             }
             p = dividend.number.rbegin();
             current_part_of_dividend = Big_number(*p);
@@ -469,8 +467,8 @@ private:
 
 std::ostream& operator<<(std::ostream& ostr, const Big_number& num)
 {
-    num.View(ostr);
+    num.view(ostr);
     return ostr;
 }
 
-#endif //NUM_METHODS_BIG_INT_NUMBERS
+#endif //BIG_INT_NUMBERS

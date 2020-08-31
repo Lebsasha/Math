@@ -2,7 +2,7 @@
 #include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
 using namespace std;
-extern string Path;
+extern string path;
 
 inline double Diff_u1 (const Matrix<double>& X)
 {
@@ -51,7 +51,7 @@ int main_for_Lab_3 ()
     Matrix<double> Eps (2, 1);
     Eps[1] = Eps[0] = 1e-3;
     vector<Matrix<double> > yk = Solve_Differential_Equations::Explicit_Euler_method (A, 0, 1, u0, Eps, 0.01);
-    ofstream oFile_Exp(Path + "Explicit.txt");
+    ofstream oFile_Exp(path + "Explicit.txt");
     auto iEnd_e = yk[0].First_i();
     for (auto iyk = yk[1].Last_i(), itk = yk[0].Last_i(); itk >= iEnd_e; --iyk, --itk)
     {
@@ -63,7 +63,7 @@ int main_for_Lab_3 ()
     A[0] = Diff_u1_sp;
     A[1] = Diff_u2_sp;
     vector<Matrix<double> > I_all = Solve_Differential_Equations::Implicit_Euler_method (A, 0, 1, u0, Eps, 1e-2, (1.0-0)/10);
-    ofstream oFile_Imp(Path+"Implicit.txt");
+    ofstream oFile_Imp(path + "Implicit.txt");
     auto iEnd_i = (I_all[1]).First_i();
     for (auto iyk = (I_all[1]).Last_i(), itk = (I_all[0]).Last_i(); iyk >= iEnd_i; --iyk, --itk)
     {
