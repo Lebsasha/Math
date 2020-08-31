@@ -38,4 +38,4 @@ add_executable(Num_methods
 #        Lib/Matrix.h
 #        Lib/Tree.h
         Run_tests.cpp
-        Lib/Big_int_numbers.h Lib/Test_some_item.cpp Lib/Test_some_item.h)
+        Lib/Big_int_numbers.h )
