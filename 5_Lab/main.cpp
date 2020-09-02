@@ -9,7 +9,7 @@ inline double f1(const double x)
 }
 inline double f2 (const Matrix<double>& X)// 32
 {
-    return 4 - *X.Get_pointer()**X.Get_pointer() - *(X.Get_pointer()+1)**(X.Get_pointer()+1);
+    return 4 - *X.get_pointer() * *X.get_pointer() - *(X.get_pointer() + 1) * *(X.get_pointer() + 1);
 }
 int main_for_Lab_5();
 

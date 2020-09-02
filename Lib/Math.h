@@ -2,12 +2,13 @@
 #define MATH_H
 #include "../Lib/Matrix.h"
 #include "Different.h"
-
-double Norm (Matrix<double> A)
+using namespace std;
+double Norm (vector<double> vect)
 {
-    double* pEnd = A.Get_pointer() + A.Get_N()*A.Get_M();
-    double a = *A.Get_pointer();
-    for (double* pb = A.Get_pointer() + 1; pb < pEnd; ++pb)
+    Matrix<double> A(vect);
+    double* pEnd = A.get_pointer() + A.get_n() * A.get_m();
+    double a = *A.get_pointer();
+    for (double* pb = A.get_pointer() + 1; pb < pEnd; ++pb)
     {
         if (fabs(*pb) > fabs(a))
             a = *pb;
@@ -27,8 +28,11 @@ public:
     {}
     Matrix_SE (double* pA, const int a, const int b): Matrix<double>(pA, a, b),  High_accuracy(1), Type('N')
     {}
-    Matrix_SE (Matrix_SE& A): Matrix<double>(*(reinterpret_cast<Matrix<double>*>(&A))), High_accuracy (A.High_accuracy), Type('N')
+    Matrix_SE (const Matrix_SE& A): Matrix<double>(*(reinterpret_cast<const Matrix<double>*>(&A))), High_accuracy (A.High_accuracy), Type
+            ('N')
     {}
+    //    Matrix_SE(Matrix_SE&& mmty) noexcept: High_accuracy(mmty.High_accuracy), Type(mmty.Type)
+//    {}
     Matrix_SE (const int N1, const int M1): Matrix<double> (N1, M1), High_accuracy(1), Type('N')
     {}
     void Set_High_accuracy (const bool a)
@@ -42,7 +46,7 @@ public:
     }
     void Multi_Row_by_Num (const int N_R, const double C)
     {
-        double* pb = pa + N_R*M;
+        double* pb = p_data + N_R * M;
         double* pendb = pb + M;
         for (double* pt = pb; pt < pendb; ++pt)
         {
@@ -52,9 +56,9 @@ public:
     }
     void One_Minus_Second_Row (const int one, const int second, const double C)
     {
-        double* p1 = pa + one*M;
+        double* p1 = p_data + one * M;
         const double* pe1 = p1 + M;
-        double* p2 = pa + second*M;
+        double* p2 = p_data + second * M;
         for (; p1 < pe1; ++p1, ++p2)
         {
             *p1 = *p1 - C**p2;
@@ -63,8 +67,8 @@ public:
     }
     void Replace_Rows (const int One, const int Second)
     {
-        double* pe1 = pa + (One+1)*M;
-        double* pe2 = pa + (Second+1)*M;
+        double* pe1 = p_data + (One + 1) * M;
+        double* pe2 = p_data + (Second + 1) * M;
         if (!High_accuracy)
             for (double *p1 = pe1 - M, *p2 = pe2 - M; p1 < pe1; ++p1, ++p2)
             {
@@ -86,8 +90,8 @@ public:
     }
     int Find_Max_El_in_Col (const int Col) const
     {
-        double* pb = pa + Col*(M+1);
-        const double* pEnd = pa + N*M;
+        double* pb = p_data + Col * (M + 1);
+        const double* pEnd = p_data + N * M;
         double El = *pb;
         int Ind_of_Max = Col;
         int Cur_Ind = Col;
@@ -105,7 +109,7 @@ public:
     virtual const Matrix_SE& View (const int i = 8, const bool Show_Name = 0) const
     {
         //cout<<Type<<' ';/////////////////////////////////////////////////////
-        Matrix::View(i, Show_Name);
+        Matrix::view(i, Show_Name);
         return *this;
     }
     virtual bool Read_from_file (string& sa)
@@ -134,13 +138,13 @@ public:
         if (sa.eof())
             return 0;
         sa.read(reinterpret_cast<char*>(&M), sizeof(int));
-        delete pa;
-        pa = new double [N*M];
-        if (!pa)
+        delete p_data;
+        p_data = new double [N * M];
+        if (!p_data)
             return 0;
-        const double* pEnd = pa + N*M;
+        const double* pEnd = p_data + N * M;
         const int Size = sizeof(double);
-        for (double* pb = pa; pb < pEnd; ++pb)
+        for (double* pb = p_data; pb < pEnd; ++pb)
         {
             if (sa.eof())
                 return 0;
@@ -165,8 +169,8 @@ public:
     }
     virtual void Write_to_file (ofstream& sa) const
     {
-        const double* pEnd = pa + N*M;
-        //string a = Name;
+        const double* pEnd = p_data + N * M;
+        //string a = name;
         //a.erase(0, strlen("Matrix"));
         //int Num = atoi(a); ///?
         //sa.write(reinterpret_cast<char*>(&Num), sizeof(int));
@@ -174,7 +178,7 @@ public:
         sa.write(reinterpret_cast<const char*>(&N), sizeof(int));
         sa.write(reinterpret_cast<const char*>(&M), sizeof(int));
         const int Size = sizeof(double);
-        for (double* a = pa; a < pEnd; ++a)
+        for (double* a = p_data; a < pEnd; ++a)
         {
             sa.write(reinterpret_cast<char*>(a), Size);
         }
@@ -203,10 +207,11 @@ public:
     {
         Type = 'L';
     }
-    Matrix_SLE (Matrix_SLE& A): Matrix_SE(*(reinterpret_cast<Matrix_SE*>(&A)))
+    Matrix_SLE (const Matrix_SLE& A): Matrix_SE(*(reinterpret_cast<const Matrix_SE*>(&A)))
     {
         Type = 'L';
     }
+//    Matrix_SLE(Matrix_SLE&& A) noexcept{}
     Matrix_SLE (const int N1, const int M1): Matrix_SE(N1, M1)
     {
         Type = 'L';
@@ -214,10 +219,10 @@ public:
     Matrix_SLE T (void) const
     {
         Matrix_SLE B (M, N);
-        double* pb = B.pa;
+        double* pb = B.p_data;
         double* pbEnd = pb + N*M;
-        double* paEnd = pa + N*M;
-        for (double* pa1 = pa, *pb1 = pb; pa1 < paEnd; pa1+=M, ++pb1)
+        double* paEnd = p_data + N * M;
+        for (double* pa1 = p_data, *pb1 = pb; pa1 < paEnd; pa1+=M, ++pb1)
         {
             for (double* pa2 = pa1, *pb2 = pb1; pb2 < pbEnd; pb2+=N, ++pa2)
             {
@@ -228,7 +233,7 @@ public:
     }
     Matrix<double> Solve (const Matrix<double>& b) const
     {
-        return (If_Symmetric()) ? LDLT(b) : Solve_by_Gauss_Method(b);
+        return (if_symmetric()) ? LDLT(b) : Solve_by_Gauss_Method(b);
     }
     Matrix<double> Solve_by_Gauss_Method (Matrix_SE C) const
     {
@@ -259,10 +264,10 @@ public:
             }
         }
         Matrix<double> ps (N, 1);
-        const double* pMatrix = S.Get_pa() + S.Get_N()*S.Get_M() - 1;
-        const double* pC = C.Get_pa() + C.Get_N()*1 - 1;
-        double* const pBeg = ps.Get_pa() + ps.Get_N()*1 - 1; //const_?
-        double* const pEnd = ps.Get_pa();
+        const double* pMatrix = S.get_pa() + S.get_n() * S.get_m() - 1;
+        const double* pC = C.get_pa() + C.get_n() * 1 - 1;
+        double* const pBeg = ps.get_pa() + ps.get_n() * 1 - 1; //const_?
+        double* const pEnd = ps.get_pa();
         //assert(k == N - 1);
         k = M;
         for (double* pt = pBeg; pt >= pEnd; --pt, pMatrix -= (k--))
@@ -279,13 +284,13 @@ public:
         Matrix_SLE L (N, M);
         Matrix_SLE D (N, M);
         Matrix_SLE LT (N, M);
-        double* plEnd = L.Get_pa() + N*M;
-        double* pl = L.Get_pa();
-        double* pd = D.Get_pa();
-        double* plt = LT.Get_pa();
+        double* plEnd = L.get_pa() + N * M;
+        double* pl = L.get_pa();
+        double* pd = D.get_pa();
+        double* plt = LT.get_pa();
         for (int i = 0; i < N - 1; )
         {
-            pd[i*M + i] = pa[i*M+i];
+            pd[i*M + i] = p_data[i * M + i];
             for (int k1 = 0; k1 < i; ++k1)
             {
                 pd[i*M + i] -= L[i*M + k1]*L[i*M + k1]*pd[k1*M+k1];
@@ -293,14 +298,14 @@ public:
             ++i;
             for (int k = 0; k < i; ++k)
             {
-                L[i*M+k] = pa[i*M+k];
+                L[i*M+k] = p_data[i * M + k];
                 for (int t = 0; t < k; ++t)
                     L[i*M+k] -= L[i*M+t]*L[k*M+t]*pd[t*M+t];
                 L[i*M+k] /= pd[k*M+k];
             }
         }
         int i = N - 1;
-        pd[i*M + i] = pa[i*M+i];
+        pd[i*M + i] = p_data[i * M + i];
         for (int k1 = 0; k1 < i; ++k1)
         {
             pd[i*M + i] -= L[i*M + k1]*L[i*M + k1]*pd[k1*M+k1];
@@ -311,52 +316,52 @@ public:
             *plt = 1;
         }
         LT = L.T();
-//        L.View();
-//        D.View();
-//        LT.View();
-//        b.View();
-//        (L*D*LT).View();
-        Matrix_SLE Y (L.Get_N(), 1);
+//        L.view();
+//        D.view();
+//        LT.view();
+//        b.view();
+//        (L*D*LT).view();
+        Matrix_SLE Y (L.get_n(), 1);
         Y[0] = b[0];
-        auto pLrow = L.First_i() + M;
-        auto pLEnd = L.First_i() + M;
-        for (auto pb = b.First_i() + 1, pY = Y.First_i() + 1; pb <= b.Last_i(); ++pb, ++pY)
+        auto pLrow = L.first_i() + M;
+        auto pLEnd = L.first_i() + M;
+        for (auto pb = b.first_i() + 1, pY = Y.first_i() + 1; pb <= b.last_i(); ++pb, ++pY)
         {
             *pY = *pb;
             for (auto pL = pLrow, pY1 = pY - 1; pL >= pLEnd; --pL, --pY1)
             {
 //                if (pL == pLEnd)
-//                    assert (pY1 == Y.First_i());
+//                    assert (pY1 == Y.first_i());
 //                assert (*pL != 0);
 //                assert (*pL != 1);
                 *pY -= *pL**pY1;
             }
-            pLEnd += Get_M();
-            pLrow += Get_M() + 1;
+            pLEnd += get_m();
+            pLrow += get_m() + 1;
         }
-//        Y.View();
-        for (auto pD = D.First_i(), pY = Y.First_i(); pD <= D.Last_i(); pD += M + 1, ++pY)
+//        Y.view();
+        for (auto pD = D.first_i(), pY = Y.first_i(); pD <= D.last_i(); pD += M + 1, ++pY)
         {
 //            assert (*pD != 0);
             *pY = *pY/(*pD);
         }
-//        Y.View();
-        auto pLTrow = LT.Last_i() - M;
-        auto pLTEnd = LT.Last_i() - M;
-        for (auto pY = Y.Last_i() - 1; pY >= Y.First_i(); --pY)
+//        Y.view();
+        auto pLTrow = LT.last_i() - M;
+        auto pLTEnd = LT.last_i() - M;
+        for (auto pY = Y.last_i() - 1; pY >= Y.first_i(); --pY)
         {
             for (auto pLT = pLTrow, pY1 = pY + 1; pLT <= pLTEnd; ++pLT, ++pY1)
             {
 //                if (pLT == pLTEnd)
-//                    assert (pY1 == Y.Last_i());
+//                    assert (pY1 == Y.last_i());
 //                assert (*pLT != 0);
 //                assert (*pLT != 1);
                 *pY -= *pLT**pY1;
             }
-            pLTEnd -= Get_M();
-            pLTrow -= Get_M() + 1;
+            pLTEnd -= get_m();
+            pLTrow -= get_m() + 1;
         }
-//        Y.View();
+//        Y.view();
         return Y;
     }
     vector<double> Solve_by_Gauss_Method_v (vector<double>& C)
@@ -384,11 +389,11 @@ public:
             }
         }
         vector<double> ps (N);
-        double* pMatrix = pa + N*M - 1;
+        double* pMatrix = p_data + N * M - 1;
         vector<double>::reverse_iterator ivA = C.rbegin();
         vector<double>::reverse_iterator ivBeg = ps.rbegin(); //const_?
         vector<double>::const_reverse_iterator ivEnd = ps.rend();
-        assert (k == N - 1); //////////////////////////////////////////////////
+//        assert (k == N - 1); //////////////////////////////////////////////////
         k = M;
         for (vector<double>::reverse_iterator pt = ivBeg; pt < ivEnd; ++pt, pMatrix -= (k--))
         {
@@ -437,8 +442,6 @@ public:
     {
         return Fn(x);
     }
-#include "limits.h"
-#include "math.h"
     double Integral_by_user_def (double (*AntiDer) (double, double), const double from, const double to) const;
     double Integral_by_Sympthon_method (const double from, const double to, const unsigned long long Max_N = 100000000ULL) const
     {
@@ -557,8 +560,8 @@ public:
     Matrix<double> f (const double x) const
     {
         Matrix<double> A (N, 1);
-        double* pA = A.Get_pa() + N - 1;
-        for (Function* ppa = this->pa + this->N - 1; ppa >= this->pa; --(ppa), --pA)
+        double* pA = A.get_pa() + N - 1;
+        for (Function* ppa = this->p_data + this->N - 1; ppa >= this->p_data; --(ppa), --pA)
         {
             *pA = ppa->f(x);
         }
@@ -566,15 +569,15 @@ public:
     }
 //    Matrix_SLE Derivative (const Matrix<double> X) const
 //    {
-//        int Num_of_variables = X.Get_Size();
+//        int Num_of_variables = X.get_size();
 //        Matrix<double> A (N, Num_of_variables);
-//        double* pa = A.Get_pa() + A.Get_Size() - 1;
+//        double* pa = A.get_pa() + A.get_size() - 1;
 //        Matrix<double> Temp (Num_of_variables, 1);
 //        double* pTemp = 0;
-//        for (Function2* ppa = pa + N*Num_of_variables - 1; ppa >= pa; --ppa, --pa)
+//        for (Function2* ppa = a + N*Num_of_variables - 1; ppa >= pa; --ppa, --pa)
 //        {
 //            Temp = ppa->Derivative_by_definition_M_in_column(X);
-//            pTemp = Temp.Get_pa() + Num_of_variables - 1;
+//            pTemp = Temp.get_pa() + Num_of_variables - 1;
 //            for (int i = 0; i < Num_of_variables; ++i, --pa, --pTemp)
 //            {
 //                *pa = *pTemp;
@@ -587,7 +590,7 @@ public:
     {
         double m = 0;
         double v = 0;
-        for (Function* pA = pa + N - 1; pA >= pa; --pA)
+        for (Function* pA = p_data + N - 1; pA >= p_data; --pA)
         {
             if (m < (v = pA->f(x)))
                 m = v;
@@ -617,14 +620,14 @@ public:
 //    }
     Matrix<double> Derivative_by_definition_M_in_column (const Matrix<double>& X) const
     {
-        int Num_of_variables = X.Get_Size();
+        int Num_of_variables = X.get_size();
         Matrix<double> A (Num_of_variables, 1);
-        double* pa = A.Get_pa();
+        double* pa = A.get_pa();
         const double M = 0.01; //0.05   0.1////////////////////////////////////////////////////////////////////////
         double F = Fn(X);
         Matrix<double> DX(X);
-        double* pEnd = DX.Get_pa() + DX.Get_Size();
-        for (double* pDX = DX.Get_pa(), *pX = X.Get_pa(); pDX < pEnd; ++pDX, ++pX, ++pa)
+        double* pEnd = DX.get_pa() + DX.get_size();
+        for (double* pDX = DX.get_pa(), *pX = X.get_pa(); pDX < pEnd; ++pDX, ++pX, ++pa)
         {
             if( *pDX < 10*DBL_EPSILON)
             {
@@ -640,7 +643,7 @@ public:
             }
         }
 //        else
-//            for (double* pDX = DX.Get_pa(), *pX = X.Get_pa(); pDX < pEnd; ++pDX, ++pX, ++pa)
+//            for (double* pDX = DX.Get_pa(), *pX = X.get_pa(); pDX < pEnd; ++pDX, ++pX, ++pa)
 //            {
 //
 //            }
@@ -653,7 +656,7 @@ public:
     double Integral_by_user_def (double (*AntiDer) (const Matrix<double>&), const Matrix<double>& From, const Matrix<double>& To) const;
     double Integral_by_definition (const Matrix<double>& From, const Matrix<double>& To, const unsigned long long x_max_steps=1000ULL, const unsigned long long y_max_steps=1000ULL) const //By Sympthon method, only for 2 variables
     {
-        assert (To.Get_Size() == 2 && From.Get_Size() == 2);
+        assert (To.get_size() == 2 && From.get_size() == 2);
         double Integral = 0;
         unsigned long long xN = 1;
         double xLength = To[0] - From[0];
@@ -673,31 +676,31 @@ public:
         double yh = yLength/yN;
         double yEnd = To[1];
         Matrix<double> Another_Temp;
-        for (Matrix<double> Temp = From; Temp.Unsafe_index(1) < yEnd; Temp.Unsafe_index(1)+=yh+yh)
+        for (Matrix<double> Temp = From; Temp.unsafe_index(1) < yEnd; Temp.unsafe_index(1)+= yh + yh)
         {
-            for (Temp.Unsafe_index(0) = xBegin; Temp.Unsafe_index(0) < xEnd; Temp.Unsafe_index(0)+=xh+xh)
+            for (Temp.unsafe_index(0) = xBegin; Temp.unsafe_index(0) < xEnd; Temp.unsafe_index(0)+= xh + xh)
             {
                 Another_Temp = Temp;
                 Integral += f(Another_Temp);
-                Another_Temp.Unsafe_index(0) += xh;
+                Another_Temp.unsafe_index(0) += xh;
                 Integral += 4*f(Another_Temp);
-                Another_Temp.Unsafe_index(0) += xh;
+                Another_Temp.unsafe_index(0) += xh;
                 Integral += f(Another_Temp);
 
-                Another_Temp.Unsafe_index(0) = Temp.Unsafe_index(0);
-                Another_Temp.Unsafe_index(1) += yh;
+                Another_Temp.unsafe_index(0) = Temp.unsafe_index(0);
+                Another_Temp.unsafe_index(1) += yh;
                 Integral += 4*f(Another_Temp);
-                Another_Temp.Unsafe_index(0) += xh;
+                Another_Temp.unsafe_index(0) += xh;
                 Integral += 16*f(Another_Temp);
-                Another_Temp.Unsafe_index(0) += xh;
+                Another_Temp.unsafe_index(0) += xh;
                 Integral += 4*f(Another_Temp);
 
-                Another_Temp.Unsafe_index(0) = Temp.Unsafe_index(0);
-                Another_Temp.Unsafe_index(1) += yh;
+                Another_Temp.unsafe_index(0) = Temp.unsafe_index(0);
+                Another_Temp.unsafe_index(1) += yh;
                 Integral += f(Another_Temp);
-                Another_Temp.Unsafe_index(0) += xh;
+                Another_Temp.unsafe_index(0) += xh;
                 Integral += 4*f(Another_Temp);
-                Another_Temp.Unsafe_index(0) += xh;
+                Another_Temp.unsafe_index(0) += xh;
                 Integral += f(Another_Temp);
             }
         }
@@ -774,7 +777,7 @@ public:
     Matrix<double> f (const Matrix<double>& X) const //return matrix in ONE column
     {
         Matrix<double> A (N, 1);
-        double* pa = A.Get_pa() + N - 1;
+        double* pa = A.get_pa() + N - 1;
         for (Function2* pFn = Fn + N - 1; pFn >= Fn; --pFn, --pa)
         {
             *pa = pFn->f(X);
@@ -783,15 +786,15 @@ public:
     }
     Matrix<double> Derivative (const Matrix<double>& X) const //return matrix in Num_of_variables column and N rows
     {
-        const int Num_of_variables = X.Get_Size();
+        const int Num_of_variables = X.get_size();
         Matrix<double> A (N, Num_of_variables);
-        double* pa = A.Get_pa() + A.Get_Size() - 1;
+        double* pa = A.get_pa() + A.get_size() - 1;
         Matrix<double> Temp (Num_of_variables, 1);
         double* pTemp = nullptr;
         for (Function2* pFn = Fn + N - 1; pFn >= Fn; --pFn)
         {
             Temp = pFn->Derivative_by_definition_M_in_column(X);
-            pTemp = Temp.Get_pa() + Num_of_variables - 1;
+            pTemp = Temp.get_pa() + Num_of_variables - 1;
             for (int i = 0; i < Num_of_variables; ++i, --pa, --pTemp)
             {
                 *pa = *pTemp;
@@ -801,9 +804,9 @@ public:
     }
     Matrix<double> Integral (const Matrix<double> From, const Matrix<double> To) const //return matrix in ONE column
     {
-        assert (From.Get_Size() == To.Get_Size() && (From.Get_M() == To.Get_M() || From.Get_N() == To.Get_N()));
+        assert (From.get_size() == To.get_size() && (From.get_m() == To.get_m() || From.get_n() == To.get_n()));
         Matrix<double> A (N, 1);
-        double* pa = A.Last_i();
+        double* pa = A.last_i();
         for (Function2* pf = Fn +  N - 1; pf == Fn; --pf, --pa)
         {
             *pa = pf->Integral_by_definition(From, To);
@@ -832,7 +835,7 @@ double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
 {
     double Delta2 = 0;
     double Temp = 0;
-    for (double* x = X_i.Get_pa() + X_i.Get_Size() - 1, *dx = Delta.Get_pa() + Delta.Get_Size() - 1; x >= X_i.Get_pa(); --x, --dx)
+    for (double* x = X_i.get_pa() + X_i.get_size() - 1, *dx = Delta.get_pa() + Delta.get_size() - 1; x >= X_i.get_pa(); --x, --dx)
     {
         if (fabs(*x + *dx) < 1 && fabs(*dx) > Delta2)
         {
@@ -848,14 +851,14 @@ double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
 Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, const Matrix<double>& xy, const double& Eps1, const double& Eps2)
 {
     assert (Func.Get_Pointer() != nullptr);
-    assert (xy.Get_pointer() != nullptr);
-    assert (xy.Get_Size() != 0);
+    assert (xy.get_pointer() != nullptr);
+    assert (xy.get_size() != 0);
     assert (Eps1 > 1e-10);
     assert (Eps2 > 1e-10);
     const int Num_it = 10000;
     int i = 0;
     Matrix<double> ixy (xy);
-    Matrix<double> Delta(xy.Get_N(), xy.Get_M()-1);
+    Matrix<double> Delta(xy.get_n(), xy.get_m() - 1);
     Matrix_SLE Derivative;
     Matrix<double> Sol;
     double Delta1 = 0;
@@ -864,15 +867,15 @@ Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, co
     {
         cout<<setw(10)<<Delta1<<setw(10)<<Delta2<<setw(6)<<++i<<endl;
 //        cout<<"ixy"<<endl;
-//        ixy.View();
+//        ixy.view();
 //        cout<<"Delta"<<endl;
-//        Delta.View();
+//        Delta.view();
         ixy = ixy + Delta;
 //        cout<<"Sol"<<endl;
-        Sol = Func.f(ixy).Multiple_Matrix_by_Number(-1).View();
+        Sol = Func.f(ixy).multiple_matrix_by_number(-1).view();
 //        cout<<"Derivative"<<endl;
         Derivative = Func.Derivative(ixy);
-        Delta = Derivative.Solve(Sol);       //.Multiple_Matrix_by_Number(-1).View();
+        Delta = Derivative.Solve(Sol);       //.multiple_matrix_by_number(-1).view();
         cout<<endl;
     }
     while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i <= Num_it);
@@ -884,10 +887,10 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
     const int Num_it = 10000;
     int i = 0;
     Matrix<double> ixy (xy);
-    Matrix<double> Delta(xy.Get_N(), xy.Get_M());
+    Matrix<double> Delta(xy.get_n(), xy.get_m());
     Matrix<double> High_Precision_ixy (xy);
-    Matrix<double> High_Precision_Delta(xy.Get_N(), xy.Get_M());
-    Matrix_SLE High_Precision_Derivative (xy.Get_N(), xy.Get_N()); //It is not a mistake!
+    Matrix<double> High_Precision_Delta(xy.get_n(), xy.get_m());
+    Matrix_SLE High_Precision_Derivative (xy.get_n(), xy.get_n()); //It is not a mistake!
     Matrix_SLE Derivative;
     Matrix<double> Sol;
     double Delta1 = 0;
@@ -896,28 +899,29 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
     {
         cout<<setw(10)<<Delta1<<setw(10)<<Delta2<<setw(6)<<++i<<endl;
 //        cout<<"ixy"<<endl;
-//        ixy.View();
+//        ixy.view();
 //        cout<<"Delta"<<endl;
-//        Delta.View();
+//        Delta.view();
         ixy = ixy + Delta;
 //        cout<<"Sol"<<endl;
-        Sol = Func.f(ixy).Multiple_Matrix_by_Number(-1).View();
+        Sol = Func.f(ixy).multiple_matrix_by_number(-1).view();
         Delta1 = Sol[0];
 //        cout<<"Derivative"<<endl;
         Derivative = Func.Derivative(ixy);
         Delta = Derivative.Solve(Sol);
 //        cout<<"High_Precision_ixy"<<endl;
-//        High_Precision_ixy.View();
+//        High_Precision_ixy.view();
 //        cout<<"High_Precision_Delta"<<endl;
-//        High_Precision_Delta.View();
+//        High_Precision_Delta.view();
         High_Precision_ixy = High_Precision_ixy + High_Precision_Delta;
         Function2* pF = Der_of_Arr.Get_Fn() + Der_of_Arr.Get_N() - 1;
-        for (double* pD = High_Precision_Derivative.Get_pa() + High_Precision_Derivative.Get_Size() - 1; pD >= High_Precision_Derivative.Get_pa(); --pD, --pF)
+        for (double* pD = High_Precision_Derivative.get_pa() + High_Precision_Derivative.get_size() - 1; pD >=
+                                                                                                         High_Precision_Derivative.get_pa(); --pD, --pF)
         {
             *pD = -pF->f(High_Precision_ixy);// Minus against write Sol = Func.f(High_Precision_ixy)
-        }                         //.Multiple_Matrix_by_Number(-1).View();
+        }                         //.multiple_matrix_by_number(-1).view();
         cout<<"With user defined derivative F."<<endl;
-        Sol = Func.f(High_Precision_ixy).View();
+        Sol = Func.f(High_Precision_ixy).view();
 //        cout<<"High_Precision_Derivative"<<endl;
         High_Precision_Delta = High_Precision_Derivative.Solve(Sol);
         if (fabs(Delta1) > fabs(Sol[0]))
@@ -941,11 +945,11 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
 {
 //    static_assert (F.Get_Pointer() != nullptr, );
     assert (F.Get_Pointer() != nullptr);
-    assert (u0.Get_pointer() != nullptr);
-    assert (Epsilon.Get_pointer() != nullptr);
+    assert (u0.get_pointer() != nullptr);
+    assert (Epsilon.get_pointer() != nullptr);
     assert (x_From < x_To);
-    assert (F.Get_N() == Epsilon.Get_Size());
-    assert (F.Get_N() == u0.Get_Size());
+    assert (F.Get_N() == Epsilon.get_size());
+    assert (F.Get_N() == u0.get_size());
     assert (Max_Step > DBL_EPSILON);
     const int N = F.Get_N();
     double x = x_From;
@@ -955,38 +959,40 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
     Matrix<double> F_curr = u0;
     Matrix<double> tk_curr (1, N);
     Matrix<double> y_curr (1, N+1);
-    auto tk_i = tk.First_i();
-    *tk_i++ = x_From;
-    const auto Eps_End = Epsilon.Last_i();
-    auto yk_First = yk.First_i();
-    auto yk_End = yk.First_i() + N;
-    for (auto iu = u0.First_i()+ (N - 1), iy = yk_End - 1; iu >= u0.First_i(); --iu, --iy)
+    auto tk_i = tk.first_i();
+    *tk_i = x_From;
+    ++tk_i;
+    const auto Eps_End = Epsilon.last_i();
+    auto yk_First = yk.first_i();
+    auto yk_End = yk.first_i() + N;
+    for (auto iu = u0.first_i() + (N - 1), iy = yk_End - 1; iu >= u0.first_i(); --iu, --iy)
     {
         *iy = *iu;
     }
     int i = 0;
     while (x < x_To)
     {
-        for (auto iy = y_curr.First_i(), iyk = yk_First; iyk < yk_End; ++iy, ++iyk)
+        for (auto iy = y_curr.first_i(), iyk = yk_First; iyk < yk_End; ++iy, ++iyk)
         {
             *iy = *iyk;
         }
-        *y_curr.Last_i() = x;
+        *y_curr.last_i() = x;
         yk_First += N;
         yk_End += N;
         F_curr = F.f(y_curr);
-        for (auto it = tk_curr.First_i(), iF = F_curr.First_i(), iEps = Epsilon.First_i(); iEps <= Eps_End; ++it, ++iF, ++iEps)
+        for (auto it = tk_curr.first_i(), iF = F_curr.first_i(), iEps = Epsilon.first_i(); iEps <= Eps_End; ++it, ++iF, ++iEps)
         {
             *it = *iEps/(fabs(*iF)+*iEps/Max_Step);
         }
-        *tk_i = tk_curr.Min_element();
-        for (auto it = yk_First, iF = F_curr.First_i(); it < yk_End; ++it, ++iF)
+        *tk_i = tk_curr.min_element();
+        for (auto it = yk_First, iF = F_curr.first_i(); it < yk_End; ++it, ++iF)
         {
             *it = *(it-N) + *tk_i**iF;
         }
         x += *tk_i;
-        *(tk_i++) = x;
-//        tk.Edit_row(2*I);
+        *tk_i = x;
+        ++tk_i;
+//        tk.edit_row(2*I);
         ++i;
     }
     cout<<++i<<endl;
@@ -1003,15 +1009,15 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
 {
     //u0 in column, because of 25 string down!!!
     assert (F.Get_Pointer() != nullptr);
-    assert (u0.Get_pointer() != nullptr);
-    assert (Epsilon.Get_pointer() != nullptr);
-    assert (F.Get_N() == Epsilon.Get_Size());
-    assert (F.Get_N() == u0.Get_Size());
+    assert (u0.get_pointer() != nullptr);
+    assert (Epsilon.get_pointer() != nullptr);
+    assert (F.Get_N() == Epsilon.get_size());
+    assert (F.Get_N() == u0.get_size());
     assert (x_From < x_To);
     assert (t_min > DBL_EPSILON);
     assert (t_max > DBL_EPSILON);
     assert (t_min < t_max);
-    for (auto ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie)
+    for (auto ie = Epsilon.last_i(); ie >= Epsilon.first_i(); --ie)
         assert (*ie > 0);
     const int N = F.Get_N();
     int Itrtns = 20000;
@@ -1024,117 +1030,121 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     Matrix<double> y_curr (u0); //
     Matrix<double> y_next_curr (u0); //noth
     Matrix<double> y_next_curr_with_x (u0); //noth
-    Matrix<double> Epsln_curr(Epsilon.Get_N(), Epsilon.Get_M()); //noth
+    Matrix<double> Epsln_curr(Epsilon.get_n(), Epsilon.get_m()); //noth
     Matrix<double> yk (N, Itrtns);
     Matrix<double> tk_mtrx (1, Itrtns);
-    y_next_curr_with_x.Edit_row(N + 1); //25th string!!!!!!!!!!!
-    y_next_curr_with_x.Unsafe_index(N) = x_From;
-    auto yk_First = yk.First_i() + N;
+    y_next_curr_with_x.edit_row(N + 1); //25th string!!!!!!!!!!!
+    y_next_curr_with_x.unsafe_index(N) = x_From;
+    auto yk_First = yk.first_i() + N;
     auto yk_Last = yk_First;
-    for (auto iyk = yk.First_i(), iu0 = u0.First_i(); iyk < yk_First; ++iyk, ++iu0)
+    for (auto iyk = yk.first_i(), iu0 = u0.first_i(); iyk < yk_First; ++iyk, ++iu0)
     {
         *iyk = *iu0;
     }
-    tk_mtrx.Unsafe_index(0) = x_From;
-    auto itk_mtrx = tk_mtrx.First_i()+1;
+    tk_mtrx.unsafe_index(0) = x_From;
+    auto itk_mtrx = tk_mtrx.first_i() + 1;
     const int Num_it = 100;
     int i = 0;
     const double Eps1 = 1e-4;
     const double Eps2 = 1e-4;
     double Delta1 = 0;
     double Delta2 = 0;
-    Matrix<double> Delta(u0.Get_N(), u0.Get_M());
+    Matrix<double> Delta(u0.get_n(), u0.get_m());
     Matrix<double> F_curr;
     Matrix_SLE Drvtve;
     Matrix<double> Strange_matrix(2*N+2, 1);//x, t, k
-    auto iStr = Strange_matrix.First_i();
-    while (y_next_curr_with_x.Unsafe_index(N) < x_To)
+    auto iStr = Strange_matrix.first_i();
+    while (y_next_curr_with_x.unsafe_index(N) < x_To)
     {
 
-        y_next_curr_with_x.Unsafe_index(N) += tk;
-        *(itk_mtrx++) = y_next_curr_with_x.Unsafe_index(N);
-        iStr = Strange_matrix.Last_i();
-        *(iStr--) = tk;
-        *(iStr--) = *y_next_curr_with_x.Last_i();
-        for (auto iy_curr = y_curr.Last_i(); iy_curr >= y_curr.First_i(); --iy_curr, --iStr)
+        y_next_curr_with_x.unsafe_index(N) += tk;
+        *itk_mtrx = y_next_curr_with_x.unsafe_index(N);
+        ++itk_mtrx;
+        iStr = Strange_matrix.last_i();
+        *iStr = tk;
+        --iStr;
+        *iStr = *y_next_curr_with_x.last_i();
+        --iStr;
+        for (auto iy_curr = y_curr.last_i(); iy_curr >= y_curr.first_i(); --iy_curr, --iStr)
         {
             *iStr = *iy_curr;
         }
 eps_curr_bigger_then_epsilon:
         do
         {
-//            for (auto i = y_next_curr.Last_i(), ix = y_next_curr_with_x.Last_i()-1; i >= y_next_curr.First_i(); --i, --ix)
+//            for (auto i = y_next_curr.Last_i(), ix = y_next_curr_with_x.last_i()-1; i >= y_next_curr.first_i(); --i, --ix)
 //            {
 //                *ix = *i;
 //            }
             y_next_curr = (y_next_curr + Delta);
-            iStr = Strange_matrix.First_i()+(N-1);
-            for (auto iy_next_curr = y_next_curr.Last_i(); iy_next_curr >= y_next_curr.First_i(); --iy_next_curr, --iStr)
+            iStr = Strange_matrix.first_i() + (N - 1);
+            for (auto iy_next_curr = y_next_curr.last_i(); iy_next_curr >= y_next_curr.first_i(); --iy_next_curr, --iStr)
             {
                 *iStr = *iy_next_curr;
             }
-//            Strange_matrix.View();
+//            Strange_matrix.view();
 //        cout<<"F_curr"<<endl;
-            F_curr = F.f(Strange_matrix).Multiple_Matrix_by_Number(-1.0)/*.View()*/;
+            F_curr = F.f(Strange_matrix).multiple_matrix_by_number(-1.0)/*.view()*/;
 //        cout<<"Derivative"<<endl;
             Drvtve = F.Derivative(Strange_matrix);
-            Drvtve.Edit_col(N);
-//            Drvtve.View();
-            Delta = Drvtve.Solve(F_curr);       //.Multiple_Matrix_by_Number(-1.0).View();
-//            Delta.View();
+            Drvtve.edit_col(N);
+//            Drvtve.view();
+            Delta = Drvtve.Solve(F_curr);       //.multiple_matrix_by_number(-1.0).view();
+//            Delta.view();
 //            cout<<Delta1<<' '<<Delta2<<endl<<endl;
         }
-        while (++i <= Num_it && ((Delta1 = F_curr.Max_element_fabs()) > Eps1) && ((Delta2 = Solve_Nonlinear_Equations::fDelta2(y_next_curr, Delta)) > Eps2));
-        Delta.Null();
+        while (++i <= Num_it && ((Delta1 = F_curr.max_element_abs()) > Eps1) && ((Delta2 = Solve_Nonlinear_Equations::fDelta2(y_next_curr, Delta)) > Eps2));
+        Delta.fill_nulls();
 //        cout<<i<<endl;
         i = 0;
-//        y_next_curr.View();
-        for (auto ie = Epsln_curr.Last_i(), iy_prv = y_prv_curr.Last_i(), iy_curr = y_curr.Last_i(), iy_next = y_next_curr.Last_i(); ie >= Epsln_curr.First_i(); --ie, --iy_prv, --iy_curr, --iy_next)
+//        y_next_curr.view();
+        for (auto ie = Epsln_curr.last_i(), iy_prv = y_prv_curr.last_i(), iy_curr = y_curr.last_i(), iy_next = y_next_curr.last_i(); ie >=
+                                                                                                                                     Epsln_curr.first_i(); --ie, --iy_prv, --iy_curr, --iy_next)
         {
             *ie = tk/(tk+tk_prv)*((tk/tk_prv)*(*iy_curr - *iy_prv) + *iy_curr - *iy_next);
         }
-//        Epsln_curr.View();
-//        Epsilon.View();
+//        Epsln_curr.view();
+//        Epsilon.view();
         if (!Strategy)
         {
-            for (auto ie_curr = Epsln_curr.Last_i(), ie = Epsilon.Last_i(); ie >= Epsilon.First_i(); --ie_curr, --ie)
+            for (auto ie_curr = Epsln_curr.last_i(), ie = Epsilon.last_i(); ie >= Epsilon.first_i(); --ie_curr, --ie)
             {
                 if (*ie_curr > *ie)
                 {
                     tk /= 2;
                     y_next_curr = y_curr;
-                    for (auto inx = y_next_curr.Last_i(), ix = y_next_curr_with_x.Last_i()-1; inx >= y_next_curr.First_i(); --inx, --ix)
+                    for (auto inx = y_next_curr.last_i(), ix = y_next_curr_with_x.last_i() - 1; inx >= y_next_curr.first_i(); --inx, --ix)
                     {
                         *ix = *inx;
                     }
-                    y_next_curr_with_x.Unsafe_index(N) -= tk;
+                    y_next_curr_with_x.unsafe_index(N) -= tk;
                     goto eps_curr_bigger_then_epsilon;
                 }
             }
 //        if (!Strategy)
-            for (auto itk_curr = tk_curr_next.Last_i(), iEps_curr = Epsln_curr.Last_i(), iEps = Epsilon.Last_i(); iEps >= Epsilon.First_i(); --itk_curr, --iEps, --iEps_curr)
+            for (auto itk_curr = tk_curr_next.last_i(), iEps_curr = Epsln_curr.last_i(), iEps = Epsilon.last_i(); iEps >= Epsilon.first_i(); --itk_curr, --iEps, --iEps_curr)
             {
                 *itk_curr = sqrt(*iEps/absol(*iEps_curr))*tk;
             }
         }
         else
-            for (auto itk_curr = tk_curr_next.Last_i(), iEps_curr = Epsln_curr.Last_i(), iEps = Epsilon.Last_i(); iEps >= Epsilon.First_i(); --itk_curr, --iEps, --iEps_curr)
+            for (auto itk_curr = tk_curr_next.last_i(), iEps_curr = Epsln_curr.last_i(), iEps = Epsilon.last_i(); iEps >= Epsilon.first_i(); --itk_curr, --iEps, --iEps_curr)
             {
                 *itk_curr = absol(*iEps_curr) > *iEps ? tk/2 : absol(*iEps_curr) > *iEps/4 ? tk : tk+tk;
             }
         tk_prv = tk;
-//        tk_curr_next.View();
-        tk = tk_curr_next.Min_element();
+//        tk_curr_next.view();
+        tk = tk_curr_next.min_element();
         if (tk > t_max)
             tk = t_max;
-//        y_curr.View();
-//        y_next_curr.View();
+//        y_curr.view();
+//        y_next_curr.view();
 //        cout<<tk_prv<<' '<<tk<<' '<<endl;
-//        tk_curr_next.View();
+//        tk_curr_next.view();
         y_prv_curr = y_curr;
         y_curr = y_next_curr;
         yk_Last += N;
-        for (auto iyk = yk_First, iy_curr = y_curr.First_i(); iyk < yk_Last; ++iyk, ++iy_curr)
+        for (auto iyk = yk_First, iy_curr = y_curr.first_i(); iyk < yk_Last; ++iyk, ++iy_curr)
         {
             *iyk = *iy_curr;
         }
@@ -1157,13 +1167,13 @@ double Deflection (const Matrix<double>& X, const Matrix<double>& Y, const Matri
 
     double S = 0;
     double S2 = 0;
-    for (auto pX = X.Last_i(), pY = Y.Last_i(); pY >= Y.Get_pointer(); --pX, --pY)
+    for (auto pX = X.last_i(), pY = Y.last_i(); pY >= Y.get_pointer(); --pX, --pY)
     {
         S = *pY;
         int k = i;
-        for (auto pA = A.Last_i(); pA >= A.Get_pointer(); --pA)
+        for (auto pA = A.last_i(); pA >= A.get_pointer(); --pA)
         {
-            if (pA == A.Get_pointer())
+            if (pA == A.get_pointer())
                 assert (k == 0);
             S -= *pA*Pow(*pX, k--);
         }
@@ -1173,9 +1183,9 @@ double Deflection (const Matrix<double>& X, const Matrix<double>& Y, const Matri
 }
 Matrix<double> Find_Polinom_m_power (const Matrix<double>& X, const Matrix<double>& Y, double m)
 {
-    assert (X.Get_Size() == Y.Get_Size() && ((X.Get_N() == 1 && Y.Get_N() == 1) || (X.Get_M() == 1 && Y.Get_M() == 1)));
-    if (m < DBL_EPSILON || m > X.Get_Size())
-        m = X.Get_Size();
+    assert (X.get_size() == Y.get_size() && ((X.get_n() == 1 && Y.get_n() == 1) || (X.get_m() == 1 && Y.get_m() == 1)));
+    if (m < DBL_EPSILON || m > X.get_size())
+        m = X.get_size();
     const unsigned M = m;
     unsigned int i = 2*M;
     double* Sums = new double [2*M + 1];
@@ -1183,7 +1193,7 @@ Matrix<double> Find_Polinom_m_power (const Matrix<double>& X, const Matrix<doubl
     for (double* p = Sums + 2*M; p > Sums; --p)
     {
         m = 0;
-        for(const double* pArr = X.Get_pa() + X.Get_Size() - 1;  pArr >= X.Get_pa(); --pArr)
+        for(const double* pArr = X.get_pa() + X.get_size() - 1; pArr >= X.get_pa(); --pArr)
         {
             m += Pow(*pArr, i);
         }
@@ -1191,7 +1201,7 @@ Matrix<double> Find_Polinom_m_power (const Matrix<double>& X, const Matrix<doubl
         *p = m;
     }
     Matrix_SLE Temp (M+1, M+1);
-    for (double* p = Temp.Last_i(); p >= Temp.Get_pa(); p -= Temp.Get_M())
+    for (double* p = Temp.last_i(); p >= Temp.get_pa(); p -= Temp.get_m())
     {
         double* ps = Sums + 2*M - i++;
         for (double* pln = p; /*ps > Sums + M - 2 - i*/ pln > p - M - 1; --pln, --ps)
@@ -1199,10 +1209,10 @@ Matrix<double> Find_Polinom_m_power (const Matrix<double>& X, const Matrix<doubl
     }
     i = M;
     Matrix<double> ySums (M+1, 1);
-    for (double* pS = ySums.Get_pa() + M; pS > ySums.Get_pa(); --pS)
+    for (double* pS = ySums.get_pa() + M; pS > ySums.get_pa(); --pS)
     {
         m = 0;
-        for(const double* pArr = X.Get_pa() + X.Get_Size() - 1, *py = Y.Get_pa() + Y.Get_Size() - 1;  pArr >= X.Get_pa(); --pArr, --py)
+        for(const double* pArr = X.get_pa() + X.get_size() - 1, *py = Y.get_pa() + Y.get_size() - 1; pArr >= X.get_pa(); --pArr, --py)
         {
             m += Pow(*pArr, i)**py;
         }
@@ -1210,28 +1220,28 @@ Matrix<double> Find_Polinom_m_power (const Matrix<double>& X, const Matrix<doubl
         *pS = m;
     }
     delete[] Sums;
-    for (const double *py = Y.Get_pa() + Y.Get_Size() - 1;  py >= Y.Get_pa(); --py)
+    for (const double *py = Y.get_pa() + Y.get_size() - 1; py >= Y.get_pa(); --py)
     {
-        *ySums.Get_pa() += *py;
+        *ySums.get_pa() += *py;
     }
     Matrix<double> Params = Temp.Solve(ySums);
     return Params;
 }
 Matrix<double> Find_Polinom (const Matrix<double> X, const Matrix<double> Y)
 {
-    assert (X.Get_Size() == Y.Get_Size() && ((X.Get_N() == 1 && Y.Get_N() == 1) || (X.Get_M() == 1 && Y.Get_M() == 1)));
+    assert (X.get_size() == Y.get_size() && ((X.get_n() == 1 && Y.get_n() == 1) || (X.get_m() == 1 && Y.get_m() == 1)));
     Matrix<double> A;
     double S2 = 0;
-    double* pS = new double [X.Get_Size()];
+    double* pS = new double [X.get_size()];
     double* pSt = pS;
-    for (int i = 1; i <= X.Get_Size(); ++i)
+    for (int i = 1; i <= X.get_size(); ++i)
     {
         A = Find_Polinom_m_power(X, Y, i);
         S2 = Deflection(X, Y, A, i);
-        *(pSt++) = S2/(X.Get_Size()-i-1);
+        *(pSt++) = S2/(X.get_size() - i - 1);
     }
-    View(pS, X.Get_Size(), 1);
-    return Find_Polinom_m_power(X, Y, Find_min_by_abs(pS, X.Get_Size())+1);
+    View(pS, X.get_size(), 1);
+    return Find_Polinom_m_power(X, Y, Find_min_by_abs(pS, X.get_size()) + 1);
 }
 }
 #endif // MATH_H

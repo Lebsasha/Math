@@ -7,11 +7,11 @@ double Func1 (const Matrix<double>& A)
 {
     try
     {
-        if (A.Get_Size() != 2)
+        if (A.get_size() != 2)
         {
             throw 1;
         }
-        double* pa = A.Get_pointer();
+        double* pa = A.get_pointer();
         if (!pa)
             throw 2;
 
@@ -22,7 +22,7 @@ double Func1 (const Matrix<double>& A)
     catch (int i)
     {
         if (i == 1)
-            cout<<"In Func1 Matrix have size "<<A.Get_N()<<':'<<A.Get_M()<<" but must have 2:2."<<endl;
+            cout << "In Func1 Matrix have size " << A.get_n() << ':' << A.get_m() << " but must have 2:2." << endl;
         if (i == 2)
             cout<<"In Func1 Matrix have null pointer."<<endl;
         return -1;
@@ -32,11 +32,11 @@ double Func2 (const Matrix<double>& A)
 {
     try
     {
-        if (A.Get_Size() != 2)
+        if (A.get_size() != 2)
         {
             throw 1;
         }
-        double* pa = A.Get_pointer();
+        double* pa = A.get_pointer();
         if (!pa)
             throw 2;
         const double result = *pa;
@@ -46,7 +46,7 @@ double Func2 (const Matrix<double>& A)
     catch (int i)
     {
         if (i == 1)
-            cout<<"In Func2 Matrix have size "<<A.Get_N()<<':'<<A.Get_M()<<" but must have 2:2."<<endl;
+            cout << "In Func2 Matrix have size " << A.get_n() << ':' << A.get_m() << " but must have 2:2." << endl;
         if (i == 2)
             cout<<"In Func2 Matrix have null pointer."<<endl;
         return -1;
@@ -56,11 +56,11 @@ double Func3 (const Matrix<double>& A)
 {
     try
     {
-        if (A.Get_Size() != 2)
+        if (A.get_size() != 2)
         {
             return -1;
         }
-        double* pa = A.Get_pointer();
+        double* pa = A.get_pointer();
         if (!pa)
             return -1;
         return 2**pa;
@@ -68,7 +68,7 @@ double Func3 (const Matrix<double>& A)
     catch (int i)
     {
         if (i == 1)
-            cout<<"In Func3 Matrix have size "<<A.Get_N()<<':'<<A.Get_M()<<" but must have 2:2."<<endl;
+            cout << "In Func3 Matrix have size " << A.get_n() << ':' << A.get_m() << " but must have 2:2." << endl;
         if (i == 2)
             cout<<"In Func3 Matrix have null pointer."<<endl;
         return -1;
@@ -78,11 +78,11 @@ double Func4 (const Matrix<double>& A)
 {
     try
     {
-        if (A.Get_Size() != 2)
+        if (A.get_size() != 2)
         {
             throw 1;
         }
-        double* pa = A.Get_pointer();
+        double* pa = A.get_pointer();
         if (!pa)
             throw 2;
         return -2**(++pa);
@@ -90,7 +90,7 @@ double Func4 (const Matrix<double>& A)
     catch (int i)
     {
         if (i == 1)
-            cout<<"In Func4 Matrix have size "<<A.Get_N()<<':'<<A.Get_M()<<" but must have 2:2."<<endl;
+            cout << "In Func4 Matrix have size " << A.get_n() << ':' << A.get_m() << " but must have 2:2." << endl;
         if (i == 2)
             cout<<"In Func4 Matrix have null pointer."<<endl;
         return -1;
@@ -100,11 +100,11 @@ double Func5 (const Matrix<double>& A)
 {
     try
     {
-        if (A.Get_Size() != 2)
+        if (A.get_size() != 2)
         {
             throw 1;
         }
-        double* pa = A.Get_pointer();
+        double* pa = A.get_pointer();
         if (!pa)
             throw 2;
         ++pa;
@@ -113,7 +113,7 @@ double Func5 (const Matrix<double>& A)
     catch (int i)
     {
         if (i == 1)
-            cout<<"In Func5 Matrix have size "<<A.Get_N()<<':'<<A.Get_M()<<" but must have 2:2."<<endl;
+            cout << "In Func5 Matrix have size " << A.get_n() << ':' << A.get_m() << " but must have 2:2." << endl;
         if (i == 2)
             cout<<"In Func5 Matrix have null pointer."<<endl;
         return -1;
@@ -123,11 +123,11 @@ double Func6 (const Matrix<double>& A)
 {
     try
     {
-        if (A.Get_Size() != 2)
+        if (A.get_size() != 2)
         {
             throw 1;
         }
-        double* pa = A.Get_pointer();
+        double* pa = A.get_pointer();
         if (!pa)
             throw 2;
         const double result = 3 * *pa;
@@ -137,7 +137,7 @@ double Func6 (const Matrix<double>& A)
     catch (int i)
     {
         if (i == 1)
-            cout<<"In Func6 Matrix have size "<<A.Get_N()<<':'<<A.Get_M()<<" but must have 2:2."<<endl;
+            cout << "In Func6 Matrix have size " << A.get_n() << ':' << A.get_m() << " but must have 2:2." << endl;
         if (i == 2)
             cout<<"In Func6 Matrix have null pointer."<<endl;
         return -1;
@@ -162,8 +162,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             X1[0] = 1;
             X1[1] = 1;
             Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
-            X1.View();
-            Y1.View();
+            X1.view();
+            Y1.view();
             BOOST_CHECK_CLOSE_FRACTION(Y1[0], 1.6968,1E-5);
             BOOST_CHECK_CLOSE_FRACTION(Y1[1],1.37081,1E-6);
             // 1.6968
@@ -173,8 +173,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             X2[0] = -1;
             X2[1] = -1;
             Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
-            X2.View();
-            Y2.View();
+            X2.view();
+            Y2.view();
             BOOST_CHECK_CLOSE_FRACTION(Y2[0],-1.47865 ,2E-6);
             BOOST_CHECK_CLOSE_FRACTION(Y2[1],-1.08922,1E-6);
 //                BOOST_CHECK(main_for_Lab_2()==0);
@@ -197,8 +197,8 @@ BOOST_AUTO_TEST_SUITE_END()
 //    X1[0] = 1;
 //    X1[1] = 1;
 //    Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
-//    X1.View();
-//    Y1.View();
+//    X1.view();
+//    Y1.view();
 //    // 1.6968
 // //1.37081
 //    cout << endl;
@@ -206,8 +206,8 @@ BOOST_AUTO_TEST_SUITE_END()
 //    X2[0] = -1;
 //    X2[1] = -1;
 //    Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
-//    X2.View();
-//    Y2.View();
+//    X2.view();
+//    Y2.view();
 //    cout << "Hello world!" << endl;
 ////    Get_Pause();
 //    return 0;

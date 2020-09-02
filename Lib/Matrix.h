@@ -1,204 +1,118 @@
-// *** ADDED BY HEADER FIXUP ***
-#include <istream>
-// *** END ***
 #ifdef VISUAL_STUDIO
 #include "stdafx.h"
 #endif // VISUAL_ST
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <string>
-#include <string.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <float.h>
+#include <cfloat>
 #include <vector>
-#include <iterator>
-#include <math.h>
-#include <assert.h>
+#include <cmath>
+#include <cassert>
 #include <algorithm>
+#include "Different.h"
 #if __cplusplus < 201103L
 #define nullptr NULL
 #endif
 
-using namespace std;
-template <class T>
-class Vector
-{
-    T* a;
-    int N;
-public:
-    Vector ()
-    {
-        N = 1;
-        a = new T [N];
-        *a = 0;
-    }
-    Vector (const T A)
-    {
-        N = 1;
-        a = new T [N];
-        *a = A;
-    }
-    /*Vector (const T* pA, const int N)
-    {
-    T* pa = pA + N -1;
-    a = new T [N];
-    for (--a; pA <= pa; ++pA)
-    {
-    *(++a) = *pA;
-    }
-    }*/
-    Vector (Vector& A)
-    {
-        N = A.N;
-        a = new T [N];
-        --a;
-        T* End = A.a + A.N-1;
-        for (T* pA = A.a; pA <= End; ++pA)
-        {
-            *(++a) = *pA;
-        }
-    }
-    void Rand (int Biggest_Num = 5)
-    {
-        ++Biggest_Num;
-        for (T* pA = a + N-1; pA >= a; --pA)
-            *pA = rand()%Biggest_Num;
-    }
-    friend ostream& operator<< (ostream& a, const Vector& v)
-    {
-        T* End = v.a + v.N - 1;
-        for (T* pa = v.a; pa <= End; ++pa)
-            a<<*pa;
-        return a;
-    }
-    inline void Set_size (int Nt)
-    {
-        this->N = Nt;
-        return;
-    }
-    inline int Get_size (void) const
-    {
-        return N;
-    }
-
-    T& operator[] (const int i)
-    {
-        if (i < N)
-            return *(a+i);
-        else
-            exit (1);
-    }
-    ~Vector (void)
-    {
-        delete[] a;
-    }
-};
-
+//TODO Matrix move ctor
 template <class T>
 class Matrix
 {
-    Matrix Plus_or_Minus (const Matrix& B, bool a)
+    Matrix plus_or_minus (const Matrix& addend, bool if_minus)
     {
-            //this->View();
-            //B.View();
-            assert (N == B.N && M == B.M );
-            T* pc = new T[N*M];
-            T* pEnd = B.pa + B.N*B.M - 1;
-            if (!a)
-                for (T* pA = pa-1, *pB = B.pa-1, *pC = pc - 1; pB < pEnd;)
+            assert (N == addend.N && M == addend.M );
+            T* p_ans = new T[N * M];
+            T* p_end = addend.p_data + addend.N * addend.M - 1;
+            if (!if_minus)
+                for (T* p_a = p_data - 1, *p_b = addend.p_data - 1, *p_c = p_ans - 1; p_b < p_end;)
                 {
-                    *(++pC) = *(++pA) + *(++pB);
+                    *(++p_c) = *(++p_a) + *(++p_b);
                 }
             else
-                for (T* pA = pa-1, *pB = B.pa-1, *pC = pc - 1; pB < pEnd;)
+                for (T* p_a = p_data - 1, *p_b = addend.p_data - 1, *p_c = p_ans - 1; p_b < p_end;)
                 {
-                    *(++pC) = *(++pA) - *(++pB);
+                    *(++p_c) = *(++p_a) - *(++p_b);
                 }
-            Matrix A (pc, N, M);
-            delete[] pc;
-            return A;
+            Matrix answer (p_ans, N, M);
+            delete[] p_ans;
+            return answer;
     }
-    void Increase_Name_Count (void)
+    void increase_name_count ()
     {
-        string a;
-        for (int i = ++Count; i > 1; i /= 10)
+        std::string a;
+        for (int i = ++count; i > 1; i /= 10)
         {
             a += '0' + i%10;
         }
         reverse (a.begin(), a.end());
-        Name += a;
-        //Name = to_string(Count);
+        name += a;
     }
 protected:
-    string Name;
+    std::string name;
     int N;
     int M;
-    T* pa;
-    static int Count;
+    T* p_data;
+    static int count;
 public:
-    Matrix (bool If_null = 1): Name("Matrix "), N(1), M(1), pa (new T [N*M])
+    explicit Matrix (bool if_null = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
     {
-        if (If_null)
-        Null();
-        Increase_Name_Count();
+        if (if_null)
+            fill_nulls();
+        increase_name_count();
     }
-    Matrix (T* pA, const int a, const int b): Name("Matrix "), N(a), M(b), pa(new T [N*M])
+    Matrix (T* pointer, const int a, const int b): name("Matrix "), N(a), M(b), p_data(new T [N * M])
     {
-        if (pA)
+        if (pointer)
         {
-            T* pt = pa+N*M;
-            for (T* pB = pA + N*M - 1; pB >= pA; --pB)
+            for (T* p_ptr_curr = pointer + N * M - 1,* p_curr = p_data + N * M-1; p_ptr_curr >= pointer; --p_ptr_curr,--p_curr)
             {
-                *(--pt) = *pB;
+                *(p_curr) = *p_ptr_curr;
             }
         }
-        Increase_Name_Count();
+        increase_name_count();
     }
-    Matrix (const int a, const int b, bool If_null = 1): Name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), pa(new T [N*M])
+    Matrix (const int a, const int b, bool if_null = true): name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), p_data(new T [N * M])
     {
-        if (If_null)
-        Null();
-        Increase_Name_Count();
+        if (if_null)
+            fill_nulls();
+        increase_name_count();
     }
-    Matrix (const Matrix& A): Name("Matrix "), N(A.N), M(A.M), pa(nullptr)
+    Matrix (const Matrix& matrix): name("Matrix "), N(matrix.N), M(matrix.M), p_data(nullptr)
     {
-        *this = A;
-        Increase_Name_Count();
+        *this = matrix;
+        increase_name_count();
     }
-    Matrix (vector<T> va): Name("Matrix "), N(va.size()), M(1), pa(new T [N])
+//    Matrix(Matrix&& mmty) noexcept: name(std::move(mmty.name)), N(mmty.N), M(mmty.M), p_data(mmty.p_data)
+//    {}
+    explicit Matrix (std::vector<T> va): name("Matrix "), N(va.size()), M(1), p_data(new T [N])
     {
-        typename vector<T>::reverse_iterator iva = va.rbegin();
-        for (T* pb = pa + N - 1; pb >= pa; --pb, ++iva)
+        auto i_data = va.crbegin();
+        for (T* p_curr = p_data + N - 1; p_curr >= p_data; --p_curr, ++i_data)
         {
-            *pb = *iva;
+            *p_curr = *i_data;
         }
-        Increase_Name_Count();
+        increase_name_count();
     }
-    bool Edit_col (const int b)
+    void edit_col (const int M_new)
     {
-        if (!pa)
+        if (!p_data)
         {
-            pa = new T [(N=1)*(M=b)];
-            return pa ? 1 : 0;
+            p_data = new T [(N=1) * (M=M_new)];
         }
-        T* pB = pa;
-        T* pT = new T[N*b];
-        if (!pT)
-            return 0;
-        T* pEnd = pT + N*(b-1)-1;
-        --pB;
-        for (T* pt = pT-1; pt <= pEnd; pB += (b >= M) ? 0 : M-b)
+        T* p_curr = p_data;
+        T* p_new = new T[N * M_new];
+        T* p_end = p_new + N * (M_new - 1) - 1;
+        --p_curr;
+        for (T* p_curr_new = p_new - 1; p_curr_new <= p_end; p_curr += (M_new >= M) ? 0 : M - M_new)
         {
-            for (int j = 0; j < b; ++j)
+            for (int j = 0; j < M_new; ++j)
             {
                 if (j < M)
-                    *(++pt) = *(++pB);
+                    *(++p_curr_new) = *(++p_curr);
                 else
                 {
-                    for (; j < b; ++j)
-                        *(++pt) = 0;
+                    for (; j < M_new; ++j)
+                        *(++p_curr_new) = 0;
                 #ifdef NDEBUG
             goto AfterNullN;
 #endif // NDEBUG
@@ -206,370 +120,351 @@ public:
             }
         }
         AfterNullN:
-        M = b;
-        delete[] pa;
-        pa = pT;
-        return 1;
+        M = M_new;
+        delete[] p_data;
+        p_data = p_new;
     }
-    bool If_Symmetric (void) const
+    void edit_row (const int a)
+    {
+        if (!p_data)
+        {
+            p_data = new T [(N=a) * (M=1)];
+        }
+        T* p_new = new T [a * M];
+        T* p_end_new = p_new + a * M - 1;
+        T* p_end = p_data + N * M - 2;
+        T* p_curr = p_data - 1;
+        for (T* p_curr_new = p_new; p_curr_new <= p_end_new; ++p_curr_new)
+        {
+            if (p_curr <= p_end)
+                *p_curr_new = *(++p_curr);
+            else
+            {
+                for (; p_curr_new <= p_end_new; ++p_curr_new)
+                    *p_curr_new = 0;
+#ifdef NDEBUG
+                goto AfterNullR;
+#endif // NDEBUG
+            }
+        }
+        AfterNullR:
+        N = a;
+        delete[] p_data;
+        p_data = p_new;
+    }
+    bool if_symmetric () const
     {
         if (N != M)
-            return 0;
+            return false;
         int i = 1;
-        T* pcEnd = this->First_i();
-        pcEnd += M - 1;
-        for (T* pb = this->Last_i() - 1, *pc = pb - (M - 1); pb >= pa; pb -= i, pc += (N-i)*M - 1)
+        T* p_column_end = p_data;
+        p_column_end += M - 1;
+        for (T* p_row = p_data + N*M-1 - 1, *p_column = p_row - (M - 1); p_row >= p_data; p_row -= i, p_column += (N - i) * M - 1)
         {
-            for (; pc >= pcEnd; --pb, pc -= M)
+            for (; p_column >= p_column_end; --p_row, p_column -= M)
             {
-                if (*pb != *pc)
+                if (*p_row != *p_column)
                 {
-                    return 0;
+                    return false;
                 }
             }
             ++i;
         }
-        return 1;
+        return true;
     }
-    bool Edit_row (const int a)
+    T* get_pointer () const
     {
-        if (!pa)
-        {
-            pa = new T [(N=a)*(M=1)];
-            return pa ? 1 : 0;
-        }
-        T* pT = new T [a*M];
-        if (!pT)
-            return 0;
-        T* pEnd_T = pT + a*M - 1;
-        T* pEnd_B = pa + N*M -2;
-        T* pB = pa-1;
-        for (T* pt = pT; pt <= pEnd_T; ++pt)
-        {
-            if (pB <= pEnd_B)
-                *pt = *(++pB);
-            else
-            {
-                for (; pt <= pEnd_T; ++pt)
-                    *pt = 0;
-#ifdef NDEBUG
-            goto AfterNullR;
-#endif // NDEBUG
-            }
-        }
-AfterNullR:
-        N = a;
-        delete[] pa;
-        pa = pT;
-        return 1;
+        return p_data;
     }
-    inline T* Get_pointer (void) const
-    {
-        return pa;
-    }
-    inline int Get_N (void) const
+    int get_n () const
     {
         return N;
     }
-    inline int Get_M (void) const
+    int get_m () const
     {
         return M;
     }
-    inline int Get_Size (void) const
+    int get_size () const
     {
         return N*M;
     }
-    inline T* Get_pa(void) const
+    T* get_pa() const
     {
-        return pa;
+        return p_data;
     }
-    Matrix operator+ (const Matrix& B)
+    Matrix operator+ (const Matrix& addend)
     {
-        return Plus_or_Minus(B, 0);
+        return plus_or_minus(addend, false);
     }
-    Matrix operator- (const Matrix& B)
+    Matrix operator- (const Matrix& subtrahend)
     {
-        return Plus_or_Minus(B, 1);
+        return plus_or_minus(subtrahend, true);
     }
-    Matrix operator- (const vector<T>& B)
+    Matrix operator+ (const std::vector<T>& vect)
     {
-        Matrix A (B);
-        return Plus_or_Minus(A, 1);
+        Matrix addend (vect);
+        return *this+addend;
     }
-    Matrix operator+ (const vector<T>& B)
+    Matrix operator- (const std::vector<T>& vect)
     {
-        Matrix A (B);
-        return Plus_or_Minus(A, 1);
+        Matrix subtrahend (vect);
+        return *this-subtrahend;
     }
-    const Matrix& operator= (const Matrix& A)
+    Matrix& operator= (const Matrix& matrix)
     {
-        delete[] pa;
-        Name = A.Name;
-        N = A.N;
-        M = A.M;
-        pa = new T [N*M];
-        T* pT = A.pa + N*M;
-        for (T* pt = pa + N*M-1; pt >= pa; --pt)
-            *pt = *(--pT);
+        if(p_data==matrix.p_data)
+        {return *this;}
+        delete[] p_data;
+        name = matrix.name;
+        N = matrix.N;
+        M = matrix.M;
+        p_data = new T [N * M];
+        T* p_curr_new = matrix.p_data + N * M;
+        for (T* p_curr = p_data + N * M - 1; p_curr >= p_data; --p_curr)
+            *p_curr = *(--p_curr_new);
         return *this;
     }
-    Matrix Multi (Matrix& B) const
+    Matrix operator* (const Matrix& multiplier) const
     {
-            assert(M == B.N);
-            T* pc = new T [N*B.M];
-            for (T* t = pc+N*B.M-1; t >= pc; --t)
-                *t = 0;
-            T* pEnd = pa + N*M;
-            T* pC = pc;
-            for (T* pA = pa; pA < pEnd; pA += M)
-                for (T* pB = B.pa; pB < B.pa + B.M; ++pB, ++pC)
-                    for (T* pA1 = pA, *pB1 = pB; pA1 < pA + M; pB1 += B.M, ++pA1)
-                        *pC += *pA1**pB1;
-            Matrix<T> A (pc, N, B.M);
-            delete[] pc;
-            return A;
+        assert(M == multiplier.N);
+        T* p_new = new T [N * multiplier.M];
+        for (T* ptr = p_new + N * multiplier.M - 1; ptr >= p_new; --ptr)
+            *ptr = 0;
+        T* p_end = p_data + N * M;
+        T* p_curr_new = p_new;
+        for (T* p_temp_curr = p_data; p_temp_curr < p_end; p_temp_curr += M)
+            for (T* p_temp_m_curr = multiplier.p_data; p_temp_m_curr < multiplier.p_data + multiplier.M; ++p_temp_m_curr, ++p_curr_new)
+                for (T* p_curr = p_temp_curr, *p_m_curr = p_temp_m_curr; p_curr < p_temp_curr + M; p_m_curr += multiplier.M, ++p_curr)
+                    *p_curr_new += *p_curr * *p_m_curr;
+        Matrix<T> answer (p_new, N, multiplier.M);
+        delete[] p_new;
+        return answer;
     }
-    Matrix Multi (const vector<T>& B) const
+    Matrix<T> multiple_matrix_by_number (const T num) const
     {
-        Matrix<T> a(B);
-        return Multi (a);
-    }
-    Matrix operator* (Matrix& B) const
-    {
-        return this->Multi(B);
-    }
-    Matrix operator* (const vector<T>& B) const
-    {
-        return this->Multi(B);
-    }
-    vector<T> Multi_outp_vector (const vector<T>& B) const
-    {
-//        Matrix<T> M ();
-//        vector<T> a = ;
-        return vector<T>(this->Multi(B));
-    }
-    Matrix<T> Multiple_Matrix_by_Number (const T P) const
-    {
-        Matrix<T> A (N, M);
-        for (T* pc = A.pa + A.N*A.M - 1, *pb = pa + N*M - 1; pc >= A.pa; --pc, --pb)
+        Matrix<T> answer (N, M);
+        for (T* p_curr_new = answer.p_data + answer.N * answer.M - 1, *p_curr = p_data + N * M - 1; p_curr_new >= answer.p_data; --p_curr_new, --p_curr)
         {
-            *pc = *pb*P;
+            *p_curr_new = *p_curr * num;
         }
-        return A;
+        return answer;
     }
-    operator vector<T> ()
+    explicit operator std::vector<T> ()
     {
-        vector<T> va(0);
+        std::vector<T> va(0);
         if (M != 1)
         {
-            cout<<"Error while trynig to create vector from "<<Name<<" with "<<N<<'*'<<M<<"dimensionses";
+            std::cout << "Error while trynig to create vector from " << name << " with " << N << '*' << M << "dimensions";
             return va;
         }
-        T* pEnd = pa + N;
-        for (T* pb = pa; pb < pEnd; ++pb)
+        T* p_end = p_data + N;
+        for (T* p_curr = p_data; p_curr < p_end; ++p_curr)
         {
-            va.push_back(*pb);
+            va.push_back(*p_curr);
         }
         return va;
     }
-    T Max_element(void) const
+    T max_element() const
     {
-        assert (pa != nullptr);
-        T El = *(pa + N*M - 1);
-        for (T* pb = pa + N*M-2; pb >= pa; --pb)
+        assert (p_data != nullptr);
+        T* el = p_data + N * M - 1;
+        for (T* p_curr = p_data + N * M - 2; p_curr >= p_data; --p_curr)
         {
-            if (El < *pb)
-                El = *pb;
+            if (*el < *p_curr)
+                *el = *p_curr;
         }
-        return El;
+        return *el;
     }
-    T Max_element_fabs(void) const
+    T max_element_abs() const
     {
-        assert (pa != nullptr);
-        T El = fabs(*(pa + N*M - 1));
-        for (T* pb = pa + N*M-2; pb >= pa; --pb)
+        assert (p_data != nullptr);
+        T el = fabs(*(p_data + N * M - 1));
+        for (T* p_curr = p_data + N * M - 2; p_curr >= p_data; --p_curr)
         {
-            if (El < fabs(*pb))
-                El = fabs(*pb);
+            if (el < fabs(*p_curr))
+                el = fabs(*p_curr);
         }
-        return El;
+        return el;
     }
-    T Min_element(void) const
+    T min_element() const
     {
-        assert (pa != nullptr);
-        T El = *(pa + N*M - 1);
-        for (T* pb = pa + N*M-2; pb >= pa; --pb)
+        assert (p_data != nullptr);
+        T* el = p_data + N * M - 1;
+        for (T* p_curr = p_data + N * M - 2; p_curr >= p_data; --p_curr)
         {
-            if (El > *pb)
-                El = *pb;
+            if (*el > *p_curr)
+                *el = *p_curr;
         }
-        return El;
+        return *el;
     }
-    T Min_element_fabs(void) const
+    T min_element_abs() const
     {
-        assert (pa != nullptr);
-        T El = fabs(*(pa + N*M - 1));
-        for (T* pb = pa + N*M-2; pb >= pa; --pb)
+        assert (p_data != nullptr);
+        T el = fabs(*(p_data + N * M - 1));
+        for (T* p_curr = p_data + N * M - 2; p_curr >= p_data; --p_curr)
         {
-            if (El > fabs(*pb))
-                El = fabs(*pb);
+            if (el > fabs(*p_curr))
+                el = fabs(*p_curr);
         }
-        return El;
+        return el;
     }
-    inline virtual T& Unsafe_index (const int i)
+    virtual T& unsafe_index (const int i)
     {
-        return *(pa+i);
+        return *(p_data + i);
     }
-    inline virtual T Unsafe_index_c (const int i) const
+    virtual T unsafe_index_c (const int i) const
     {
-        return *(pa+i);
+        return *(p_data + i);
     }
     virtual T& operator[] (const int i)
     {
         assert(i < N*M && i >= 0);
-//            if (i == 1)
-//                cout<<"HERE"<<endl;
-            return *(pa+i);
+            return *(p_data + i);
     }
     virtual T operator[] (const int i) const
     {
         assert(i < N*M && i >= 0);
-            //if (i == 1)
-            //cout<<"HERE"<<endl;
-            return *(pa+i);
+            return *(p_data + i);
     }
 #ifndef NDEBUG
     class iterator
     {
         T* p;
-        T* const pa;
-        int Size;
+        T* const p_data;
+        int size;
     public:
-        Matrix<T>::iterator& operator= (const Matrix<T>::iterator& a)// !!! PRIVATE !!!
+        Matrix<T>::iterator& operator= (const Matrix<T>::iterator& a)//TODO Why? !!! PRIVATE !!!
         {
-            assert (pa == a.pa && Size == a.Size);
+            if(this==&a)
+                return *this;
+            assert (p_data == a.p_data && size == a.size);
             p = a.p;
             return *this;
         }
     public:
-        iterator (T* a, T* const pb, const int s): p(a), pa(pb), Size(s)
+        iterator (T* a, T* const pb, const int s): p(a), p_data(pb), size(s)
         {
             assert (a < pb + s);
         }
-        iterator (void): p(nullptr), pa(nullptr), Size(0)
+        iterator (): p(nullptr), p_data(nullptr), size(0)
         {}
-        inline Matrix<T>::iterator& operator++ (void)
+        Matrix<T>::iterator& operator++ ()
         {
-            assert (p <= pa + Size - 1);
+            assert (p <= p_data + size - 1);
 #ifndef NDEBUG
-            if (p == pa + Size - 1)
-                cout<<"Warning! p == pa  + Size - 1 in prefix ++"<<endl;
+            if (p == p_data + size - 1)
+                std::cout<<"Warning! p == p_data  + size - 1 in prefix ++"<<std::endl;
 #endif // NDEBUG
             ++p;
             return *this;
         }
-        inline Matrix<T>::iterator operator++ (int)
+        const Matrix<T>::iterator operator++ (int)
         {
-            assert (p <= pa + Size - 1);
+            assert (p <= p_data + size - 1);
 #ifndef NDEBUG
-            if (p == pa + Size - 1)
-                cout<<"Warning! p == pa  + Size - 1 in postfix ++"<<endl;
+            if (p == p_data + size - 1)
+                std::cout<<"Warning! p == p_data  + size - 1 in postfix ++"<<std::endl;
 #endif // NDEBUG
-            return Matrix<T>::iterator(p++, pa, Size);
+            return Matrix<T>::iterator(p++, p_data, size);
         }
-        inline Matrix<T>::iterator& operator-- (void)
+        Matrix<T>::iterator& operator-- ()
         {
-            assert (p >= pa);
+            assert (p >= p_data);
 #ifndef NDEBUG
-            if (p == pa)
-                cout<<"Warning! p == pa in prefix --"<<endl;
+            if (p == p_data)
+                std::cout<<"Warning! p == p_data in prefix --"<<std::endl;
 #endif // NDEBUG
             --p;
             return *this;
         }
-        inline Matrix<T>::iterator operator-- (int)
+        const Matrix<T>::iterator operator-- (int)
         {
-            assert (p >= pa);
+            assert (p >= p_data);
 #ifndef NDEBUG
-            if (p == pa)
-                cout<<"Warning! p == pa in postfix --"<<endl;
+            if (p == p_data)
+                std::cout<<"Warning! p == p_data in postfix --"<<std::endl;
 #endif // NDEBUG
-            return Matrix<T>::iterator(p--, pa, Size);
+            return Matrix<T>::iterator(p--, p_data, size);
         }
-        inline Matrix<T>::iterator operator-= (int i)
+        Matrix<T>::iterator operator-= (int i)
         {
-            assert (p >= pa);
+            assert (p >= p_data);
 #ifndef NDEBUG
-            if (p - i < pa)
-                cout<<"Warning! p < pa in -="<<i<<endl;
+            if (p - i < p_data)
+                std::cout<<"Warning! p < p_data in -="<<i<<std::endl;
 #endif // NDEBUG
             p -= i;
             return *this;
         }
-        inline Matrix<T>::iterator operator+= (int i)
+        Matrix<T>::iterator operator+= (int i)
         {
-            assert (p < pa + Size);
+            assert (p < p_data + size);
 #ifndef NDEBUG
-            if (p + i >= pa + Size)
-                cout<<"Warning! p + i >= pa + Size in +="<<i<<endl;
+            if (p + i >= p_data + size)
+                std::cout<<"Warning! p + i >= p_data + size in +="<<i<<std::endl;
 #endif // NDEBUG
             p += i;
             return *this;
         }
-        inline Matrix<T>::iterator operator+ (const int i) const
+        Matrix<T>::iterator operator+ (const int i) const
         {
-            assert (p < pa + Size);
+            assert (p < p_data + size);
 #ifndef NDEBUG
-            if (p + i >= pa + Size)
-                cout<<"Warning! p + i >= pa + Size in + "<<i<<endl;
+            if (p + i >= p_data + size)
+                std::cout<<"Warning! p + i >= p_data + size in + "<<i<<std::endl;
 #endif // NDEBUG
             Matrix<T>::iterator a = *this;
             a.p += i;
             return a;
         }
-        inline Matrix<T>::iterator operator- (const int i) const
+        Matrix<T>::iterator operator- (const int i) const
         {
-            assert (p >= pa);
+            assert (p >= p_data);
 #ifndef NDEBUG
-            if (p - i < pa)
-                cout<<"Warning! p < pa in - "<<i<<endl;
+            if (p - i < p_data)
+                std::cout<<"Warning! p < p_data in - "<<i<<std::endl;
 #endif // NDEBUG
             Matrix<T>::iterator a = *this;
             a.p -= i;
             return a;
         }
-        inline T& operator* (void)
+        T& operator* ()
         {
             assert (p != nullptr);
             return *p;
         }
-        inline operator T* ()
+        T operator* () const
+        {
+            assert (p != nullptr);
+            return *p;
+        }
+        operator T* ()
         {
             return p;
         }
-        inline bool operator== (const Matrix<T>::iterator& a) const
+        bool operator== (const Matrix<T>::iterator& a) const
         {
-            assert (pa == a.pa);
+            assert (p_data == a.p_data);
             return this->p == a;
         }
-        inline bool operator<= (const Matrix<T>::iterator& a) const
+        bool operator<= (const Matrix<T>::iterator& a) const
         {
-            assert (pa == a.pa);
+            assert (p_data == a.p_data);
             return p <= a.p;
         }
-        inline bool operator>= (const Matrix<T>::iterator& a) const
+        bool operator>= (const Matrix<T>::iterator& a) const
         {
-            assert (pa == a.pa);
+            assert (p_data == a.p_data);
             return p >= a.p;
         }
-        inline bool operator> (const Matrix<T>::iterator& a) const
+        bool operator> (const Matrix<T>::iterator& a) const
         {
-            assert (pa == a.pa);
+            assert (p_data == a.p_data);
             return p > a.p;
         }
-        inline bool operator< (const Matrix<T>::iterator& a) const
+        bool operator< (const Matrix<T>::iterator& a) const
         {
-            assert (pa == a.pa);
+            assert (p_data == a.p_data);
             return p < a.p;
         }
     };
@@ -577,225 +472,164 @@ AfterNullR:
 //    using Matrix<T>::iterator T*
 #endif // NDEBUG
 #ifndef NDEBUG
-    Matrix::iterator First_i (void) const
+    Matrix::iterator first_i () const
     {
-        return Matrix::iterator(pa, pa, N*M);
+        return Matrix::iterator(p_data, p_data, N*M);
     }
-    Matrix::iterator Last_i (void) const
+    Matrix::iterator last_i () const
     {
-        return Matrix::iterator(pa + Get_Size() - 1, pa, N*M);
+        return Matrix::iterator(p_data + get_size() - 1, p_data, N*M);
     }
 #else // NDEBUG
-    inline T* First_i (void) const
+    T* first_i () const
     {
-        return pa;
+        return p_data;
     }
-    inline T* Last_i (void) const
+    T* last_i () const
     {
-        return pa + Get_Size() - 1;
+        return p_data + get_size() - 1;
     }
 #endif // NDEBUG
-    virtual T Const_Get_El (const int i) const
+    virtual const Matrix<T>& view (const int bytes_per_element = 8, const bool show_name = false) const
     {
-            assert(i < N*M && i >= 0);
-            return *(pa+i);
-    }
-    void Rand(void)
-    {
-        for (T* pt = pa + N*M -1; pt >= pa; --pt)
-            *pt = rand()%10;
-        return;
-    }
-    virtual const Matrix<T>& View (const int bytes_per_element = 8, const bool Show_Name = 0) const
-    {
-        int Nstr = N;
-        const int Nstb = M;
-        T* pA = pa;
-        if (Show_Name)
-            cout<<Name<<endl;
-        while (Nstr--)
+        int n_str = N;
+        T* p_curr = p_data;
+        if (show_name)
+            std::cout << name << std::endl;
+        while (n_str--)
         {
-            for (int j = 0; j < Nstb-1; j++)
+            for (int j = 0; j < M - 1; j++)
             {
-                cout<<setw(bytes_per_element)<<(*pA)<<" ";
-                pA++;
+                std::cout << std::setw(bytes_per_element) << (*p_curr) << " ";
+                p_curr++;
             }
-            cout<<setw(bytes_per_element)<<*pA++;
-            cout<<endl;
+            std::cout<<std::setw(bytes_per_element)<<*p_curr++;
+            std::cout<<std::endl;
         }
         return *this;
     }
-    Matrix<T>& View_BAD (const int bytes_per_element = 8, const bool Show_Name = 0)
-    {
-        int Nstr = N;
-        const int Nstb = M;
-        T* pA = pa;
-        if (Show_Name)
-            cout<<Name<<endl;
-        while (Nstr--)
-        {
-            for (int j = 0; j < Nstb-1; j++)
-            {
-                cout<<setw(bytes_per_element)<<(*pA)<<" ";
-                pA++;
-            }
-            cout<<setw(bytes_per_element)<<*pA++;
-            cout<<endl;
-        }
-        return *this;
-    }
-    virtual bool Read_from_file (string& sa)
-    {
-        ifstream ifsa (sa.c_str(), ios::binary);
-        bool Temp = Read_from_file(ifsa);
-        ifsa.close();
-        return Temp;
-    }
-    virtual bool Read_from_file (const char* A)
-    {
-        ifstream ifsa (A, ios::binary);
-        bool Temp = Read_from_file(ifsa);
-        ifsa.close();
-        return Temp;
-    }
-    virtual bool Read_from_file (ifstream& sa)
+    virtual bool read_from_file (std::ifstream& sa)
     {
         if (sa.eof())
-            return 0;
+            return false;
         sa.read(reinterpret_cast<char*>(&N), sizeof(int));
         if (sa.eof())
-            return 0;
+            return false;
         sa.read(reinterpret_cast<char*>(&M), sizeof(int));
-        pa = new T [N*M];
-        if (!pa)
-            return 0;
-        const T* pEnd = pa + N*M;
-        const int Size = sizeof(T);
-        for (T* pb = pa; pb < pEnd; ++pb)
+        p_data = new T [N * M];
+        if (!p_data)
+            return false;
+        const T* p_end = p_data + N * M;
+        const int size = sizeof(T);
+        for (T* p_curr = p_data; p_curr < p_end; ++p_curr)
         {
             if (sa.eof())
-                return 0;
-            sa.read(reinterpret_cast<char*>(pb), Size);
+                return false;
+            sa.read(reinterpret_cast<char*>(p_curr), size);
         }
-        return 1;
+        return true;
     }
-    virtual void Write_to_file (string& a) const
+    virtual void write_to_file (std::ofstream& sa) const
     {
-        ofstream ofsa (a.c_str(), ios::binary);
-         Write_to_file (ofsa);
-        ofsa.close();
-        return;
-    }
-    virtual void Write_to_file (const char* A) const
-    {
-        ofstream ofsa (A, ios::binary);
-        Write_to_file (ofsa);
-        ofsa.close();
-        return;
-    }
-    virtual void Write_to_file (ofstream& sa) const
-    {
-        //string a = Name;
+        //string a = name;
         //a.erase(0, 7);
         //int Num = a;
         //sa.write(reinterpret_cast<char*>(), sizeof(int));
         sa.write(reinterpret_cast<const char*>(&N), sizeof(int));
         sa.write(reinterpret_cast<const char*>(&M), sizeof(int));
-        const int Size = sizeof(T);
-        const T* pEnd = pa + N*M;
-        for (T* a = pa; a < pEnd; ++a)
+        const int size = sizeof(T);
+        const T* p_end = p_data + N * M;
+        for (T* p_curr = p_data; p_curr < p_end; ++p_curr)
         {
-            sa.write(reinterpret_cast<char*>(a), Size);
+            sa.write(reinterpret_cast<char*>(p_curr), size);
         }
-        return;
     }
-    void Null (void)
+    void fill_nulls ()
     {
-        for (T* t = pa+N*M-1; t >= pa; --t)
-            *t = 0;
-        return;
+        for (T* p_curr = p_data + N * M - 1; p_curr >= p_data; --p_curr)
+            *p_curr = 0;
     }
-    double Norm_by_infinity (void) const
+    double norm_by_infinity () const
     {
-        double* pEnd = pa + N*M;
-        double a = *pa;
-        for (double* pb = pa + 1; pb < pEnd; ++pb)
+        double* p_end = p_data + N * M;
+        double answer = *p_data;
+        for (double* p_curr = p_data + 1; p_curr < p_end; ++p_curr)
         {
-            if (fabs(*pb) > fabs(a))
-                a = *pb;
+            if (fabs(*p_curr) > fabs(answer))
+                answer = *p_curr;
         }
-        return a;
+        return answer;
     }
-    double Norm_by_Euclid (void) const
+    double norm_by_euclid () const
     {
-        double a = 0;
-        for (double* pb = pa + N*M - 1; pb >= pa; --pb)
+        double answer = 0;
+        for (double* p_curr = p_data + N * M - 1; p_curr >= p_data; --p_curr)
         {
-            a += *pb**pb;
+            answer += *p_curr * *p_curr;
         }
-        return sqrt(a);
+        return sqrt(answer);
     }
-    double Norm_by_Max (void) const
+    double norm_by_max () const
     {
-        double a = 0;
-        for (double* pb = pa + N*M - 1; pb >= pa; --pb)
+        double answer = 0;
+        for (double* p_curr = p_data + N * M - 1; p_curr >= p_data; --p_curr)
         {
-            a += fabs(*pb);
+            answer += fabs(*p_curr);
         }
-        return a;
+        return answer;
     }
-    virtual ~Matrix(void)
+    virtual ~Matrix()
     {
-        delete[] pa;
+        delete[] p_data;
     }
 };
 template <class T>
-int Matrix<T>::Count = 0;
+int Matrix<T>::count = 0;
 
 
 
 
 
 template <>
-bool Matrix<double>::If_Symmetric (void) const
+bool Matrix<double>::if_symmetric () const// TODO
 {
     if (N != M)
-        return 0;
+        return false;
     int i = 1;
-    double* pcEndCol = this->First_i();
-    for (double* pb = this->Last_i() - 1, *pc = pb - (M - 1); pb >= pa; pb -= i, pc += (N-i)*M - 1)
+    double* p_column_end = p_data;
+    for (double* p_row = p_data + N * M - 1 - 1, *p_column = p_row - (M - 1); p_row >= p_data; p_row -= i, p_column += (N - i) * M - 1)
     {
-        for (; pc >= pcEndCol; --pb, pc -= M)
+        for (; p_column >= p_column_end; --p_row, p_column -= M)
         {
-            if (*pb - *pc > DBL_EPSILON)
+            if (*p_row - *p_column > DBL_EPSILON)
             {
-                return 0;
+                return false;
             }
         }
         ++i;
     }
-    return 1;
+    return true;
 }
 
 template <>
-bool Matrix<float>::If_Symmetric (void) const
+bool Matrix<float>::if_symmetric () const
 {
     if (N != M)
-        return 0;
+        return false;
     int i = 1;
-    float* pcEndCol = this->First_i();
-    for (float* pb = this->Last_i() - 1, *pc = pb - (M - 1); pb >= pa; pb -= i, pc += (N-i)*M - 1)
+    float* p_column_end = p_data;
+    for (float* p_row = p_data +N*M-1 - 1, *p_column = p_row - (M - 1); p_row >= p_data; p_row -= i, p_column += (N - i) * M - 1)
     {
-        for (; pc >= pcEndCol; --pb, pc -= M)
+        for (; p_column >= p_column_end; --p_row, p_column -= M)
         {
-            if (*pb - *pc > DBL_EPSILON)
+            if (*p_row - *p_column > DBL_EPSILON)
             {
-                return 0;
+                return false;
             }
         }
         ++i;
     }
-    return 1;
+    return true;
 }
 
 
@@ -828,27 +662,27 @@ bool Matrix<float>::If_Symmetric (void) const
 //    Matrix<double> f (const Matrix<double> X) const
 //    {
 //        Matrix<double> A (N, 1);
-//        double* pa = A.Get_pa() + N - 1;
-//        for (Function2* pFn = Fn + N - 1; pFn >= Fn; --pFn, --pa)
+//        double* p_data = A.get_pa() + N - 1;
+//        for (Function2* pFn = Fn + N - 1; pFn >= Fn; --pFn, --p_data)
 //        {
-//            *pa = pFn->f(X);
+//            *p_data = pFn->f(X);
 //        }
 //        return A;
 //    }
 //    Matrix_SLE Derivative (const Matrix<double> X) const
 //    {
-//        int Num_of_variables = X.Get_Size();
+//        int Num_of_variables = X.get_size();
 //        Matrix<double> A (N, Num_of_variables);
-//        double* pa = A.Get_pa() + A.Get_Size() - 1;
+//        double* p_data = A.get_pa() + A.get_size() - 1;
 //        Matrix<double> Temp (Num_of_variables, 1);
 //        double* pTemp = 0;
-//        for (Function2* pFn = Fn + N*Num_of_variables - 1; pFn >= Fn; --pFn, --pa)
+//        for (Function2* pFn = Fn + N*Num_of_variables - 1; pFn >= Fn; --pFn, --p_data)
 //        {
 //            Temp = pFn->Derivative_by_definition_M_in_column(X);
-//            pTemp = Temp.Get_pa() + Num_of_variables - 1;
-//            for (int i = 0; i < Num_of_variables; ++i, --pa, --pTemp)
+//            pTemp = Temp.get_pa() + Num_of_variables - 1;
+//            for (int i = 0; i < Num_of_variables; ++i, --p_data, --pTemp)
 //            {
-//                *pa = *pTemp;
+//                *p_data = *pTemp;
 //            }
 //        }
 //        return A;

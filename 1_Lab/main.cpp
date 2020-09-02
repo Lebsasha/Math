@@ -35,7 +35,7 @@ int main_for_Lab_1 ()
     const int N = 3;
     Matrix_SLE A;
     A.Read_from_file("../1_Lab/A.matr_l");
-    //A.View();
+    //A.view();
     vector<double> vb (N);
     vb[0] = 3;
     vb[1] = 3.8;
@@ -53,7 +53,7 @@ int main_for_Lab_1 ()
     View (Solucion1);
     vb = vb1;
     A = B;
-    vb1 = A.Multi_outp_vector(Solucion1);
+    vb1 = static_cast<vector<double> >(A* Matrix<double>(Solucion1));
     vector<double> F = Minus(vb1, vb);
     setlocale (LC_ALL, "grc");
     cout<<"Δ Norm = "<<Norm(F)<<endl;
@@ -63,7 +63,7 @@ int main_for_Lab_1 ()
     double delta = Norm (Minus(Solution2, Solucion1))/Norm(Solucion1);
     cout<<"δ delta = "<<delta;
 
-    //A.Read_from_file("A.matr_l");//B.matr_l
+    //A.read_from_file("A.matr_l");//B.matr_l
     double p[] = {1, 2, 2, 1};
     Matrix_SLE C (p, 2, 2);
     p[0] = 1;
