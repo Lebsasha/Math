@@ -494,7 +494,12 @@ public:
         return p_data + get_size() - 1;
     }
 #endif // NDEBUG
-    virtual const Matrix<T>& view (const int bytes_per_element = 8, const bool show_name = false) const
+    virtual const Matrix<T>& view () const
+    {
+        view(8, false);
+        return *this;
+    }
+    virtual const Matrix<T>& view (const int bytes_per_element, const bool show_name) const
     {
         int n_str = N;
         T* p_curr = p_data;
