@@ -49,10 +49,10 @@ class Matrix
     }
 protected:
     std::string name;
-    int N;
-    int M;
+    size_t N;
+    size_t M;
     T* p_data;
-    static int count;
+    static size_t count;
 public:
     explicit Matrix (bool if_null = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
     {
@@ -60,7 +60,7 @@ public:
             fill_nulls();
         increase_name_count();
     }
-    Matrix (T* pointer, const int a, const int b): name("Matrix "), N(a), M(b), p_data(new T [N * M])
+    Matrix (T* pointer, const size_t a, const size_t b): name("Matrix "), N(a), M(b), p_data(new T [N * M])
     {
         if (pointer)
         {
@@ -71,7 +71,7 @@ public:
         }
         increase_name_count();
     }
-    Matrix (const int a, const int b, bool if_null = true): name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), p_data(new T [N * M])
+    Matrix (const size_t a, const size_t b, bool if_null = true): name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), p_data(new T [N * M])
     {
         if (if_null)
             fill_nulls();
@@ -93,7 +93,27 @@ public:
         }
         increase_name_count();
     }
-    void edit_col (const int M_new)
+    T* data () const
+    {
+        return p_data;
+    }
+    size_t get_n () const
+    {
+        return N;
+    }
+    size_t get_m () const
+    {
+        return M;
+    }
+    size_t get_size () const
+    {
+        return N*M;
+    }
+    T* get_pa() const
+    {
+        return p_data;
+    }
+    void edit_col (const size_t M_new)
     {
         if (!p_data)
         {
@@ -105,7 +125,7 @@ public:
         --p_curr;
         for (T* p_curr_new = p_new - 1; p_curr_new <= p_end; p_curr += (M_new >= M) ? 0 : M - M_new)
         {
-            for (int j = 0; j < M_new; ++j)
+            for (size_t j = 0; j < M_new; ++j)
             {
                 if (j < M)
                     *(++p_curr_new) = *(++p_curr);
@@ -113,8 +133,8 @@ public:
                 {
                     for (; j < M_new; ++j)
                         *(++p_curr_new) = 0;
-                #ifdef NDEBUG
-            goto AfterNullN;
+#ifdef NDEBUG
+                    goto AfterNullN;
 #endif // NDEBUG
                 }
             }
@@ -124,7 +144,7 @@ public:
         delete[] p_data;
         p_data = p_new;
     }
-    void edit_row (const int a)
+    void edit_row (const size_t a)
     {
         if (!p_data)
         {
@@ -171,26 +191,6 @@ public:
             ++i;
         }
         return true;
-    }
-    T* get_pointer () const
-    {
-        return p_data;
-    }
-    int get_n () const
-    {
-        return N;
-    }
-    int get_m () const
-    {
-        return M;
-    }
-    int get_size () const
-    {
-        return N*M;
-    }
-    T* get_pa() const
-    {
-        return p_data;
     }
     Matrix operator+ (const Matrix& addend)
     {
@@ -240,7 +240,7 @@ public:
         delete[] p_new;
         return answer;
     }
-    Matrix<T> multiple_matrix_by_number (const T num) const
+    Matrix<T> multiply_matrix_by_number (const T num) const
     {
         Matrix<T> answer (N, M);
         for (T* p_curr_new = answer.p_data + answer.N * answer.M - 1, *p_curr = p_data + N * M - 1; p_curr_new >= answer.p_data; --p_curr_new, --p_curr)
@@ -308,20 +308,20 @@ public:
         }
         return el;
     }
-    virtual T& unsafe_index (const int i)
+    virtual T& unsafe_index (const size_t i)
     {
         return *(p_data + i);
     }
-    virtual T unsafe_index_c (const int i) const
+    virtual T unsafe_index_c (const size_t i) const
     {
         return *(p_data + i);
     }
-    virtual T& operator[] (const int i)
+    virtual T& operator[] (const size_t i)
     {
         assert(i < N*M && i >= 0);
             return *(p_data + i);
     }
-    virtual T operator[] (const int i) const
+    virtual T operator[] (const size_t i) const
     {
         assert(i < N*M && i >= 0);
             return *(p_data + i);
@@ -330,8 +330,8 @@ public:
     class iterator
     {
         T* p;
-        T* const p_data;
-        int size;
+        const T* const p_data;
+        const size_t size;
     public:
         Matrix<T>::iterator& operator= (const Matrix<T>::iterator& a)//TODO Why? !!! PRIVATE !!!
         {
@@ -342,9 +342,9 @@ public:
             return *this;
         }
     public:
-        iterator (T* a, T* const pb, const int s): p(a), p_data(pb), size(s)
+        iterator (T* a, const T* const p_begin, const size_t s): p(a), p_data(p_begin), size(s)
         {
-            assert (a < pb + s);
+            assert (a < p_begin + s);
         }
         iterator (): p(nullptr), p_data(nullptr), size(0)
         {}
@@ -386,7 +386,7 @@ public:
 #endif // NDEBUG
             return Matrix<T>::iterator(p--, p_data, size);
         }
-        Matrix<T>::iterator operator-= (int i)
+        Matrix<T>::iterator operator-= (size_t i)
         {
             assert (p >= p_data);
 #ifndef NDEBUG
@@ -396,7 +396,7 @@ public:
             p -= i;
             return *this;
         }
-        Matrix<T>::iterator operator+= (int i)
+        Matrix<T>::iterator operator+= (size_t i)
         {
             assert (p < p_data + size);
 #ifndef NDEBUG
@@ -406,7 +406,7 @@ public:
             p += i;
             return *this;
         }
-        Matrix<T>::iterator operator+ (const int i) const
+        Matrix<T>::iterator operator+ (const size_t i) const
         {
             assert (p < p_data + size);
 #ifndef NDEBUG
@@ -417,7 +417,7 @@ public:
             a.p += i;
             return a;
         }
-        Matrix<T>::iterator operator- (const int i) const
+        Matrix<T>::iterator operator- (const size_t i) const
         {
             assert (p >= p_data);
 #ifndef NDEBUG
@@ -447,6 +447,10 @@ public:
             assert (p_data == a.p_data);
             return this->p == a;
         }
+        bool operator!=(const iterator& a) const
+        {
+            return !(a == *this);
+        }
         bool operator<= (const Matrix<T>::iterator& a) const
         {
             assert (p_data == a.p_data);
@@ -472,20 +476,20 @@ public:
 //    using Matrix<T>::iterator T*
 #endif // NDEBUG
 #ifndef NDEBUG
-    Matrix::iterator first_i () const
+    Matrix::iterator begin () const
     {
         return Matrix::iterator(p_data, p_data, N*M);
     }
-    Matrix::iterator last_i () const
+    Matrix::iterator end () const
     {
         return Matrix::iterator(p_data + get_size() - 1, p_data, N*M);
     }
 #else // NDEBUG
-    T* first_i () const
+    T* begin () const
     {
         return p_data;
     }
-    T* last_i () const
+    T* end () const
     {
         return p_data + get_size() - 1;
     }
@@ -512,10 +516,10 @@ public:
     {
         if (sa.eof())
             return false;
-        sa.read(reinterpret_cast<char*>(&N), sizeof(int));
+        sa.read(reinterpret_cast<char*>(&N), sizeof(N));
         if (sa.eof())
             return false;
-        sa.read(reinterpret_cast<char*>(&M), sizeof(int));
+        sa.read(reinterpret_cast<char*>(&M), sizeof(M));
         p_data = new T [N * M];
         if (!p_data)
             return false;
@@ -535,8 +539,8 @@ public:
         //a.erase(0, 7);
         //int Num = a;
         //sa.write(reinterpret_cast<char*>(), sizeof(int));
-        sa.write(reinterpret_cast<const char*>(&N), sizeof(int));
-        sa.write(reinterpret_cast<const char*>(&M), sizeof(int));
+        sa.write(reinterpret_cast<const char*>(&N), sizeof(N));
+        sa.write(reinterpret_cast<const char*>(&M), sizeof(M));
         const int size = sizeof(T);
         const T* p_end = p_data + N * M;
         for (T* p_curr = p_data; p_curr < p_end; ++p_curr)
@@ -584,14 +588,14 @@ public:
     }
 };
 template <class T>
-int Matrix<T>::count = 0;
+size_t Matrix<T>::count = 0;
 
 
 
 
 
 template <>
-bool Matrix<double>::if_symmetric () const// TODO
+bool Matrix<double>::if_symmetric () const
 {
     if (N != M)
         return false;

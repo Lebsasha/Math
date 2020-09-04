@@ -7,28 +7,28 @@ extern string path;
 inline double Diff_u1 (const Matrix<double>& X)
 {
     assert (X.get_size() == 3);
-    double x = *(X.get_pointer() + 2);
+    double x = *(X.data() + 2);
     double fff = (x > 1e-10) ? sin(x)/x : 1;
-    return -*X.get_pointer() * *(X.get_pointer() + 1) + fff;
+    return -*X.data() * *(X.data() + 1) + fff;
 }
 inline double Diff_u2 (const Matrix<double>& X)
 {
     assert (X.get_size() == 3);
-    double x = *(X.get_pointer() + 2);
-    return (-Pow(*(X.get_pointer() + 1), 2) + (2.5 + 35 / 40) * x / (1 + x * x));
+    double x = *(X.data() + 2);
+    return (-Pow(*(X.data() + 1), 2) + (2.5 + 35 / 40) * x / (1 + x * x));
 }
 
 inline double Diff_u1_sp (const Matrix<double>& X)
 {
     assert (X.get_size() == 6);
-    double x = *(X.get_pointer() + 4);
+    double x = *(X.data() + 4);
     double fff = (x < 1e-5) ? sin(x)/x : 1.0;
     return X.unsafe_index_c(0) - X.unsafe_index_c(2) - (-X.unsafe_index_c(0) * X.unsafe_index_c(1) + fff) * X.unsafe_index_c(5);
 }
 inline double Diff_u2_sp (const Matrix<double>& X)
 {
     assert (X.get_size() == 6);
-    double x = *(X.get_pointer() + 4);
+    double x = *(X.data() + 4);
     return X.unsafe_index_c(1) - X.unsafe_index_c(3) - (-Pow(X.unsafe_index_c(1), 2) + (2.5 + 35 / 40) * x / (1 + x * x)) * X.unsafe_index_c(5);
 }
 
@@ -46,9 +46,9 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
             const double max_step = 0.01;
             vector<Matrix<double> > yk = Solve_Differential_Equations::Explicit_Euler_method (A, 0, 1, u0, Eps, max_step);
             ofstream oFile_Exp(path + "Explicit.txt");
-            auto iEnd_e = yk[0].first_i();
+            auto iEnd_e = yk[0].begin();
             bool first_not_null = true;
-            for (auto iyk = yk[1].last_i(), itk = yk[0].last_i(); itk >= iEnd_e; --iyk, --itk)
+            for (auto iyk = yk[1].end(), itk = yk[0].end(); itk >= iEnd_e; --iyk, --itk)
             {
                 if (fabs(*itk) > DBL_EPSILON || fabs(*iyk) > DBL_EPSILON || fabs(*(iyk - 1)) > DBL_EPSILON)
                 {
@@ -70,9 +70,9 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
             const double t_max = (1.0 - 0) / 10;
             vector<Matrix<double> > I_all = Solve_Differential_Equations::Implicit_Euler_method (A, 0, 1, u0, Eps, 1e-2, t_max);
             ofstream oFile_Imp(path + "Implicit.txt");
-            auto iEnd_i = (I_all[1]).first_i();
+            auto iEnd_i = (I_all[1]).begin();
             first_not_null=true;
-            for (auto iyk = (I_all[1]).last_i(), itk = (I_all[0]).last_i(); iyk >= iEnd_i; --iyk, --itk)
+            for (auto iyk = (I_all[1]).end(), itk = (I_all[0]).end(); iyk >= iEnd_i; --iyk, --itk)
             {
                 if (fabs(*itk) > DBL_EPSILON || fabs(*iyk) > DBL_EPSILON || fabs(*(iyk - 1)) > DBL_EPSILON)
                 {

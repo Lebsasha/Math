@@ -6,9 +6,9 @@ using namespace std;
 double Norm (vector<double> vect)
 {
     Matrix<double> A(vect);
-    double* pEnd = A.get_pointer() + A.get_n() * A.get_m();
-    double a = *A.get_pointer();
-    for (double* pb = A.get_pointer() + 1; pb < pEnd; ++pb)
+    double* pEnd = A.data() + A.get_n() * A.get_m();
+    double a = *A.data();
+    for (double* pb = A.data() + 1; pb < pEnd; ++pb)
     {
         if (fabs(*pb) > fabs(a))
             a = *pb;
@@ -134,10 +134,10 @@ public:
         sa.read(&Type, sizeof(char));
         if (sa.eof())
             return 0;
-        sa.read(reinterpret_cast<char*>(&N), sizeof(int));
+        sa.read(reinterpret_cast<char*>(&N), sizeof(N));
         if (sa.eof())
             return 0;
-        sa.read(reinterpret_cast<char*>(&M), sizeof(int));
+        sa.read(reinterpret_cast<char*>(&M), sizeof(M));
         delete p_data;
         p_data = new double [N * M];
         if (!p_data)
@@ -175,8 +175,8 @@ public:
         //int Num = atoi(a); ///?
         //sa.write(reinterpret_cast<char*>(&Num), sizeof(int));
         sa.write (&Type, sizeof(char));
-        sa.write(reinterpret_cast<const char*>(&N), sizeof(int));
-        sa.write(reinterpret_cast<const char*>(&M), sizeof(int));
+        sa.write(reinterpret_cast<const char*>(&N), sizeof(N));
+        sa.write(reinterpret_cast<const char*>(&M), sizeof(M));
         const int Size = sizeof(double);
         for (double* a = p_data; a < pEnd; ++a)
         {
@@ -323,15 +323,15 @@ public:
 //        (L*D*LT).view();
         Matrix_SLE Y (L.get_n(), 1);
         Y[0] = b[0];
-        auto pLrow = L.first_i() + M;
-        auto pLEnd = L.first_i() + M;
-        for (auto pb = b.first_i() + 1, pY = Y.first_i() + 1; pb <= b.last_i(); ++pb, ++pY)
+        auto pLrow = L.begin() + M;
+        auto pLEnd = L.begin() + M;
+        for (auto pb = b.begin() + 1, pY = Y.begin() + 1; pb <= b.end(); ++pb, ++pY)
         {
             *pY = *pb;
             for (auto pL = pLrow, pY1 = pY - 1; pL >= pLEnd; --pL, --pY1)
             {
 //                if (pL == pLEnd)
-//                    assert (pY1 == Y.first_i());
+//                    assert (pY1 == Y.begin());
 //                assert (*pL != 0);
 //                assert (*pL != 1);
                 *pY -= *pL**pY1;
@@ -340,20 +340,20 @@ public:
             pLrow += get_m() + 1;
         }
 //        Y.view();
-        for (auto pD = D.first_i(), pY = Y.first_i(); pD <= D.last_i(); pD += M + 1, ++pY)
+        for (auto pD = D.begin(), pY = Y.begin(); pD <= D.end(); pD += M + 1, ++pY)
         {
 //            assert (*pD != 0);
             *pY = *pY/(*pD);
         }
 //        Y.view();
-        auto pLTrow = LT.last_i() - M;
-        auto pLTEnd = LT.last_i() - M;
-        for (auto pY = Y.last_i() - 1; pY >= Y.first_i(); --pY)
+        auto pLTrow = LT.end() - M;
+        auto pLTEnd = LT.end() - M;
+        for (auto pY = Y.end() - 1; pY >= Y.begin(); --pY)
         {
             for (auto pLT = pLTrow, pY1 = pY + 1; pLT <= pLTEnd; ++pLT, ++pY1)
             {
 //                if (pLT == pLTEnd)
-//                    assert (pY1 == Y.last_i());
+//                    assert (pY1 == Y.end());
 //                assert (*pLT != 0);
 //                assert (*pLT != 1);
                 *pY -= *pLT**pY1;
@@ -806,7 +806,7 @@ public:
     {
         assert (From.get_size() == To.get_size() && (From.get_m() == To.get_m() || From.get_n() == To.get_n()));
         Matrix<double> A (N, 1);
-        double* pa = A.last_i();
+        double* pa = A.end();
         for (Function2* pf = Fn +  N - 1; pf == Fn; --pf, --pa)
         {
             *pa = pf->Integral_by_definition(From, To);
@@ -851,7 +851,7 @@ double fDelta2 (const Matrix<double>& X_i, const Matrix<double>& Delta)
 Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, const Matrix<double>& xy, const double& Eps1, const double& Eps2)
 {
     assert (Func.Get_Pointer() != nullptr);
-    assert (xy.get_pointer() != nullptr);
+    assert (xy.data() != nullptr);
     assert (xy.get_size() != 0);
     assert (Eps1 > 1e-10);
     assert (Eps2 > 1e-10);
@@ -872,10 +872,10 @@ Matrix<double> Solve_SNE_Without_Derivative (const Array_of_Functions2& Func, co
 //        Delta.view();
         ixy = ixy + Delta;
 //        cout<<"Sol"<<endl;
-        Sol = Func.f(ixy).multiple_matrix_by_number(-1).view();
+        Sol = Func.f(ixy).multiply_matrix_by_number(-1).view();
 //        cout<<"Derivative"<<endl;
         Derivative = Func.Derivative(ixy);
-        Delta = Derivative.Solve(Sol);       //.multiple_matrix_by_number(-1).view();
+        Delta = Derivative.Solve(Sol);       //.multiply_matrix_by_number(-1).view();
         cout<<endl;
     }
     while ((Delta1 = Func.Max(ixy)) > Eps1 && (Delta2 = fDelta2(ixy, Delta)) > Eps2 &&  i <= Num_it);
@@ -904,7 +904,7 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
 //        Delta.view();
         ixy = ixy + Delta;
 //        cout<<"Sol"<<endl;
-        Sol = Func.f(ixy).multiple_matrix_by_number(-1).view();
+        Sol = Func.f(ixy).multiply_matrix_by_number(-1).view();
         Delta1 = Sol[0];
 //        cout<<"Derivative"<<endl;
         Derivative = Func.Derivative(ixy);
@@ -919,7 +919,7 @@ Matrix<double> Solve_SNE (const Array_of_Functions2& Func, const Array_of_Functi
                                                                                                          High_Precision_Derivative.get_pa(); --pD, --pF)
         {
             *pD = -pF->f(High_Precision_ixy);// Minus against write Sol = Func.f(High_Precision_ixy)
-        }                         //.multiple_matrix_by_number(-1).view();
+        }                         //.multiply_matrix_by_number(-1).view();
         cout<<"With user defined derivative F."<<endl;
         Sol = Func.f(High_Precision_ixy).view();
 //        cout<<"High_Precision_Derivative"<<endl;
@@ -945,8 +945,8 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
 {
 //    static_assert (F.Get_Pointer() != nullptr, );
     assert (F.Get_Pointer() != nullptr);
-    assert (u0.get_pointer() != nullptr);
-    assert (Epsilon.get_pointer() != nullptr);
+    assert (u0.data() != nullptr);
+    assert (Epsilon.data() != nullptr);
     assert (x_From < x_To);
     assert (F.Get_N() == Epsilon.get_size());
     assert (F.Get_N() == u0.get_size());
@@ -959,33 +959,33 @@ vector<Matrix<double> > Explicit_Euler_method (const Array_of_Functions2& F, con
     Matrix<double> F_curr = u0;
     Matrix<double> tk_curr (1, N);
     Matrix<double> y_curr (1, N+1);
-    auto tk_i = tk.first_i();
+    auto tk_i = tk.begin();
     *tk_i = x_From;
     ++tk_i;
-    const auto Eps_End = Epsilon.last_i();
-    auto yk_First = yk.first_i();
-    auto yk_End = yk.first_i() + N;
-    for (auto iu = u0.first_i() + (N - 1), iy = yk_End - 1; iu >= u0.first_i(); --iu, --iy)
+    const auto Eps_End = Epsilon.end();
+    auto yk_First = yk.begin();
+    auto yk_End = yk.begin() + N;
+    for (auto iu = u0.begin() + (N - 1), iy = yk_End - 1; iu >= u0.begin(); --iu, --iy)
     {
         *iy = *iu;
     }
     int i = 0;
     while (x < x_To)
     {
-        for (auto iy = y_curr.first_i(), iyk = yk_First; iyk < yk_End; ++iy, ++iyk)
+        for (auto iy = y_curr.begin(), iyk = yk_First; iyk < yk_End; ++iy, ++iyk)
         {
             *iy = *iyk;
         }
-        *y_curr.last_i() = x;
+        *y_curr.end() = x;
         yk_First += N;
         yk_End += N;
         F_curr = F.f(y_curr);
-        for (auto it = tk_curr.first_i(), iF = F_curr.first_i(), iEps = Epsilon.first_i(); iEps <= Eps_End; ++it, ++iF, ++iEps)
+        for (auto it = tk_curr.begin(), iF = F_curr.begin(), iEps = Epsilon.begin(); iEps <= Eps_End; ++it, ++iF, ++iEps)
         {
             *it = *iEps/(fabs(*iF)+*iEps/Max_Step);
         }
         *tk_i = tk_curr.min_element();
-        for (auto it = yk_First, iF = F_curr.first_i(); it < yk_End; ++it, ++iF)
+        for (auto it = yk_First, iF = F_curr.begin(); it < yk_End; ++it, ++iF)
         {
             *it = *(it-N) + *tk_i**iF;
         }
@@ -1009,15 +1009,15 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
 {
     //u0 in column, because of 25 string down!!!
     assert (F.Get_Pointer() != nullptr);
-    assert (u0.get_pointer() != nullptr);
-    assert (Epsilon.get_pointer() != nullptr);
+    assert (u0.data() != nullptr);
+    assert (Epsilon.data() != nullptr);
     assert (F.Get_N() == Epsilon.get_size());
     assert (F.Get_N() == u0.get_size());
     assert (x_From < x_To);
     assert (t_min > DBL_EPSILON);
     assert (t_max > DBL_EPSILON);
     assert (t_min < t_max);
-    for (auto ie = Epsilon.last_i(); ie >= Epsilon.first_i(); --ie)
+    for (auto ie = Epsilon.end(); ie >= Epsilon.begin(); --ie)
         assert (*ie > 0);
     const int N = F.Get_N();
     int Itrtns = 20000;
@@ -1035,14 +1035,14 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     Matrix<double> tk_mtrx (1, Itrtns);
     y_next_curr_with_x.edit_row(N + 1); //25th string!!!!!!!!!!!
     y_next_curr_with_x.unsafe_index(N) = x_From;
-    auto yk_First = yk.first_i() + N;
+    auto yk_First = yk.begin() + N;
     auto yk_Last = yk_First;
-    for (auto iyk = yk.first_i(), iu0 = u0.first_i(); iyk < yk_First; ++iyk, ++iu0)
+    for (auto iyk = yk.begin(), iu0 = u0.begin(); iyk < yk_First; ++iyk, ++iu0)
     {
         *iyk = *iu0;
     }
     tk_mtrx.unsafe_index(0) = x_From;
-    auto itk_mtrx = tk_mtrx.first_i() + 1;
+    auto itk_mtrx = tk_mtrx.begin() + 1;
     const int Num_it = 100;
     int i = 0;
     const double Eps1 = 1e-4;
@@ -1053,43 +1053,43 @@ vector<Matrix<double> > Implicit_Euler_method (const Array_of_Functions2& F, con
     Matrix<double> F_curr;
     Matrix_SLE Drvtve;
     Matrix<double> Strange_matrix(2*N+2, 1);//x, t, k
-    auto iStr = Strange_matrix.first_i();
+    auto iStr = Strange_matrix.begin();
     while (y_next_curr_with_x.unsafe_index(N) < x_To)
     {
 
         y_next_curr_with_x.unsafe_index(N) += tk;
         *itk_mtrx = y_next_curr_with_x.unsafe_index(N);
         ++itk_mtrx;
-        iStr = Strange_matrix.last_i();
+        iStr = Strange_matrix.end();
         *iStr = tk;
         --iStr;
-        *iStr = *y_next_curr_with_x.last_i();
+        *iStr = *y_next_curr_with_x.end();
         --iStr;
-        for (auto iy_curr = y_curr.last_i(); iy_curr >= y_curr.first_i(); --iy_curr, --iStr)
+        for (auto iy_curr = y_curr.end(); iy_curr >= y_curr.begin(); --iy_curr, --iStr)
         {
             *iStr = *iy_curr;
         }
 eps_curr_bigger_then_epsilon:
         do
         {
-//            for (auto i = y_next_curr.Last_i(), ix = y_next_curr_with_x.last_i()-1; i >= y_next_curr.first_i(); --i, --ix)
+//            for (auto i = y_next_curr.Last_i(), ix = y_next_curr_with_x.end()-1; i >= y_next_curr.begin(); --i, --ix)
 //            {
 //                *ix = *i;
 //            }
             y_next_curr = (y_next_curr + Delta);
-            iStr = Strange_matrix.first_i() + (N - 1);
-            for (auto iy_next_curr = y_next_curr.last_i(); iy_next_curr >= y_next_curr.first_i(); --iy_next_curr, --iStr)
+            iStr = Strange_matrix.begin() + (N - 1);
+            for (auto iy_next_curr = y_next_curr.end(); iy_next_curr >= y_next_curr.begin(); --iy_next_curr, --iStr)
             {
                 *iStr = *iy_next_curr;
             }
 //            Strange_matrix.view();
 //        cout<<"F_curr"<<endl;
-            F_curr = F.f(Strange_matrix).multiple_matrix_by_number(-1.0)/*.view()*/;
+            F_curr = F.f(Strange_matrix).multiply_matrix_by_number(-1.0)/*.view()*/;
 //        cout<<"Derivative"<<endl;
             Drvtve = F.Derivative(Strange_matrix);
             Drvtve.edit_col(N);
 //            Drvtve.view();
-            Delta = Drvtve.Solve(F_curr);       //.multiple_matrix_by_number(-1.0).view();
+            Delta = Drvtve.Solve(F_curr);       //.multiply_matrix_by_number(-1.0).view();
 //            Delta.view();
 //            cout<<Delta1<<' '<<Delta2<<endl<<endl;
         }
@@ -1098,8 +1098,7 @@ eps_curr_bigger_then_epsilon:
 //        cout<<i<<endl;
         i = 0;
 //        y_next_curr.view();
-        for (auto ie = Epsln_curr.last_i(), iy_prv = y_prv_curr.last_i(), iy_curr = y_curr.last_i(), iy_next = y_next_curr.last_i(); ie >=
-                                                                                                                                     Epsln_curr.first_i(); --ie, --iy_prv, --iy_curr, --iy_next)
+        for (auto ie = Epsln_curr.end(), iy_prv = y_prv_curr.end(), iy_curr = y_curr.end(), iy_next = y_next_curr.end(); ie >=Epsln_curr.begin(); --ie, --iy_prv, --iy_curr, --iy_next)
         {
             *ie = tk/(tk+tk_prv)*((tk/tk_prv)*(*iy_curr - *iy_prv) + *iy_curr - *iy_next);
         }
@@ -1107,13 +1106,13 @@ eps_curr_bigger_then_epsilon:
 //        Epsilon.view();
         if (!Strategy)
         {
-            for (auto ie_curr = Epsln_curr.last_i(), ie = Epsilon.last_i(); ie >= Epsilon.first_i(); --ie_curr, --ie)
+            for (auto ie_curr = Epsln_curr.end(), ie = Epsilon.end(); ie >= Epsilon.begin(); --ie_curr, --ie)
             {
                 if (*ie_curr > *ie)
                 {
                     tk /= 2;
                     y_next_curr = y_curr;
-                    for (auto inx = y_next_curr.last_i(), ix = y_next_curr_with_x.last_i() - 1; inx >= y_next_curr.first_i(); --inx, --ix)
+                    for (auto inx = y_next_curr.end(), ix = y_next_curr_with_x.end() - 1; inx >= y_next_curr.begin(); --inx, --ix)
                     {
                         *ix = *inx;
                     }
@@ -1122,13 +1121,13 @@ eps_curr_bigger_then_epsilon:
                 }
             }
 //        if (!Strategy)
-            for (auto itk_curr = tk_curr_next.last_i(), iEps_curr = Epsln_curr.last_i(), iEps = Epsilon.last_i(); iEps >= Epsilon.first_i(); --itk_curr, --iEps, --iEps_curr)
+            for (auto itk_curr = tk_curr_next.end(), iEps_curr = Epsln_curr.end(), iEps = Epsilon.end(); iEps >= Epsilon.begin(); --itk_curr, --iEps, --iEps_curr)
             {
                 *itk_curr = sqrt(*iEps/absol(*iEps_curr))*tk;
             }
         }
         else
-            for (auto itk_curr = tk_curr_next.last_i(), iEps_curr = Epsln_curr.last_i(), iEps = Epsilon.last_i(); iEps >= Epsilon.first_i(); --itk_curr, --iEps, --iEps_curr)
+            for (auto itk_curr = tk_curr_next.end(), iEps_curr = Epsln_curr.end(), iEps = Epsilon.end(); iEps >= Epsilon.begin(); --itk_curr, --iEps, --iEps_curr)
             {
                 *itk_curr = absol(*iEps_curr) > *iEps ? tk/2 : absol(*iEps_curr) > *iEps/4 ? tk : tk+tk;
             }
@@ -1144,7 +1143,7 @@ eps_curr_bigger_then_epsilon:
         y_prv_curr = y_curr;
         y_curr = y_next_curr;
         yk_Last += N;
-        for (auto iyk = yk_First, iy_curr = y_curr.first_i(); iyk < yk_Last; ++iyk, ++iy_curr)
+        for (auto iyk = yk_First, iy_curr = y_curr.begin(); iyk < yk_Last; ++iyk, ++iy_curr)
         {
             *iyk = *iy_curr;
         }
@@ -1167,13 +1166,13 @@ double Deflection (const Matrix<double>& X, const Matrix<double>& Y, const Matri
 
     double S = 0;
     double S2 = 0;
-    for (auto pX = X.last_i(), pY = Y.last_i(); pY >= Y.get_pointer(); --pX, --pY)
+    for (auto pX = X.end(), pY = Y.end(); pY >= Y.data(); --pX, --pY)
     {
         S = *pY;
         int k = i;
-        for (auto pA = A.last_i(); pA >= A.get_pointer(); --pA)
+        for (auto pA = A.end(); pA >= A.data(); --pA)
         {
-            if (pA == A.get_pointer())
+            if (pA == A.data())
                 assert (k == 0);
             S -= *pA*Pow(*pX, k--);
         }
@@ -1201,7 +1200,7 @@ Matrix<double> Find_Polinom_m_power (const Matrix<double>& X, const Matrix<doubl
         *p = m;
     }
     Matrix_SLE Temp (M+1, M+1);
-    for (double* p = Temp.last_i(); p >= Temp.get_pa(); p -= Temp.get_m())
+    for (double* p = Temp.end(); p >= Temp.get_pa(); p -= Temp.get_m())
     {
         double* ps = Sums + 2*M - i++;
         for (double* pln = p; /*ps > Sums + M - 2 - i*/ pln > p - M - 1; --pln, --ps)

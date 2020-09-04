@@ -10,7 +10,7 @@ double Func1 (const Matrix<double>& A)
         {
             throw 1;
         }
-        double* pa = A.get_pointer();
+        double* pa = A.data();
         if (!pa)
             throw 2;
 
@@ -35,7 +35,7 @@ double Func2 (const Matrix<double>& A)
         {
             throw 1;
         }
-        double* pa = A.get_pointer();
+        double* pa = A.data();
         if (!pa)
             throw 2;
         const double result = *pa;
@@ -59,7 +59,7 @@ double Func3 (const Matrix<double>& A)
         {
             return -1;
         }
-        double* pa = A.get_pointer();
+        double* pa = A.data();
         if (!pa)
             return -1;
         return 2**pa;
@@ -81,7 +81,7 @@ double Func4 (const Matrix<double>& A)
         {
             throw 1;
         }
-        double* pa = A.get_pointer();
+        double* pa = A.data();
         if (!pa)
             throw 2;
         return -2**(++pa);
@@ -103,7 +103,7 @@ double Func5 (const Matrix<double>& A)
         {
             throw 1;
         }
-        double* pa = A.get_pointer();
+        double* pa = A.data();
         if (!pa)
             throw 2;
         ++pa;
@@ -126,7 +126,7 @@ double Func6 (const Matrix<double>& A)
         {
             throw 1;
         }
-        double* pa = A.get_pointer();
+        double* pa = A.data();
         if (!pa)
             throw 2;
         const double result = 3 * *pa;

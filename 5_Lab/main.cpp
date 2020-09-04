@@ -9,7 +9,7 @@ inline double f1(const double x)
 }
 inline double f2 (const Matrix<double>& X)// 32
 {
-    return 4 - *X.get_pointer() * *X.get_pointer() - *(X.get_pointer() + 1) * *(X.get_pointer() + 1);
+    return 4 - *X.data() * *X.data() - *(X.data() + 1) * *(X.data() + 1);
 }
 
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_5)
