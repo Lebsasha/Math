@@ -1,6 +1,5 @@
 #include <iostream>
 #include <boost/test/unit_test.hpp>
-//#include "/media/alexander/loadtool/Num_Methods/Lib/Matrix.h"
 #include "../Lib/Math.h"
 using namespace std;
 double Func1 (const Matrix<double>& A)
@@ -143,7 +142,6 @@ double Func6 (const Matrix<double>& A)
         return -1;
     }
 }
-//int main_for_Lab_2();
 
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_2)
 BOOST_AUTO_TEST_CASE(Case_for_lab_2)
@@ -164,10 +162,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
             X1.view();
             Y1.view();
-            BOOST_CHECK_CLOSE_FRACTION(Y1[0], 1.6968,1E-5);
-            BOOST_CHECK_CLOSE_FRACTION(Y1[1],1.37081,1E-6);
-            // 1.6968
-            //1.37081
+            BOOST_CHECK_CLOSE_FRACTION(Y1[0],1.6968,1E-5);
+            BOOST_CHECK_CLOSE_FRACTION(Y1[1],1.37081,1E-5);
             cout << endl;
             Matrix<double> X2 (2, 1);
             X2[0] = -1;
@@ -175,40 +171,7 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
             X2.view();
             Y2.view();
-            BOOST_CHECK_CLOSE_FRACTION(Y2[0],-1.47865 ,2E-6);
-            BOOST_CHECK_CLOSE_FRACTION(Y2[1],-1.08922,1E-6);
-//                BOOST_CHECK(main_for_Lab_2()==0);
+            BOOST_CHECK_CLOSE_FRACTION(Y2[0],-1.47865 ,1E-5);
+            BOOST_CHECK_CLOSE_FRACTION(Y2[1],-1.08922,1E-5);
         }
 BOOST_AUTO_TEST_SUITE_END()
-
-//int main_for_Lab_2 ()
-//{
-//    const double Eps1 = 1E-9;
-//    const double Eps2 = 1E-9;
-//    Array_of_Functions2 Ar(2);
-//    Ar[0] = Func1;
-//    Ar[1] = Func2;
-//    Array_of_Functions2 Der_of_Ar (4);
-//    Der_of_Ar[0] = Func3;
-//    Der_of_Ar[1] = Func4;
-//    Der_of_Ar[2] = Func5;
-//    Der_of_Ar[3] = Func6;
-//    Matrix<double> X1 (2, 1);
-//    X1[0] = 1;
-//    X1[1] = 1;
-//    Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
-//    X1.view();
-//    Y1.view();
-//    // 1.6968
-// //1.37081
-//    cout << endl;
-//    Matrix<double> X2 (2, 1);
-//    X2[0] = -1;
-//    X2[1] = -1;
-//    Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
-//    X2.view();
-//    Y2.view();
-//    cout << "Hello world!" << endl;
-////    Get_Pause();
-//    return 0;
-//}

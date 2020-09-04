@@ -11,32 +11,29 @@ inline double f2 (const Matrix<double>& X)// 32
 {
     return 4 - *X.get_pointer() * *X.get_pointer() - *(X.get_pointer() + 1) * *(X.get_pointer() + 1);
 }
-int main_for_Lab_5();
 
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_5)
     BOOST_AUTO_TEST_CASE(Case_for_lab_5)
     {
-        BOOST_CHECK(main_for_Lab_5()==0);
-    }
-BOOST_AUTO_TEST_SUITE_END()
-
-int main_for_Lab_5 ()
-{
-    cout<<sizeof(unsigned long)<<endl;
 //    int VERYIMPORTANT = 1;
-    Function F (f1);
-    cout<<"Trapetia "<<F.Integral_by_trapetia_method_with_epsilon(0, 1.075, 10e-5)<< "   "<<"Sympthon "<<F.Integral_by_Sympthon_method_with_epsilon(0, 1.075, 10e-5)<<endl;
-    Function2 F2 (f2);
-    Matrix<double> From (2, 1);
-    Matrix<double> To (2, 1);
-    From[0] = From[1] = -1;
-    To[0] = To[1] = 1;
-    cout<<F2.Integral_by_definition(From, To)<<endl;
+        Function F (f1);
+        double alg_1 = F.Integral_by_trapetia_method_with_epsilon(0, 1.075, 10e-5);
+        double alg_2 = F.Integral_by_Sympthon_method_with_epsilon(0, 1.075, 10e-5);
+        cout << "Trapetia " << alg_1 << "   " << "Sympthon " << alg_2 << endl;
+        BOOST_CHECK_CLOSE_FRACTION(alg_1, 1.45, 1E-2);
+        BOOST_CHECK_CLOSE_FRACTION(alg_2, 1.45, 1E-2);
+        Function2 F2 (f2);
+        Matrix<double> From (2, 1);
+        Matrix<double> To (2, 1);
+        From[0] = From[1] = -1;
+        To[0] = To[1] = 1;
+        double twice_integral = F2.Integral_by_definition(From, To);
+        cout << twice_integral << endl;
+        BOOST_CHECK_CLOSE_FRACTION(twice_integral, 13.33333, 1E-5);
 //    register int i = 0;
 //    cout<<&i<<endl;//1.44982 37.33
-    return 0;
-}
-
+    }
+BOOST_AUTO_TEST_SUITE_END()
 
 //The compiler generates a warning if you take the address of a variable with register storage class.
 //Example
