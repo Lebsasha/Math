@@ -333,7 +333,7 @@ public:
         const T* const p_data;
         const size_t size;
     public:
-        Matrix<T>::iterator& operator= (const Matrix<T>::iterator& a)//TODO Why? !!! PRIVATE !!!
+        Matrix<T>::iterator& operator= (const Matrix<T>::iterator& a)
         {
             if(this==&a)
                 return *this;
@@ -535,10 +535,6 @@ public:
     }
     virtual void write_to_file (std::ofstream& sa) const
     {
-        //string a = name;
-        //a.erase(0, 7);
-        //int Num = a;
-        //sa.write(reinterpret_cast<char*>(), sizeof(int));
         sa.write(reinterpret_cast<const char*>(&N), sizeof(N));
         sa.write(reinterpret_cast<const char*>(&M), sizeof(M));
         const int size = sizeof(T);
@@ -635,110 +631,3 @@ bool Matrix<float>::if_symmetric () const
     }
     return true;
 }
-
-
-//class Array_of_Functions2
-//{
-//    int N;
-//    Function2* Fn;
-//public:
-//    Array_of_Functions2 (void): N(1), Fn (new Function2[N])
-//    {}
-//    Array_of_Functions2 (const int S): N(S), Fn (new Function2[N])
-//    {}
-//    Array_of_Functions2 (Array_of_Functions2& Ar): N(Ar.N), Fn (new Function2[N])
-//    {
-//        for (Function2* pFn = Fn + N - 1, *pFa = Ar.Fn +  Ar.N - 1; pFn >= Fn; --pFn, --pFa)
-//        {
-//            *pFn = *pFa;
-//        }
-//    }
-//    Function2* Get_Fn (void)
-//    {
-//        return Fn;
-//    }
-//    Function2 operator[] (const int S) const
-//    {
-//        if (S < N)
-//            return NullF2;
-//        return *(Fn + S);
-//    }
-//    Matrix<double> f (const Matrix<double> X) const
-//    {
-//        Matrix<double> A (N, 1);
-//        double* p_data = A.get_pa() + N - 1;
-//        for (Function2* pFn = Fn + N - 1; pFn >= Fn; --pFn, --p_data)
-//        {
-//            *p_data = pFn->f(X);
-//        }
-//        return A;
-//    }
-//    Matrix_SLE Derivative (const Matrix<double> X) const
-//    {
-//        int Num_of_variables = X.get_size();
-//        Matrix<double> A (N, Num_of_variables);
-//        double* p_data = A.get_pa() + A.get_size() - 1;
-//        Matrix<double> Temp (Num_of_variables, 1);
-//        double* pTemp = 0;
-//        for (Function2* pFn = Fn + N*Num_of_variables - 1; pFn >= Fn; --pFn, --p_data)
-//        {
-//            Temp = pFn->Derivative_by_definition_M_in_column(X);
-//            pTemp = Temp.get_pa() + Num_of_variables - 1;
-//            for (int i = 0; i < Num_of_variables; ++i, --p_data, --pTemp)
-//            {
-//                *p_data = *pTemp;
-//            }
-//        }
-//        return A;
-//    }
-//    Matrix<double> Integral (const double from_x, const double from_y, const double to_x, const double to_y) const;
-//    double Max (const Matrix<double> X)
-//    {
-//        double m = 0;
-//        double v = 0;
-//        for (Function2* pA = Fn + N - 1; pA >= Fn; --pA)
-//        {
-//            if (m < (v = pA->f(X)))
-//            m = v;
-//        }
-//            return m;
-//    }
-////    ~Array_of_Functions2 (void)
-////    {
-////        delete[] Fn;
-////    }
-//};
-
-
-
-
-
-
-
-
-
-
-
-//using Fune = double (*)(double);
-//using pFune = double (**) (double);
-//class Matrix_of_Functions
-//{
-//    int N;
-//    double (**Fn)(double);
-//public:
-//    Matrix_of_Functions (void): N(1), Fn (new Fune [N])
-//    {}
-//    Matrix_of_Functions (const int S): N(S), Fn (new Fune[N])
-//    {}
-//    pFune Get_Fn (void)
-//    {
-//        return Fn;
-//    }
-//    Fune operator[] (const int S)
-//    {
-//        if (S < N)
-//        return *(Fn + S);
-//        return NullF;
-//    }
-//    Matrix_SLE()
-//    };
