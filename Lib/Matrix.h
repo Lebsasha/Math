@@ -54,7 +54,7 @@ protected:
     T* p_data;
     static size_t count;
 public:
-    explicit Matrix (bool if_null = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
+    explicit Matrix (const bool if_null = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
     {
         if (if_null)
             fill_nulls();
@@ -445,7 +445,7 @@ public:
         bool operator== (const Matrix<T>::iterator& a) const
         {
             assert (p_data == a.p_data);
-            return this->p == a;
+            return this->p == a.p;
         }
         bool operator!=(const iterator& a) const
         {
@@ -480,6 +480,7 @@ public:
     {
         return Matrix::iterator(p_data, p_data, N*M);
     }
+    /// @returns real end! i. e. p+N*M-1
     Matrix::iterator end () const
     {
         return Matrix::iterator(p_data + get_size() - 1, p_data, N*M);
@@ -489,6 +490,7 @@ public:
     {
         return p_data;
     }
+    /// @returns real end! i. e. p+N*M-1
     T* end () const
     {
         return p_data + get_size() - 1;
@@ -552,7 +554,7 @@ public:
     void fill_nulls ()
     {
         for (T* p_curr = p_data + N * M - 1; p_curr >= p_data; --p_curr)
-            *p_curr = 0;
+            *p_curr = T(0);
     }
     double norm_by_infinity () const
     {
