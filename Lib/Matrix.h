@@ -109,7 +109,7 @@ public:
     {
         return N*M;
     }
-    T* get_pa() const
+    T* get_ptr() const
     {
         return p_data;
     }

@@ -35,16 +35,16 @@ inline double Diff_u2_sp (const Matrix<double>& X)
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_3___)
 BOOST_AUTO_TEST_CASE(Case_for_lab_3)
         {
-            Array_of_Functions2 A (2);
-            A[0] = Diff_u1;
-            A[1] = Diff_u2;
+            Array_of_functions_2 A (2);
+            A[0] = Function_2(Diff_u1);
+            A[1] = Function_2(Diff_u2);
             Matrix<double> u0 (2, 1);
             u0[0] = 0;
             u0[1] = -0.412;
             Matrix<double> Eps (2, 1);
             Eps[1] = Eps[0] = 1e-3;
             const double max_step = 0.01;
-            vector<Matrix<double> > yk = Solve_Differential_Equations::Explicit_Euler_method (A, 0, 1, u0, Eps, max_step);
+            vector<Matrix<double> > yk = solve_differential_equations::explicit_Euler_method(A, 0, 1, u0, Eps, max_step);
             ofstream oFile_Exp(path + "Explicit.txt");
             auto iEnd_e = yk[0].begin();
             bool first_not_null = true;
@@ -65,10 +65,10 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
                 else
                     --iyk;
             }
-            A[0] = Diff_u1_sp;
-            A[1] = Diff_u2_sp;
+            A[0] = Function_2(Diff_u1_sp);
+            A[1] = Function_2(Diff_u2_sp);
             const double t_max = (1.0 - 0) / 10;
-            vector<Matrix<double> > I_all = Solve_Differential_Equations::Implicit_Euler_method (A, 0, 1, u0, Eps, 1e-2, t_max);
+            vector<Matrix<double> > I_all = solve_differential_equations::implicit_Euler_method(A, 0, 1, u0, Eps, 1e-2, t_max);
             ofstream oFile_Imp(path + "Implicit.txt");
             auto iEnd_i = (I_all[1]).begin();
             first_not_null=true;
@@ -79,8 +79,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
                     if(first_not_null)
                     {
                         BOOST_CHECK_CLOSE_FRACTION(*itk, 1, t_max);
-                        BOOST_CHECK_CLOSE_FRACTION(*iyk, 0.691725, 1E-6);
-                        BOOST_CHECK_CLOSE_FRACTION(*(iyk-1), 1.12794, 1E-5);
+                        BOOST_CHECK_CLOSE_FRACTION(*iyk, 0.69461, 1E-5);
+                        BOOST_CHECK_CLOSE_FRACTION(*(iyk-1), 1.04864, 1E-5);
                         first_not_null=!first_not_null;
                     }
                     oFile_Imp<<*itk<<' '<<*iyk<<' ';

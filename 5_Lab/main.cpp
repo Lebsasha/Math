@@ -17,17 +17,17 @@ BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_5)
     {
 //    int VERYIMPORTANT = 1;
         Function F (f1);
-        double alg_1 = F.Integral_by_trapetia_method_with_epsilon(0, 1.075, 10e-5);
-        double alg_2 = F.Integral_by_Sympthon_method_with_epsilon(0, 1.075, 10e-5);
+        double alg_1 = F.integral_by_trapeze_method(0, 1.075, 10e-5);
+        double alg_2 = F.integral_by_Sympthon_method(0, 1.075, 10e-5);
         cout << "Trapetia " << alg_1 << "   " << "Sympthon " << alg_2 << endl;
         BOOST_CHECK_CLOSE_FRACTION(alg_1, 1.45, 1E-2);
         BOOST_CHECK_CLOSE_FRACTION(alg_2, 1.45, 1E-2);
-        Function2 F2 (f2);
+        Function_2 F2 (f2);
         Matrix<double> From (2, 1);
         Matrix<double> To (2, 1);
         From[0] = From[1] = -1;
         To[0] = To[1] = 1;
-        double twice_integral = F2.Integral_by_definition(From, To);
+        double twice_integral = F2.integral_by_definition(From, To);
         cout << twice_integral << endl;
         BOOST_CHECK_CLOSE_FRACTION(twice_integral, 13.33333, 1E-5);
 //    register int i = 0;

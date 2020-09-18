@@ -148,18 +148,18 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
         {
             const double Eps1 = 1E-9;
             const double Eps2 = 1E-9;
-            Array_of_Functions2 Ar(2);
-            Ar[0] = Func1;
-            Ar[1] = Func2;
-            Array_of_Functions2 Der_of_Ar (4);
-            Der_of_Ar[0] = Func3;
-            Der_of_Ar[1] = Func4;
-            Der_of_Ar[2] = Func5;
-            Der_of_Ar[3] = Func6;
+            Array_of_functions_2 Ar(2);
+            Ar[0] = Function_2(Func1);
+            Ar[1] = Function_2(Func2);
+            Array_of_functions_2 Der_of_Ar (4);
+            Der_of_Ar[0] = Function_2(Func3);
+            Der_of_Ar[1] = Function_2(Func4);
+            Der_of_Ar[2] = Function_2(Func5);
+            Der_of_Ar[3] = Function_2(Func6);
             Matrix<double> X1 (2, 1);
             X1[0] = 1;
             X1[1] = 1;
-            Matrix<double> Y1 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
+            Matrix<double> Y1 = solve_nonlinear_equations::solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
             X1.view();
             Y1.view();
             BOOST_CHECK_CLOSE_FRACTION(Y1[0],1.6968,1E-5);
@@ -168,7 +168,7 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             Matrix<double> X2 (2, 1);
             X2[0] = -1;
             X2[1] = -1;
-            Matrix<double> Y2 = Solve_Nonlinear_Equations::Solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
+            Matrix<double> Y2 = solve_nonlinear_equations::solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
             X2.view();
             Y2.view();
             BOOST_CHECK_CLOSE_FRACTION(Y2[0],-1.47865 ,1E-5);

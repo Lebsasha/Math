@@ -8,6 +8,15 @@
 
 //#define NDEBUG 1
 
+//#define R_ONCE_INIT() bool __CONCAT(a, __LINE__) = true;\
+//int some_var = __LINE__-1;
+//
+//#define R_ONCE_BEG() if(__CONCAT(a, some_var)) \
+//{
+//
+//#define R_ONCE_END() __CONCAT(a, some_var)=false;\
+//}
+
 #include <boost/test/unit_test.hpp>
 #include "1_Lab/main.cpp"
 #include "2_Lab/main.cpp"
@@ -25,6 +34,14 @@ std::string path = "../Logs/";
 //cout<<error;
 BOOST_AUTO_TEST_SUITE(For_Different)
 
+//BOOST_AUTO_TEST_CASE(Run_code_once)
+//    {
+//        R_ONCE_INIT()
+//        int some_int;
+//        R_ONCE_BEG()
+//        ++some_int;
+//        R_ONCE_END()
+//    }
     BOOST_AUTO_TEST_CASE(If_simple_test)
     {
         BOOST_CHECK(if_simple(3) == 1);
@@ -133,6 +150,8 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         BOOST_CHECK(num.get_number<int>() == 12345);
         num.view();
         cout << num << endl;
+        Matrix<double> a;
+        a.view(8, true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
