@@ -22,7 +22,7 @@ inline double Diff_u1_sp (const Matrix<double>& X)
 {
     assert (X.get_size() == 6);
     double x = *(X.data() + 4);
-    double fff = (x < 1e-5) ? sin(x)/x : 1.0;
+    double fff = (x > 1e-10) ? sin(x)/x : 1;
     return X.unsafe_index_c(0) - X.unsafe_index_c(2) - (-X.unsafe_index_c(0) * X.unsafe_index_c(1) + fff) * X.unsafe_index_c(5);
 }
 inline double Diff_u2_sp (const Matrix<double>& X)
