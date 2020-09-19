@@ -18,41 +18,6 @@
 template <class T>
 class Matrix
 {
-    Matrix plus_or_minus (const Matrix& addend, bool if_minus)
-    {
-            assert (N == addend.N && M == addend.M );
-            T* p_ans = new T[N * M];
-            T* p_end = addend.p_data + addend.N * addend.M - 1;
-            if (!if_minus)
-                for (T* p_a = p_data - 1, *p_b = addend.p_data - 1, *p_c = p_ans - 1; p_b < p_end;)
-                {
-                    *(++p_c) = *(++p_a) + *(++p_b);
-                }
-            else
-                for (T* p_a = p_data - 1, *p_b = addend.p_data - 1, *p_c = p_ans - 1; p_b < p_end;)
-                {
-                    *(++p_c) = *(++p_a) - *(++p_b);
-                }
-            Matrix answer (p_ans, N, M);
-            delete[] p_ans;
-            return answer;
-    }
-    void increase_name_count ()
-    {
-        std::string a;
-        for (int i = ++count; i > 1; i /= 10)
-        {
-            a += '0' + i%10;
-        }
-        reverse (a.begin(), a.end());
-        name += a;
-    }
-protected:
-    std::string name;
-    size_t N;
-    size_t M;
-    T* p_data;
-    static size_t count;
 public:
     explicit Matrix (const bool if_null = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
     {
@@ -588,6 +553,42 @@ public:
     virtual ~Matrix()
     {
         delete[] p_data;
+    }
+protected:
+    std::string name;
+    size_t N;
+    size_t M;
+    T* p_data;
+    static size_t count;
+private:
+    Matrix plus_or_minus (const Matrix& addend, bool if_minus)
+    {
+        assert (N == addend.N && M == addend.M );
+        T* p_ans = new T[N * M];
+        T* p_end = addend.p_data + addend.N * addend.M - 1;
+        if (!if_minus)
+            for (T* p_a = p_data - 1, *p_b = addend.p_data - 1, *p_c = p_ans - 1; p_b < p_end;)
+            {
+                *(++p_c) = *(++p_a) + *(++p_b);
+            }
+        else
+            for (T* p_a = p_data - 1, *p_b = addend.p_data - 1, *p_c = p_ans - 1; p_b < p_end;)
+            {
+                *(++p_c) = *(++p_a) - *(++p_b);
+            }
+        Matrix answer (p_ans, N, M);
+        delete[] p_ans;
+        return answer;
+    }
+    void increase_name_count ()
+    {
+        std::string a;
+        for (int i = ++count; i > 1; i /= 10)
+        {
+            a += '0' + i%10;
+        }
+        reverse (a.begin(), a.end());
+        name += a;
     }
 };
 template <class T>
