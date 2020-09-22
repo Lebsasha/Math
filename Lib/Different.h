@@ -41,7 +41,7 @@ void View (T* pArray, size_t Nstr, const size_t Nstb) noexcept
 {
     while (Nstr--)
     {
-        for (int j = 0; j < Nstb-1; ++j)
+        for (size_t j = 0; j < Nstb-1; ++j)
         {
             std::cout<<std::setw(3)<<(*pArray)<<" ";
             pArray++;

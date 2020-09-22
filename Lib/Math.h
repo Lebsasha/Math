@@ -81,17 +81,17 @@ public:
             }
         }
     }
-    int find_max_not_null_el_in_col (const int number_of_col) const
+    size_t find_max_not_null_el_in_col (const size_t number_of_col) const
     {
         double* p_curr = p_data + number_of_col * (M + 1);
         const double* const p_end = p_data + N * M;
         double el = *p_curr;
-        int index_of_max = number_of_col;
-        int curr_index = number_of_col;
+        size_t index_of_max = number_of_col;
+        size_t curr_index = number_of_col;
         while ((p_curr += M) < p_end)
         {
             curr_index++;
-            if (*p_curr > el && *p_curr != DBL_EPSILON)
+            if (*p_curr > el && fabs(*p_curr) > DBL_EPSILON)
             {
                 el = *p_curr;
                 index_of_max = curr_index;
@@ -113,7 +113,7 @@ public:
     }
     bool read_from_file (std::ifstream& sa) override
     {
-        if (sa.eof())
+        if (sa.eof())//TODO
             return false;
         sa.read(&type, sizeof(char));
         switch (type)
@@ -214,9 +214,9 @@ public:
         assert(N==M);
         assert(N==b.get_size());
         Matrix_SLE work_matrix (*(this));
-        int index = 0;
+        size_t index = 0;
         double koef = 0;
-        for (int i = 0; i < N - 1; ++i)
+        for (size_t i = 0; i < N - 1; ++i)
         {
             index = work_matrix.find_max_not_null_el_in_col(i);
             if (fabs(work_matrix[index * M + index]) < 10 * DBL_EPSILON)
@@ -265,7 +265,6 @@ public:
         double* pl_end = L.get_ptr() + N * M;
         double* pl = L.get_ptr();
         double* pd = D.get_ptr();
-        double* plt = L_T.get_ptr();
         for (size_t i = 0; i < N - 1; )
         {
             pd[i*M + i] = p_data[i * M + i];
@@ -343,7 +342,7 @@ public:
 class Function
 {
     double (*fn)(double);
-    static double null_f (double x)
+    static double null_f (double)
     {
         return 0;
     }
@@ -518,7 +517,7 @@ public:
 class Function_2
 {
     double (*fn)(const Matrix<double>&);
-    static double null_f (const Matrix<double>& x)
+    static double null_f (const Matrix<double>&)
     {
         return 0;
     }
@@ -653,7 +652,7 @@ public:
         }
         return *this;
     }
-    int get_size () const
+    size_t get_size () const
     {
         return N;
     }
@@ -665,9 +664,9 @@ public:
     {
         return fn;
     }
-    Function_2& operator[] (const int i) const
+    Function_2& operator[] (const size_t i) const
     {
-        assert (i > -1 && i < N);
+        assert (i < static_cast<size_t>(-1) && i < N);//TODO
         return *(fn + i);
     }
     /// returns matrix in one column
@@ -684,7 +683,7 @@ public:
     /// returns matrix in Num_of_variables column and N rows derivatives by definition
     Matrix<double> derivative (const Matrix<double>& X) const
     {
-        const int num_of_variables = X.get_size();
+        const size_t num_of_variables = X.get_size();
         Matrix<double> answer (N, num_of_variables);
         double* p_curr = answer.get_ptr() + answer.get_size() - 1;
         Matrix<double> curr_der (num_of_variables, 1);
@@ -693,7 +692,7 @@ public:
         {
             curr_der = p_fn->derivative_by_definition_in_column(X);
             p_curr_der = curr_der.get_ptr() + num_of_variables - 1;
-            for (int i = 0; i < num_of_variables; ++i, --p_curr, --p_curr_der)
+            for (size_t i = 0; i < num_of_variables; ++i, --p_curr, --p_curr_der)
             {
                 *p_curr = *p_curr_der;
             }
@@ -755,7 +754,7 @@ Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_funct
     assert (eps_2 > 1e-10);
     const int num_it = 10000;
     int i = 0;
-    int some_v=0;//TODO Remove unsafe index
+    //TODO Remove unsafe index
     Matrix<double> xy_i (xy);
     Matrix<double> delta(xy.get_n(), xy.get_m());
     Matrix<double> high_precision_xy_i (xy);
@@ -810,7 +809,7 @@ namespace solve_differential_equations
     assert (F.get_size() == epsilon.get_size());
     assert (F.get_size() == u_0.get_size());
     assert (max_step > DBL_EPSILON);
-    const int N = F.get_size();
+    const size_t N = F.get_size();
     double x = x_from;
     const int iterations = 150000;
     Matrix<double> yk (N, iterations);
@@ -873,12 +872,11 @@ namespace solve_differential_equations
     assert (t_min < t_max);
     for (auto i_e = epsilon.end(); i_e >= epsilon.begin(); --i_e)
         assert (*i_e > 0);
-    const int N = F.get_size();
+    const size_t N = F.get_size();
     int iterations = 20000;
     int it_curr = 0;
     double tk = t_min; //
     double tk_prv = t_min; //
-    double x = x_from;
     Matrix<double> tk_curr_next (1, N); //noth
     Matrix<double> y_prv_curr (u_0); ///y on previous step
     Matrix<double> y_curr (u_0); //
@@ -999,7 +997,7 @@ eps_curr_bigger_then_epsilon:
 
 namespace approximation
 {
-double dispersion (const Matrix<double>& X, const Matrix<double>& Y, const Matrix<double>& polinom, const int i)
+double dispersion (const Matrix<double>& X, const Matrix<double>& Y, const Matrix<double>& polinom, const unsigned int i)
 {
     assert(polinom.get_size() == i + 1);
     assert(X.get_size() >= i + 1);
@@ -1008,7 +1006,7 @@ double dispersion (const Matrix<double>& X, const Matrix<double>& Y, const Matri
     for (auto pX = X.end(), pY = Y.end(); pY >= Y.data(); --pX, --pY)
     {
         diff = *pY;
-        int k = i;
+        auto k = i;
         for (auto p_pol = polinom.end(); p_pol >= polinom.data(); --p_pol)
         {
             if (p_pol == polinom.data())
@@ -1027,8 +1025,7 @@ Matrix<double> find_polinom_m_power (const Matrix<double>& X, const Matrix<doubl
     assert (X.get_size() == Y.get_size() && ((X.get_n() == 1 && Y.get_n() == 1) || (X.get_m() == 1 && Y.get_m() == 1)));
     if (temp < DBL_EPSILON || temp > X.get_size())
         temp = X.get_size();
-    const auto M = static_cast<unsigned int>(temp);
-//    double temp=0;
+    const unsigned int M = temp;
     unsigned int i = 2*M;
     double* sums = new double [2 * M + 1];
     sums[0] = 1;

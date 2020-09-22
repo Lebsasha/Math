@@ -59,7 +59,7 @@ int main_for_Lab_7 ()
     double gam_3 = - (alf_1 + alf_2);
     double gam_4 = - (alf_3 + alf_4);
     double w = 0;
-    string Name = "";
+    string Name;
     for (j=0; j<=j3; j++)
     {
         T[j][0] = T1;
@@ -87,7 +87,7 @@ int main_for_Lab_7 ()
         for (i = 0; i < NX; i++)
         {
             w = T[j][i];
-            fout.write((const char* const)&w, sizeof w);
+            fout.write(reinterpret_cast<const char*>(&w), sizeof w);
         }
     }
     fout.close();
@@ -157,7 +157,7 @@ int main_for_Lab_7 ()
                 for (i = 0; i < NX; i++)
                 {
                     w = T[j][i];
-                    foutn.write((const char* const)&w, sizeof w);
+                    foutn.write(reinterpret_cast<const char*>(&w), sizeof w);
                 }
             }
             foutn.close();
@@ -175,9 +175,9 @@ int main_for_Lab_7 ()
     int n_y = NY;
     int n_k = --ndt;
     ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
-    fou.write((const char* const)&n_x, sizeof n_x);
-    fou.write((const char* const)&n_y, sizeof n_y);
-    fou.write((const char* const)&n_k, sizeof n_y);
+    fou.write(reinterpret_cast<const char*>(&n_x), sizeof n_x);
+    fou.write(reinterpret_cast<const char*>(&n_y), sizeof n_y);
+    fou.write(reinterpret_cast<const char*>(&n_k), sizeof n_y);
     fou.close();
-    return 0;
+    return 0;//TODO
 }

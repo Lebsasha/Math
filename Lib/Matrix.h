@@ -468,13 +468,13 @@ public:
     }
     virtual const Matrix<T>& view (const int bytes_per_element, const bool show_name) const
     {
-        int n_str = N;
+        size_t n_str = N;
         T* p_curr = p_data;
         if (show_name)
             std::cout << name << std::endl;
         while (n_str--)
         {
-            for (int j = 0; j < M - 1; j++)
+            for (size_t j = 0; j < M - 1; j++)
             {
                 std::cout << std::setw(bytes_per_element) << (*p_curr) << " ";
                 p_curr++;
@@ -583,7 +583,7 @@ private:
     void increase_name_count ()
     {
         std::string a;
-        for (int i = ++count; i > 1; i /= 10)
+        for (size_t i = ++count; i > 1; i /= 10)
         {
             a += '0' + i%10;
         }
@@ -603,7 +603,7 @@ bool Matrix<double>::if_symmetric () const
 {
     if (N != M)
         return false;
-    int i = 1;
+    size_t i = 1;
     double* p_column_end = p_data;
     for (double* p_row = p_data + N * M - 1 - 1, *p_column = p_row - (M - 1); p_row >= p_data; p_row -= i, p_column += (N - i) * M - 1)
     {
@@ -624,7 +624,7 @@ bool Matrix<float>::if_symmetric () const
 {
     if (N != M)
         return false;
-    int i = 1;
+    size_t i = 1;
     float* p_column_end = p_data;
     for (float* p_row = p_data +N*M-1 - 1, *p_column = p_row - (M - 1); p_row >= p_data; p_row -= i, p_column += (N - i) * M - 1)
     {

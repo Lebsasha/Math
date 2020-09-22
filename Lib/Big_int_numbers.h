@@ -13,10 +13,8 @@
 class Big_number
 {
 public:
-    Big_number() : /*sign_plus(true),*/ base(10)
-    {
-        number = std::vector<unsigned char>({0});
-    }
+    Big_number() : /*sign_plus(true),*/number(std::vector<unsigned char>({0})), base(10)
+    {}
 
     template<typename T>
     explicit Big_number(T num): /*sign_plus(num >= *//*static_cast<T>*//*(0)),*/ number(std::vector<unsigned char>()), base(10)
@@ -67,7 +65,7 @@ public:
     }
 
     /// base can be in range [2, 16] on "standard" computer
-    void set_base(const int new_base)
+    void set_base(const unsigned char new_base)
     {
         assert(new_base >= 2);
         assert(new_base <= sqrt(std::numeric_limits<unsigned char>::max() + 1));
@@ -377,7 +375,6 @@ private:
         quotient.number.push_back(quot);
 
         bool if_zero = false;
-        bool first_run = true;
         size_t offset_from_position = divisor_on_quot.number.size();
         for (auto div = divisor_on_quot.number.crbegin(), rem = current_part_of_dividend.number.crbegin();
              *div == *rem && offset_from_position != 1; ++div, ++rem)
@@ -403,7 +400,6 @@ private:
             p = dividend.number.rbegin();
             current_part_of_dividend = Big_number(*p);
 
-            first_run = true;
             while (current_part_of_dividend < divisor)
             {
                 ++p;

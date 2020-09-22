@@ -171,27 +171,27 @@ extern std::string path;
             }
             nT++;
             double w = maxdel;
-            foutT.write((char *) &w, sizeof w);
+            foutT.write(reinterpret_cast<char*>(&w), sizeof w);
             if (maxdel < eps) prz = 0;
             maxdel = 0.0f;
         }
         foutT.close();
         ofstream fouT(path + "nT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
-        fouT.write((char *) &nT, sizeof nT);
+        fouT.write(reinterpret_cast<char *> ( &nT), sizeof nT);
         fouT.close(); // ��������� ����
         ofstream fout(path + "Pole.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         for (j = 0; j < NY; j++) {
             for (i = 0; i < NX; i++) {
                 double w = T[j][i];
-                fout.write((char *) &w, sizeof w);
+                fout.write(reinterpret_cast<char *> ( &w), sizeof w);
             }
         }
         fout.close();
         int n_x = NX;
         int n_y = NY;
         ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
-        fou.write((char *) &n_x, sizeof n_x);
-        fou.write((char *) &n_y, sizeof n_y);
+        fou.write(reinterpret_cast<char *> ( &n_x), sizeof n_x);
+        fou.write(reinterpret_cast<char *> ( &n_y), sizeof n_y);
         fou.close();
         return 0;
     }
