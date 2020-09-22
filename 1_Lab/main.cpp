@@ -19,7 +19,7 @@ vector<double> Minus (const vector<double>& a, const vector<double>& b)
         return vector<double> (0);
     vector<double> c (a.size());
     auto ivc = c.begin();
-    for (vector<double>::const_iterator iva = a.cbegin(), ivb = b.cbegin(); iva < a.end(); iva++, ivb++, ivc++)
+    for (vector<double>::const_iterator iva = a.cbegin(), ivb = b.cbegin(); iva < a.end(); ++iva, ++ivb, ++ivc)
     {
         *ivc = *iva - *ivb;
     }
@@ -52,7 +52,6 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_1)
             BOOST_CHECK_CLOSE_FRACTION(Solucion1[1], 74.73333, 1E-5);
             BOOST_CHECK_CLOSE_FRACTION(Solucion1[2], 2.26666, 1E-5);
             b = vb2;
-            matrix_1 = temp_matrix;
             vector<double> vb1 = static_cast<vector<double> >(matrix_1 * Matrix<double>(Solucion1));
             vector<double> F = Minus(vb1, static_cast<vector<double> >(b));
             setlocale (LC_ALL, "grc");

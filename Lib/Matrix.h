@@ -36,7 +36,7 @@ public:
         }
         increase_name_count();
     }
-    Matrix (const size_t a, const size_t b, bool if_null = true): name("Matrix "), N(a >= 0 ? a : 0), M(b >= 0 ? b : 0), p_data(new T [N * M])
+    Matrix (const size_t a, const size_t b, bool if_null = true): name("Matrix "), N(a), M(b), p_data(new T [N * M])
     {
         if (if_null)
             fill_nulls();
@@ -493,8 +493,6 @@ public:
             return false;
         sa.read(reinterpret_cast<char*>(&M), sizeof(M));
         p_data = new T [N * M];
-        if (!p_data)
-            return false;
         const T* p_end = p_data + N * M;
         const int size = sizeof(T);
         for (T* p_curr = p_data; p_curr < p_end; ++p_curr)

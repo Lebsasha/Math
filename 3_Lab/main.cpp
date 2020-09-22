@@ -18,7 +18,7 @@ inline double Diff_u2 (const Matrix<double>& X)
 {
     assert (X.get_size() == 3);
     double x = *(X.data() + 2);
-    return (-Pow(*(X.data() + 1), 2) + (2.5 + 35 / 40) * x / (1 + x * x));
+    return (-Pow(*(X.data() + 1), 2) + (2.5 + 35.0 / 40) * x / (1 + x * x));
 }
 
 inline double Diff_u1_sp (const Matrix<double>& X)
@@ -32,7 +32,8 @@ inline double Diff_u2_sp (const Matrix<double>& X)
 {
     assert (X.get_size() == 6);
     double x = *(X.data() + 4);
-    return X.unsafe_index_c(1) - X.unsafe_index_c(3) - (-Pow(X.unsafe_index_c(1), 2) + (2.5 + 35 / 40) * x / (1 + x * x)) * X.unsafe_index_c(5);
+    return X.unsafe_index_c(1) - X.unsafe_index_c(3) - (-Pow(X.unsafe_index_c(1), 2) + (2.5 + 35.0 / 40) * x / (1 + x * x)) * X
+    .unsafe_index_c(5);
 }
 
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_3___)
@@ -58,8 +59,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
                     if(first_not_null)
                     {
                         BOOST_CHECK_CLOSE_FRACTION(*itk, 1, max_step);
-                        BOOST_CHECK_CLOSE_FRACTION(*iyk, 0.37216, 1E-5);
-                        BOOST_CHECK_CLOSE_FRACTION(*(iyk-1), 0.94716, 1E-5);
+                        BOOST_CHECK_CLOSE_FRACTION(*iyk, 0.64047, 1E-5);
+                        BOOST_CHECK_CLOSE_FRACTION(*(iyk-1), 0.86852, 1E-5);
                         first_not_null=!first_not_null;
                     }
                     oFile_Exp<<*itk<< ' '<<*iyk<<' ';
@@ -82,8 +83,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
                     if(first_not_null)
                     {
                         BOOST_CHECK_CLOSE_FRACTION(*itk, 1, t_max);
-                        BOOST_CHECK_CLOSE_FRACTION(*iyk, 0.69461, 1E-5);
-                        BOOST_CHECK_CLOSE_FRACTION(*(iyk-1), 1.04864, 1E-5);
+                        BOOST_CHECK_CLOSE_FRACTION(*iyk, 1.01443, 1E-5);
+                        BOOST_CHECK_CLOSE_FRACTION(*(iyk-1), 0.91549, 1E-5);
                         first_not_null=!first_not_null;
                     }
                     oFile_Imp<<*itk<<' '<<*iyk<<' ';

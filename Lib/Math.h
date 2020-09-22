@@ -132,7 +132,7 @@ public:
         if (sa.eof())
             return false;
         sa.read(reinterpret_cast<char*>(&M), sizeof(M));
-        delete p_data;
+        delete[] p_data;
         p_data = new double [N * M];
         const double* p_end = p_data + N * M;
         const int size = sizeof(double);
@@ -526,7 +526,7 @@ public:
     {}
     Function_2 (): fn (null_f)
     {}
-    static double derivative_by_definition (double (*der) (const Matrix<double>&), const Matrix<double> x)
+    static double derivative_by_definition (double (*der) (const Matrix<double>&), const Matrix<double>& x)
     {
         return der(x);
     }
@@ -644,7 +644,6 @@ public:
         }
         delete[] fn;
         fn = new Function_2[arr.get_size()];
-        ///BUG
         Function_2* p_arr = arr.fn + arr.N - 1;
         for (Function_2* p_curr = fn + N - 1; p_curr >= fn; --p_curr, --p_arr)
         {
@@ -1077,7 +1076,7 @@ Matrix<double> find_polinom (const Matrix<double>& X, const Matrix<double>& Y)
         polinom = find_polinom_m_power(X, Y, i);
         *(p_curr++) = dispersion(X, Y, polinom, i);
     }
-    View(dispersions, X.get_size(), 1);
+    View(dispersions, X.get_size()-1, 1);
     size_t min_index = X.get_size()-1;///(X.get_size()-1) size, (-1) as (size-1), (+1) as it polinom koef.
     size_t i=min_index-1;
     ///(X.get_size()-1) size, (-1) as (size-1), (-1) as next element already in min_index.

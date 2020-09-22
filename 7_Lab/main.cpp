@@ -143,7 +143,7 @@ int main_for_Lab_7 ()
         if (idt == DEL)
         {
             idt=0;
-            Name = "";
+            Name.clear();
             for (int is = ++ndt; is >= 1; is /= 10)
             {
                 Name += '0' + is%10;
