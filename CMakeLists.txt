@@ -41,3 +41,11 @@ add_executable(Num_methods
 #                Lib/Math.cpp
 #        Lib/Big_int_numbers.h
         )
+
+
+include(PVS-Studio.cmake)
+pvs_studio_add_target(TARGET example1.analyze ALL
+                      OUTPUT FORMAT errorfile
+                      ANALYZE ${PROJECT_NAME}
+                      MODE GA:1,2 OP
+                      LOG target.err)
