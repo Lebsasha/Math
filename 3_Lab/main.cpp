@@ -26,14 +26,14 @@ inline double Diff_u1_sp (const Matrix<double>& X)
     assert (X.get_size() == 6);
     double x = *(X.data() + 4);
     double fff = (x > 1e-10) ? sin(x)/x : 1;
-    return X.unsafe_index_c(0) - X.unsafe_index_c(2) - (-X.unsafe_index_c(0) * X.unsafe_index_c(1) + fff) * X.unsafe_index_c(5);
+    return X.at_c(0) - X.at_c(2) - (-X.at_c(0) * X.at_c(1) + fff) * X.at_c(5);
 }
 inline double Diff_u2_sp (const Matrix<double>& X)
 {
     assert (X.get_size() == 6);
     double x = *(X.data() + 4);
-    return X.unsafe_index_c(1) - X.unsafe_index_c(3) - (-Pow(X.unsafe_index_c(1), 2) + (2.5 + 35.0 / 40) * x / (1 + x * x)) * X
-    .unsafe_index_c(5);
+    return X.at_c(1) - X.at_c(3) - (-Pow(X.at_c(1), 2) + (2.5 + 35.0 / 40) * x / (1 + x * x)) * X
+                                                                                                                                      .at_c(5);
 }
 
 BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_3___)

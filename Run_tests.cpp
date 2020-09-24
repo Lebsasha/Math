@@ -32,6 +32,7 @@
 
 using namespace std;
 //TODO Поддержка существования пути path
+//TODO Пересмотреть сами лабы
 std::string path = "../Logs/";
 //if(!oFile)
 //cout<<error;

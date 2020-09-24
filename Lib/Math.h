@@ -3,7 +3,7 @@
 #include "../Lib/Matrix.h"
 #include "Different.h"
 
-double norm (std::vector<double> vect)//TODO matrix mt
+double norm (std::vector<double> vect)
 {
     Matrix<double> A(std::move(vect));
     double* p_end = A.data() + A.get_n() * A.get_m();
@@ -113,7 +113,7 @@ public:
     }
     bool read_from_file (std::ifstream& sa) override
     {
-        if (sa.eof())//TODO
+        if (sa.eof())
             return false;
         sa.read(&type, sizeof(char));
         switch (type)
@@ -587,31 +587,31 @@ public:
         double y_step = y_length / y_steps;
         double y_end = to[1];
         Matrix<double> temp;
-        for (Matrix<double> curr_point = from; curr_point.unsafe_index(1) < y_end; curr_point.unsafe_index(1)+= y_step + y_step)
+        for (Matrix<double> curr_point = from; curr_point.at(1) < y_end; curr_point.at(1)+= y_step + y_step)
         {
-            for (curr_point.unsafe_index(0) = x_begin; curr_point.unsafe_index(0) < x_end; curr_point.unsafe_index(0)+= x_step + x_step)
+            for (curr_point.at(0) = x_begin; curr_point.at(0) < x_end; curr_point.at(0)+= x_step + x_step)
             {
                 temp = curr_point;
                 integral += f(temp);
-                temp.unsafe_index(0) += x_step;
+                temp.at(0) += x_step;
                 integral += 4 * f(temp);
-                temp.unsafe_index(0) += x_step;
+                temp.at(0) += x_step;
                 integral += f(temp);
 
-                temp.unsafe_index(0) = curr_point.unsafe_index(0);
-                temp.unsafe_index(1) += y_step;
+                temp.at(0) = curr_point.at(0);
+                temp.at(1) += y_step;
                 integral += 4 * f(temp);
-                temp.unsafe_index(0) += x_step;
+                temp.at(0) += x_step;
                 integral += 16 * f(temp);
-                temp.unsafe_index(0) += x_step;
+                temp.at(0) += x_step;
                 integral += 4 * f(temp);
 
-                temp.unsafe_index(0) = curr_point.unsafe_index(0);
-                temp.unsafe_index(1) += y_step;
+                temp.at(0) = curr_point.at(0);
+                temp.at(1) += y_step;
                 integral += f(temp);
-                temp.unsafe_index(0) += x_step;
+                temp.at(0) += x_step;
                 integral += 4 * f(temp);
-                temp.unsafe_index(0) += x_step;
+                temp.at(0) += x_step;
                 integral += f(temp);
             }
         }
@@ -634,8 +634,7 @@ public:
             *p_fn = *p_ar;
         }
     }
-    /// bug
-    Array_of_functions_2& operator= (const Array_of_functions_2& arr)//TODO
+    Array_of_functions_2& operator= (const Array_of_functions_2& arr)
     {
         N = arr.N;
         if (fn == arr.fn)
@@ -665,7 +664,7 @@ public:
     }
     Function_2& operator[] (const size_t i) const
     {
-        assert (i < static_cast<size_t>(-1) && i < N);//TODO
+        assert (i < N);
         return *(fn + i);
     }
     /// returns matrix in one column
@@ -753,7 +752,6 @@ Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_funct
     assert (eps_2 > 1e-10);
     const int num_it = 10000;
     int i = 0;
-    //TODO Remove unsafe index
     Matrix<double> xy_i (xy);
     Matrix<double> delta(xy.get_n(), xy.get_m());
     Matrix<double> high_precision_xy_i (xy);
@@ -789,7 +787,7 @@ Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_funct
         {
             ofstream<<"0 worse"<<std::endl;
         }
-        ++i;//TODO
+        ++i;
     }
     while ((delta_1 = func.max_value(xy_i)) > eps_1 && (delta_2 = f_delta_2(xy_i, delta)) > eps_2 && i <= num_it);
     return xy_i;
@@ -859,7 +857,6 @@ namespace solve_differential_equations
 }
     std::vector<Matrix<double> > implicit_Euler_method (const Array_of_functions_2& F, const double x_from, const double x_to, const Matrix<double>& u_0, const Matrix<double>& epsilon, const double t_min, const double t_max, const bool if_use_three_zones_strategy = true)
 {
-    ///u_0 in column, because of 25 string down!!!
     assert (F.data() != nullptr);
     assert (u_0.data() != nullptr);
     assert (epsilon.data() != nullptr);
@@ -874,27 +871,26 @@ namespace solve_differential_equations
     const size_t N = F.get_size();
     int iterations = 20000;
     int it_curr = 0;
-    double tk = t_min; //
-    double tk_prv = t_min; //
-    Matrix<double> tk_curr_next (1, N); //noth
+    double tk = t_min;
+    double tk_prv = t_min;
+    Matrix<double> tk_curr_next (1, N);
     Matrix<double> y_prv_curr (u_0); ///y on previous step
-    Matrix<double> y_curr (u_0); //
-    Matrix<double> y_next_curr (u_0); //noth
-    Matrix<double> y_next_curr_with_x (u_0); //noth
-    Matrix<double> epsilon_curr(epsilon.get_n(), epsilon.get_m()); //noth
+    Matrix<double> y_curr (u_0);
+    Matrix<double> y_next_curr (u_0);///y on next step
+    Matrix<double> x_curr (N + 1, 1);
+    Matrix<double> epsilon_curr(epsilon.get_n(), epsilon.get_m());
     Matrix<double> yk (N, iterations);
     Matrix<double> tk_final (1, iterations);
-    y_next_curr_with_x.edit_row(N + 1); ///25th string!!!
-    y_next_curr_with_x.unsafe_index(N) = x_from;
+    x_curr.at(N) = x_from;
     auto yk_first = yk.begin() + N;
     auto yk_last = yk_first;
     for (auto iyk = yk.begin(), iu_0 = u_0.begin(); iyk < yk_first; ++iyk, ++iu_0)
     {
         *iyk = *iu_0;
     }
-    tk_final.unsafe_index(0) = x_from;
+    tk_final.at(0) = x_from;
     auto itk_final = tk_final.begin() + 1;
-    const int num_of_it_in_Newton = 100;
+    const int num_of_it_in_Newton = 100;///number of iterations in Newton method
     int i = 0;
     const double eps_1 = 1e-4;
     const double eps_2 = 1e-4;
@@ -903,18 +899,18 @@ namespace solve_differential_equations
     Matrix<double> delta(u_0.get_n(), u_0.get_m());
     Matrix<double> f_curr;
     Matrix_SLE derivative;
-    Matrix<double> arg_for_functions(2 * N + 2, 1);/// with x, t on k iteration!!!
+    Matrix<double> arg_for_functions(2 * N + 2, 1);/// with x, t on k iteration
     auto i_arg = arg_for_functions.begin();
-    while (y_next_curr_with_x.unsafe_index(N) < x_to && it_curr < iterations)
+    while (x_curr.at(N) < x_to && it_curr < iterations)
     {
 
-        y_next_curr_with_x.unsafe_index(N) += tk;
-        *itk_final = y_next_curr_with_x.unsafe_index(N);
+        x_curr.at(N) += tk;
+        *itk_final = x_curr.at(N);
         ++itk_final;
         i_arg = arg_for_functions.end();
         *i_arg = tk;
         --i_arg;
-        *i_arg = y_next_curr_with_x.unsafe_index(N);
+        *i_arg = x_curr.at(N);
         --i_arg;
         for (auto iy_curr = y_curr.end(); iy_curr >= y_curr.begin(); --iy_curr, --i_arg)
         {
@@ -929,22 +925,18 @@ eps_curr_bigger_then_epsilon:
             {
                 *i_arg = *iy_next_curr;
             }
-            f_curr = F.f(arg_for_functions).multiply_matrix_by_number(-1.0)/*.view()*/;
+            f_curr = F.f(arg_for_functions).multiply_matrix_by_number(-1.0);
             derivative = F.derivative(arg_for_functions);
             derivative.edit_col(N);
             delta = derivative.solve(f_curr);
         }
         while (++i <= num_of_it_in_Newton && ((delta_1 = f_curr.max_element_abs()) > eps_1) && ((delta_2 = solve_nonlinear_equations::f_delta_2(y_next_curr, delta)) > eps_2));
         delta.fill_nulls();
-//        cout<<i<<endl;
         i = 0;
-//        y_next_curr.view();
         for (auto ie = epsilon_curr.end(), iy_prv = y_prv_curr.end(), iy_curr = y_curr.end(), iy_next = y_next_curr.end(); ie >= epsilon_curr.begin(); --ie, --iy_prv, --iy_curr, --iy_next)
         {
             *ie = tk/(tk+tk_prv)*((tk/tk_prv)*(*iy_curr - *iy_prv) + *iy_curr - *iy_next);
         }
-//        epsilon_curr.view();
-//        epsilon.view();
         if (if_use_three_zones_strategy)
         {
             for (auto ie_curr = epsilon_curr.end(), ie = epsilon.end(); ie >= epsilon.begin(); --ie_curr, --ie)
@@ -953,11 +945,7 @@ eps_curr_bigger_then_epsilon:
                 {
                     tk /= 2;
                     y_next_curr = y_curr;
-//                    for (auto inx = y_next_curr.end(), ix = y_next_curr_with_x.end() - 1; inx >= y_next_curr.begin(); --inx, --ix)
-//                    {
-//                        *ix = *inx;
-//                    }
-                    y_next_curr_with_x.unsafe_index(N) -= tk;
+                    x_curr.at(N) -= tk;
                     goto eps_curr_bigger_then_epsilon;
                 }
             }
@@ -1077,21 +1065,17 @@ Matrix<double> find_polinom (const Matrix<double>& X, const Matrix<double>& Y)
         *(p_curr++) = dispersion(X, Y, polinom, i);
     }
     View(dispersions, X.get_size()-1, 1);
-    size_t min_index = X.get_size()-1;///(X.get_size()-1) size, (-1) as (size-1), (+1) as it polinom koef.
-    size_t i=min_index-1;
-    ///(X.get_size()-1) size, (-1) as (size-1), (-1) as next element already in min_index.
-    for (p_curr=dispersions+X.get_size()-3; p_curr >= dispersions; --p_curr, --i)
+    size_t min_pow = X.get_size() - 1;///(X.get_size()-1) size, (-1) as (size-1), (+1) as it polinom koef.
+    size_t curr_pow= min_pow - 1;///(-1) as next element already in min_pow.
+    for (p_curr=dispersions+X.get_size()-3; p_curr >= dispersions; --p_curr, --curr_pow)
     {
-        if(*p_curr < dispersions[min_index-1])
+        if(*p_curr < dispersions[min_pow - 1])
         {
-            min_index=i;
+            min_pow=curr_pow;
         }
     }
     delete[] dispersions;
-//    dispersions=0;
-//    delete dispersions;
-    return find_polinom_m_power(X, Y, min_index);
+    return find_polinom_m_power(X, Y, min_pow);
 }
 }
-//TODO
 #endif // MATH_H

@@ -151,7 +151,7 @@ int main_for_Lab_7 ()
             Name += 'T';
             reverse (Name.begin(), Name.end());
             Name += ".dat";
-            ofstream foutn(path + Name.c_str(), ios_base::out | ios_base::trunc | ios_base::binary);
+            ofstream foutn(path + Name, ios_base::out | ios_base::trunc | ios_base::binary);
             for (j = 0; j < NY; j++)
             {
                 for (i = 0; i < NX; i++)
@@ -177,7 +177,7 @@ int main_for_Lab_7 ()
     ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
     fou.write(reinterpret_cast<const char*>(&n_x), sizeof n_x);
     fou.write(reinterpret_cast<const char*>(&n_y), sizeof n_y);
-    fou.write(reinterpret_cast<const char*>(&n_k), sizeof n_y);
+    fou.write(reinterpret_cast<const char*>(&n_k), sizeof n_k);
     fou.close();
-    return 0;//TODO
+    return 0;
 }

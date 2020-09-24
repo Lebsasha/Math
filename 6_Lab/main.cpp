@@ -4,7 +4,7 @@
 #include <fstream>
 #include <boost/test/unit_test.hpp>
 extern std::string path;
-
+//TODO 6 and 7 labs
 #define  PRES   double
 #define  NXB     15
 #define  NX        NXB*3+1

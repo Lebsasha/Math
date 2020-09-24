@@ -9,15 +9,15 @@
 #include <algorithm>
 #include <ostream>
 #include "Different.h"
-// TODO remove sign_plus
+// TODO Move to .cpp
 class Big_number
 {
 public:
-    Big_number() : /*sign_plus(true),*/number(std::vector<unsigned char>({0})), base(10)
+    Big_number() :number(std::vector<unsigned char>({0})), base(10)
     {}
 
     template<typename T>
-    explicit Big_number(T num): /*sign_plus(num >= *//*static_cast<T>*//*(0)),*/ number(std::vector<unsigned char>()), base(10)
+    explicit Big_number(T num):number(std::vector<unsigned char>()), base(10)
     {
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
         if (!num)
@@ -29,13 +29,12 @@ public:
         }
     }
 
-    Big_number(const Big_number& big_number) : /*sign_plus(big_number.sign_plus),*/ number(big_number.number), base(big_number.base)
+    Big_number(const Big_number& big_number) :number(big_number.number), base(big_number.base)
     {
         std::cout << "I'm copy operator" << std::endl;
     }
 
-    Big_number(Big_number&& big_number) noexcept: /*sign_plus(big_number.sign_plus),*/ number(std::move(big_number.number)),
-                                                                                       base(big_number.base)
+    Big_number(Big_number&& big_number) noexcept:number(std::move(big_number.number)), base(big_number.base)
     {
         std::cout << "I'm move operator" << std::endl;
     }
@@ -50,17 +49,14 @@ public:
 
     template<typename T>
     [[nodiscard]] T get_number() const
-    {
+    {//TODO if signed -> /2
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
-//        assert(sign_plus || std::is_signed<T>::value);
         assert((2ULL << (sizeof(T) * 8 - 1)) - 1 >= Pow(base, number.size()) - 1);
         T num = *number.crbegin();
         for (auto it = number.crbegin() + 1; it < number.crend(); ++it)
         {
             num = *it + base * num;
         }
-//        if (!sign_plus)
-//            num = -num;
         return num;
     }
 
@@ -245,7 +241,7 @@ public:
 
     bool operator==(const Big_number& big_number) const
     {
-        return number == big_number.number/* && sign_plus == big_number.sign_plus*/ && base == big_number.base;
+        return number == big_number.number&& base == big_number.base;
     }
 
     bool operator!=(const Big_number& big_number) const
@@ -312,8 +308,6 @@ public:
 
 private:
     std::vector<unsigned char> number;
-//    ///@note Zero has '+'
-//    bool sign_plus;
     /// base can be in range [2, 16] on "standard" computer
     unsigned char base;
 

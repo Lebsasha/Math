@@ -19,9 +19,9 @@ template <class T>
 class Matrix
 {
 public:
-    explicit Matrix (const bool if_null = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
+    explicit Matrix (const bool zero = true): name("Matrix "), N(1), M(1), p_data (new T [N * M])
     {
-        if (if_null)
+        if (zero)
             fill_nulls();
         increase_name_count();
     }
@@ -36,9 +36,9 @@ public:
         }
         increase_name_count();
     }
-    Matrix (const size_t a, const size_t b, bool if_null = true): name("Matrix "), N(a), M(b), p_data(new T [N * M])
+    Matrix (const size_t n_rows, const size_t n_cols, bool zero = true): name("Matrix "), N(n_rows), M(n_cols), p_data(new T [N * M])
     {
-        if (if_null)
+        if (zero)
             fill_nulls();
         increase_name_count();
     }
@@ -273,14 +273,16 @@ public:
         }
         return el;
     }
-    virtual T& unsafe_index (const size_t i)
+    ///don't check bounds, like vector operator[]
+    virtual T& at (const size_t i)
+    {
+        return *(p_data + i);
+    }//TODO rename
+    virtual T at_c (const size_t i) const
     {
         return *(p_data + i);
     }
-    virtual T unsafe_index_c (const size_t i) const
-    {
-        return *(p_data + i);
-    }
+    ///check bounds, like vector.at()
     virtual T& operator[] (const size_t i)
     {
         assert(i < N*M && i >= 0);
