@@ -1,6 +1,6 @@
 clear all
 Precision = 'double';
-fidp = fopen ('Param.dat', 'r', 'l');
+fidp = fopen ('output/Param.dat', 'r', 'l');
 if (fidp == -1)
  disp('File "Param.dat" not found');
  return;
@@ -11,7 +11,7 @@ NX = datap(1);
 NY = datap(2);
 NT = datap(3);
 Size = [NX NY];
-fid = fopen ('T1.dat', 'r', 'l');
+fid = fopen ('output/T1.dat', 'r', 'l');
 if (fid == -1)
  disp('File "T1.dat" not found');
  return;
@@ -29,7 +29,7 @@ zlabel('U')
 fclose (fid);
 basename = 'T';
 for i=2:NT+1
- filename = sprintf ('%s%d.dat', basename, i);
+ filename = sprintf ('output/%s%d.dat', basename, i);
 fid = fopen (filename, 'r', 'l');
 if (fid == -1)
  disp('File "T.dat" not found');
