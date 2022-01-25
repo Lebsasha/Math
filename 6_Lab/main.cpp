@@ -3,7 +3,8 @@
 
 #include <fstream>
 #include <boost/test/unit_test.hpp>
-extern std::string path;
+#include <filesystem>
+extern std::filesystem::path path;
 //TODO 6 and 7 labs
 #define  PRES   double
 #define  NXB     15

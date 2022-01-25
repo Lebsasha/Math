@@ -5,7 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <boost/test/unit_test.hpp>
-extern std::string path;
+#include <filesystem>
+extern std::filesystem::path path;
 
 //#define PRES double
 #define NXB 15

@@ -29,11 +29,12 @@
 #include "6_Lab/main.cpp"
 #include "7_Lab/main.cpp"
 #include <cfloat>
+#include <filesystem>
 
 using namespace std;
 //TODO Поддержка существования пути path
 //TODO Пересмотреть сами лабы
-std::string path = "../Logs/";
+std::filesystem::path path = "../Logs/";
 //if(!oFile)
 //cout<<error;
 BOOST_AUTO_TEST_SUITE(For_Different)
@@ -81,9 +82,9 @@ BOOST_AUTO_TEST_SUITE(For_Different)
     BOOST_AUTO_TEST_CASE(Pause_test)
     {
         Get_Pause();
-        int i = 0;
-        cin >> i;
-        BOOST_CHECK(i != 0);
+//        int i = 0;
+//        cin >> i;
+//        BOOST_CHECK(i != 0);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

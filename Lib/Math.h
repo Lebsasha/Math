@@ -2,6 +2,7 @@
 #define MATH_H
 #include "../Lib/Matrix.h"
 #include "Different.h"
+#include <filesystem>
 
 double norm (std::vector<double> vect)
 {
@@ -725,7 +726,7 @@ public:
         delete[] fn;
     }
 };
-extern std::string path;
+extern std::filesystem::path path;//is_directory
 namespace solve_nonlinear_equations
 {
 double f_delta_2 (const Matrix<double>& X_i, const Matrix<double>& delta)
@@ -761,7 +762,7 @@ Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_funct
     Matrix<double> solution;
     double delta_1 = 0;
     double delta_2 = 0;
-    std::ofstream ofstream(path+"2_Lab.log");
+    std::ofstream ofstream(std::string(path)+"2_Lab.log");
     ofstream<<"With user defined"<<std::endl;
     do
     {

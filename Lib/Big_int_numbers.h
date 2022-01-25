@@ -49,10 +49,11 @@ public:
 
     template<typename T>
     [[nodiscard]] T get_number() const
-    {//TODO if signed -> /2
+    {
         static_assert(std::is_integral<T>::value, "You trying to construct number with not integral type");
-        assert((2ULL << (sizeof(T) * 8 - 1)) - 1 >= Pow(base, number.size()) - 1);
-        T num = *number.crbegin();
+        T num = 2;
+        assert((num << (sizeof(T) * 8 - 1-std::is_signed_v<T>)) - 1 >= Pow(base, number.size()) - 1);
+        num = *number.crbegin();
         for (auto it = number.crbegin() + 1; it < number.crend(); ++it)
         {
             num = *it + base * num;
@@ -461,4 +462,6 @@ std::ostream& operator<<(std::ostream& ostr, const Big_number& num)
     return ostr;
 }
 
+template<>
+struct std::is_integral<Big_number>: public true_type{};
 #endif //BIG_INT_NUMBERS

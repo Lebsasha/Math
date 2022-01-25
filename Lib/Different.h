@@ -52,7 +52,7 @@ void View (T* pArray, size_t Nstr, const size_t Nstb) noexcept
     std::cout<<std::endl;
 }
 /**
- * @result Print vector elements in row like "1 2 3 4".
+ * @result Prints vector elements in row like "1 2 3 4".
  */
 template<typename T>
 void View (const std::vector<T>& El1) noexcept
@@ -134,7 +134,7 @@ inline void Get_Pause() noexcept
     std::cout<<"Hit enter to continue"<<std::endl;
     system("pause");
 #else
-    cerr<<"Unsupported OS for getting pause"<<endl;
+    std::cerr<<"Unsupported OS for getting pause"<<std::endl;
 #endif // windows
 #endif // linux
 }

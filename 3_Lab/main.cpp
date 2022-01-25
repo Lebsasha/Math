@@ -4,8 +4,9 @@
 #include <iostream>
 #include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
+#include <filesystem>
 using namespace std;
-extern string path;
+extern std::filesystem::path path;
 
 inline double Diff_u1 (const Matrix<double>& X)
 {
