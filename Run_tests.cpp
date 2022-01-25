@@ -7,46 +7,24 @@
 #define BOOST_TEST_MAIN
 #define BOOST_TEST_DYN_LINK
 //#define BOOST_TEST_LOG_LEVEL all
-#include "Lib/Big_int_numbers.h"
 
 //#define NDEBUG 1
 
-//#define R_ONCE_INIT() bool __CONCAT(a, __LINE__) = true;\
-//int some_var = __LINE__-1;
-//
-//#define R_ONCE_BEG() if(__CONCAT(a, some_var)) \
-//{
-//
-//#define R_ONCE_END() __CONCAT(a, some_var)=false;\
-//}
-
 #include <boost/test/unit_test.hpp>
+#include "Lib/Big_int_numbers.h"
 #include "1_Lab/main.cpp"
-#include "2_Lab/main.cpp"
-#include "3_Lab/main.cpp"
-#include "4_Lab/main.cpp"
-#include "5_Lab/main.cpp"
-#include "6_Lab/main.cpp"
-#include "7_Lab/main.cpp"
+//#include "2_Lab/main.cpp"
+//#include "3_Lab/main.cpp"
+//#include "4_Lab/main.cpp"
+//#include "5_Lab/main.cpp"
+//#include "6_Lab/main.cpp"
+//#include "7_Lab/main.cpp"
 #include <cfloat>
-#include <filesystem>
 
 using namespace std;
-//TODO Поддержка существования пути path
-//TODO Пересмотреть сами лабы
-std::filesystem::path path = "../Logs/";
-//if(!oFile)
-//cout<<error;
+
 BOOST_AUTO_TEST_SUITE(For_Different)
 
-//BOOST_AUTO_TEST_CASE(Run_code_once)
-//    {
-//        R_ONCE_INIT()
-//        int some_int;
-//        R_ONCE_BEG()
-//        ++some_int;
-//        R_ONCE_END()
-//    }
     BOOST_AUTO_TEST_CASE(If_simple_test)
     {
         BOOST_CHECK(if_simple(3) == 1);
@@ -79,13 +57,13 @@ BOOST_AUTO_TEST_SUITE(For_Different)
         BOOST_CHECK(Pow(3, 3) == 27);
     }
 
-    BOOST_AUTO_TEST_CASE(Pause_test)
-    {
-        Get_Pause();
+//    BOOST_AUTO_TEST_CASE(Pause_test)
+//    {
+//        Get_Pause();
 //        int i = 0;
 //        cin >> i;
 //        BOOST_CHECK(i != 0);
-    }
+//    }
 
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -96,6 +74,7 @@ struct Fixture_for_tests
 
     Fixture_for_tests() : three(3), four(4)
     {}
+//    virtual void test_method() final;
 };
 BOOST_AUTO_TEST_SUITE(For_big_numbers)
 
@@ -106,7 +85,7 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         cout << i << endl;
         BOOST_CHECK(num == Big_number(i));
     }
-    //TODO Я пишу это для тренировки
+
     BOOST_FIXTURE_TEST_CASE (Operators, Fixture_for_tests)
     {
         BOOST_CHECK((three + four).get_number<int>() == 7);
@@ -155,8 +134,6 @@ BOOST_AUTO_TEST_SUITE(For_big_numbers)
         BOOST_CHECK(num.get_number<int>() == 12345);
         num.view();
         cout << num << endl;
-        Matrix<double> a;
-        a.view(8, true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

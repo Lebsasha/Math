@@ -2,7 +2,13 @@
 #define MATH_H
 #include "../Lib/Matrix.h"
 #include "Different.h"
-#include <filesystem>
+
+#ifndef LLONG_MAX
+#define LLONG_MAX std::numeric_limits<long long>::max()
+#endif
+#ifndef ULLONG_MAX
+#define ULLONG_MAX std::numeric_limits<unsigned long long>::max()
+#endif
 
 double norm (std::vector<double> vect)
 {
@@ -406,12 +412,6 @@ public:
     }
     double integral_by_trapeze_method (const double from, const double to, const unsigned long long max_steps = 100000ULL) const
     {
-#ifndef LLONG_MAX
-#define LLONG_MAX numeric_limits<long long>::max()
-#endif
-#ifndef ULLONG_MAX
-#define ULLONG_MAX numeric_limits<unsigned long long>::max()
-#endif
         unsigned long long num_of_steps = 1ULL;
         double integral = 0;
         double length = to - from;
@@ -726,7 +726,6 @@ public:
         delete[] fn;
     }
 };
-extern std::filesystem::path path;//is_directory
 namespace solve_nonlinear_equations
 {
 double f_delta_2 (const Matrix<double>& X_i, const Matrix<double>& delta)
@@ -747,7 +746,7 @@ double f_delta_2 (const Matrix<double>& X_i, const Matrix<double>& delta)
     return delta_2;
 }
                     /// by Newton method
-Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_functions_2& der_of_arr, const Matrix<double>& xy, const double eps_1, const double eps_2)
+Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_functions_2& der_of_arr, const Matrix<double>& xy, const double eps_1, const double eps_2, std::ofstream& log_stream)
 {
     assert (eps_1 > 1e-10);
     assert (eps_2 > 1e-10);
@@ -762,8 +761,7 @@ Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_funct
     Matrix<double> solution;
     double delta_1 = 0;
     double delta_2 = 0;
-    std::ofstream ofstream(std::string(path)+"2_Lab.log");
-    ofstream<<"With user defined"<<std::endl;
+    log_stream << "With user defined" << std::endl;
     do
     {
         xy_i = xy_i + delta;
@@ -782,11 +780,11 @@ Matrix<double> solve_SNE (const Array_of_functions_2& func, const Array_of_funct
         high_precision_delta = high_precision_derivative.solve(solution);
         if (fabs(delta_1) > fabs(solution[0]))
         {
-            ofstream<<"1 better"<<std::endl;
+            log_stream << "1 better" << std::endl;
         }
         else
         {
-            ofstream<<"0 worse"<<std::endl;
+            log_stream << "0 worse" << std::endl;
         }
         ++i;
     }

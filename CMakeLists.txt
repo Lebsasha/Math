@@ -10,6 +10,7 @@ include_directories(Lib)
 add_executable(Num_methods
         Lib/Math.cpp
         Lib/Matrix.cpp
+        init/labs_init.cpp
         Run_tests.cpp
         )
 

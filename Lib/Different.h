@@ -112,9 +112,16 @@ constexpr bool if_simple (const int n)
     }
     return true;
 }
-///@param Product Don't mind on this parameter
+
+constexpr double Pow (const double x, const int i, const double Product);
+constexpr double Pow (const double x, const int i)
+{
+    return Pow(x, i, 1);
+}
+
+///@param Product
 ///@returns x^i
-constexpr double Pow (const double x, const int i, const double Product=1)
+constexpr double Pow (const double x, const int i, const double Product)
 {
     assert(i >= 0);
     if (i == 1)
