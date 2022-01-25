@@ -4,8 +4,7 @@
 #include <fstream>
 #include <boost/test/unit_test.hpp>
 #include <filesystem>
-extern std::filesystem::path path;
-//TODO 6 and 7 labs
+
 #define  PRES   double
 #define  NXB     15
 #define  NX        NXB*3+1
@@ -19,16 +18,16 @@ extern std::filesystem::path path;
 #define  HX    0.2f
 #define  HY    0.3f
 
-    using namespace std;
+using namespace std;
 
-    void maxpvr(double *t1, double *del, double *maxdel) {
-        double d = fabs(*del) / fabs(*t1);
-        if (d > *maxdel) *maxdel = d;
-    }
+void maxpvr(double *t1, double *del, double *maxdel) {
+    double d = fabs(*del) / fabs(*t1);
+    if (d > *maxdel) *maxdel = d;
+}
 
-    int main_for_Lab_6();
+int main_for_Lab_6();
 
-    BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_6)
+    BOOST_AUTO_TEST_SUITE(Lab_6)
 
         BOOST_AUTO_TEST_CASE(Case_for_lab_6)
         {
@@ -38,7 +37,8 @@ extern std::filesystem::path path;
     BOOST_AUTO_TEST_SUITE_END()
 
     int main_for_Lab_6() {
-        ofstream foutT(path + "dT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        std::filesystem::path path = "./6_Lab/output";
+        ofstream foutT(path / "dT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         int i1, i2, i3, j1, j2, j3, rp, i, j, k = 0;
         double T1 = TEM1, T2 = TEM2, h = HX, r = HY, tx, t0, t1, del, maxdel = 0.0f;
         double T[NY][NX];
@@ -177,10 +177,10 @@ extern std::filesystem::path path;
             maxdel = 0.0f;
         }
         foutT.close();
-        ofstream fouT(path + "nT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream fouT(path / "nT.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         fouT.write(reinterpret_cast<char *> ( &nT), sizeof nT);
         fouT.close(); // ��������� ����
-        ofstream fout(path + "Pole.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream fout(path / "Pole.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         for (j = 0; j < NY; j++) {
             for (i = 0; i < NX; i++) {
                 double w = T[j][i];
@@ -190,7 +190,7 @@ extern std::filesystem::path path;
         fout.close();
         int n_x = NX;
         int n_y = NY;
-        ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+        ofstream fou(path / "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
         fou.write(reinterpret_cast<char *> ( &n_x), sizeof n_x);
         fou.write(reinterpret_cast<char *> ( &n_y), sizeof n_y);
         fou.close();

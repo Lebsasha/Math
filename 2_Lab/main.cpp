@@ -4,6 +4,8 @@
 #include <iostream>
 #include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
+#include "../init/labs_init.h"
+
 using namespace std;
 double Func1 (const Matrix<double>& A)
 {
@@ -43,7 +45,7 @@ double Func2 (const Matrix<double>& A)
             throw 2;
         const double result = *pa;
         ++pa;
-        return result**pa**pa**pa - *pa - 3;
+        return result * *pa * *pa * *pa - *pa - 3;
     }
     catch (int i)
     {
@@ -65,7 +67,7 @@ double Func3 (const Matrix<double>& A)
         double* pa = A.data();
         if (!pa)
             return -1;
-        return 2**pa;
+        return 2 * *pa;
     }
     catch (int i)
     {
@@ -110,7 +112,7 @@ double Func5 (const Matrix<double>& A)
         if (!pa)
             throw 2;
         ++pa;
-        return *pa**pa**pa;
+        return *pa * *pa * *pa;
     }
     catch (int i)
     {
@@ -146,8 +148,8 @@ double Func6 (const Matrix<double>& A)
     }
 }
 
-BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_2)
-BOOST_AUTO_TEST_CASE(Case_for_lab_2)
+BOOST_AUTO_TEST_SUITE(Lab_2)
+        BOOST_FIXTURE_TEST_CASE(Case_for_lab_2, labs_init)
         {
             const double Eps1 = 1E-9;
             const double Eps2 = 1E-9;
@@ -162,7 +164,8 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             Matrix<double> X1 (2, 1);
             X1[0] = 1;
             X1[1] = 1;
-            Matrix<double> Y1 = solve_nonlinear_equations::solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2);
+            std::ofstream log_stream("2_Lab/output/2_Lab.log");
+            Matrix<double> Y1 = solve_nonlinear_equations::solve_SNE(Ar, Der_of_Ar, X1, Eps1, Eps2, log_stream);
             X1.view();
             Y1.view();
             BOOST_CHECK_CLOSE_FRACTION(Y1[0],1.6968,1E-5);
@@ -171,7 +174,7 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_2)
             Matrix<double> X2 (2, 1);
             X2[0] = -1;
             X2[1] = -1;
-            Matrix<double> Y2 = solve_nonlinear_equations::solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2);
+            Matrix<double> Y2 = solve_nonlinear_equations::solve_SNE(Ar, Der_of_Ar, X2, Eps1, Eps2, log_stream);
             X2.view();
             Y2.view();
             BOOST_CHECK_CLOSE_FRACTION(Y2[0],-1.47865 ,1E-5);

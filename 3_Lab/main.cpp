@@ -4,9 +4,7 @@
 #include <iostream>
 #include <boost/test/unit_test.hpp>
 #include "../Lib/Math.h"
-#include <filesystem>
 using namespace std;
-extern std::filesystem::path path;
 
 inline double Diff_u1 (const Matrix<double>& X)
 {
@@ -37,7 +35,7 @@ inline double Diff_u2_sp (const Matrix<double>& X)
                                                                                                                                       .at_c(5);
 }
 
-BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_3___)
+BOOST_AUTO_TEST_SUITE(Lab_3)
 BOOST_AUTO_TEST_CASE(Case_for_lab_3)
         {
             Array_of_functions_2 A (2);
@@ -50,7 +48,7 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
             Eps[1] = Eps[0] = 1e-3;
             const double max_step = 0.01;
             vector<Matrix<double> > yk = solve_differential_equations::explicit_Euler_method(A, 0, 1, u0, Eps, max_step);
-            ofstream oFile_Exp(path + "Explicit.txt");
+            ofstream oFile_Exp(  "3_Lab/output/Explicit.txt");
             auto iEnd_e = yk[0].begin();
             bool first_not_null = true;
             for (auto iyk = yk[1].end(), itk = yk[0].end(); itk >= iEnd_e; --iyk, --itk)
@@ -74,7 +72,7 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
             A[1] = Function_2(Diff_u2_sp);
             const double t_max = (1.0 - 0) / 10;
             vector<Matrix<double> > I_all = solve_differential_equations::implicit_Euler_method(A, 0, 1, u0, Eps, 1e-2, t_max);
-            ofstream oFile_Imp(path + "Implicit.txt");
+            ofstream oFile_Imp("3_Lab/output/Implicit.txt");
             auto iEnd_i = (I_all[1]).begin();
             first_not_null=true;
             for (auto iyk = (I_all[1]).end(), itk = (I_all[0]).end(); iyk >= iEnd_i; --iyk, --itk)
@@ -98,6 +96,3 @@ BOOST_AUTO_TEST_CASE(Case_for_lab_3)
             oFile_Imp.close();
         }
 BOOST_AUTO_TEST_SUITE_END()
-
-//drand48();
-

@@ -1006,15 +1006,16 @@ double dispersion (const Matrix<double>& X, const Matrix<double>& Y, const Matri
     return answer;
 }
 /// @returns p[0]+p[1]*x+p[2]*x^2...+p[n-1]*x^{n-1}
-Matrix<double> find_polinom_m_power (const Matrix<double>& X, const Matrix<double>& Y, double temp)
+Matrix<double> find_polinom_m_power (const Matrix<double>& X, const Matrix<double>& Y, double n)
 {
     assert (X.get_size() == Y.get_size() && ((X.get_n() == 1 && Y.get_n() == 1) || (X.get_m() == 1 && Y.get_m() == 1)));
-    if (temp < DBL_EPSILON || temp > X.get_size())
-        temp = X.get_size();
-    const unsigned int M = temp;
+    if (n < DBL_EPSILON || n > X.get_size())
+        n = X.get_size();
+    const unsigned int M = n;
     unsigned int i = 2*M;
     double* sums = new double [2 * M + 1];
     sums[0] = 1;
+    double temp = n;
     for (double* p_sum = sums + 2 * M; p_sum > sums; --p_sum)
     {
         temp = 0;
@@ -1052,7 +1053,7 @@ Matrix<double> find_polinom_m_power (const Matrix<double>& X, const Matrix<doubl
     Matrix<double> parameters = X_pows.solve(y_sums);
     return parameters;
 }
-Matrix<double> find_polinom (const Matrix<double>& X, const Matrix<double>& Y)
+Matrix<double> find_polinom_min_power (const Matrix<double>& X, const Matrix<double>& Y)
 {
     assert (X.get_size() == Y.get_size() && ((X.get_n() == 1 && Y.get_n() == 1) || (X.get_m() == 1 && Y.get_m() == 1)));
     Matrix<double> polinom;

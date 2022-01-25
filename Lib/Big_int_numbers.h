@@ -31,19 +31,25 @@ public:
 
     Big_number(const Big_number& big_number) :number(big_number.number), base(big_number.base)
     {
+#ifndef NDEBUG
         std::cout << "I'm copy operator" << std::endl;
+#endif
     }
 
     Big_number(Big_number&& big_number) noexcept:number(std::move(big_number.number)), base(big_number.base)
     {
+#ifndef NDEBUG
         std::cout << "I'm move operator" << std::endl;
+#endif
     }
 
     Big_number& operator=(Big_number big_number)
     {
         number = std::move(big_number.number);
         base = big_number.base;
+#ifndef NDEBUG
         std::cout << "I'm operator=" << std::endl;
+#endif
         return *this;
     }
 

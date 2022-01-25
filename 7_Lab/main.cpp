@@ -5,8 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <boost/test/unit_test.hpp>
-#include <filesystem>
-extern std::filesystem::path path;
+#include "../init/labs_init.h"
 
 //#define PRES double
 #define NXB 15
@@ -24,8 +23,8 @@ extern std::filesystem::path path;
 using namespace std;
 int main_for_Lab_7();
 
-BOOST_AUTO_TEST_SUITE(SuItE_tests_for_Lab_7)
-    BOOST_AUTO_TEST_CASE(Case_for_lab_7)
+BOOST_AUTO_TEST_SUITE(Lab_7)
+    BOOST_FIXTURE_TEST_CASE(Case_for_lab_7, labs_init)
     {
         BOOST_CHECK(main_for_Lab_7()==0);
     }
@@ -33,6 +32,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 int main_for_Lab_7 ()
 {
+    std::filesystem::path path = "./7_Lab/output";
     int i, j, k;
     int idt=0;
     int ndt=1;
@@ -82,7 +82,7 @@ int main_for_Lab_7 ()
         T[j3][i] = T1;
         TT[j3][i] = T1;
     }
-    ofstream fout(path + "T1.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+    ofstream fout(path / "T1.dat", ios_base::out | ios_base::trunc | ios_base::binary);
     for (j = 0; j < NY; j++)
     {
         for (i = 0; i < NX; i++)
@@ -152,7 +152,7 @@ int main_for_Lab_7 ()
             Name += 'T';
             reverse (Name.begin(), Name.end());
             Name += ".dat";
-            ofstream foutn(path + Name, ios_base::out | ios_base::trunc | ios_base::binary);
+            ofstream foutn(path / Name, ios_base::out | ios_base::trunc | ios_base::binary);
             for (j = 0; j < NY; j++)
             {
                 for (i = 0; i < NX; i++)
@@ -175,7 +175,7 @@ int main_for_Lab_7 ()
     int n_x = NX;
     int n_y = NY;
     int n_k = --ndt;
-    ofstream fou(path + "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
+    ofstream fou(path / "Param.dat", ios_base::out | ios_base::trunc | ios_base::binary);
     fou.write(reinterpret_cast<const char*>(&n_x), sizeof n_x);
     fou.write(reinterpret_cast<const char*>(&n_y), sizeof n_y);
     fou.write(reinterpret_cast<const char*>(&n_k), sizeof n_k);
